@@ -1,0 +1,154 @@
+
+.experience-container
+{
+    margin-top: 35px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.experience-holder
+{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.experience{
+    display: flex;
+    overflow: hidden; 
+    transition:  max-height 1s ease;
+    max-height: 48px;
+    width: 100%;
+}
+
+.experience.show .arrow
+{
+    transform: rotate(90deg);
+}
+
+.arrow
+{
+    position: absolute;
+    width: 8px;
+    height: auto;
+    transform: rotate(0deg);
+    top: 3px;
+    right: -5px;
+    opacity: 0;
+    transition: opacity 0.2s ease, right 0.2s ease-in-out, transform 0.2s ease;
+}
+
+.experience:hover .arrow
+{
+    opacity: 1;
+    right: -15px;
+}
+
+.experience-text
+{
+    width: 100%;
+    margin-left: 20px;
+}
+
+.top-line span
+{
+    position: relative;
+}
+
+.top-line
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.date
+{
+    color: #c3c3c3 !important;
+}
+
+.experience-text h1, p
+{
+    display: inline-block;
+    margin: 0;
+}
+
+.button-container-right
+{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.button-container-right div
+{
+    width: 100% ;
+}
+
+.button-container-right button
+{
+    height: 42px;
+    transform: translateY(24px);
+}
+
+.button-container-right button:hover
+{
+    transform: translateY(24px) scale(1.03);
+
+}
+
+.experience-text h1
+{
+    font-size: 15px;
+}
+
+.experience-image{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: gray;
+}
+
+.experience-info-container p
+{
+    opacity: 1; 
+    animation: none !important;
+}
+
+#date-container
+{
+    display: flex;
+    gap: 10px;
+}
+
+#date-container span
+{
+    width: 100%;
+}
+
+.experience-info
+{
+    margin-top: 5px;
+}
+
+.add-experience
+{
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    border: 3px var(--primary-color-medium-alpha) dashed;
+    border-radius: 10px;
+}
+
+.add-experience-form
+{
+    width: 100%;
+    margin: 0;
+}
+
+.add-experience-form input
+{
+    margin-bottom: 10px;
+}

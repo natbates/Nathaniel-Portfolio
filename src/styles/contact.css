@@ -1,158 +1,58 @@
-/* home.css */
-
-#contact h1, p
-{
-    opacity: 0;
-    animation: FlyUp 0.5s ease, appear 0.5s ease forwards !important;
-}
-
-#contact h1 {
-    animation-delay: 0.2s !important; 
-}
-
-#contact
-{
-    max-width: 100% !important;
-}
-  
-#contact p {
-    animation-delay: 0.4s !important;
-}
-
-#contact-form {
-    margin-top: 40px;
-    margin-right: 50px;
-    max-width: 500px;
-    padding-bottom: 8px;
-    background-color: transparent;
-    flex-grow: 1;
-    flex-shrink: 1; 
-    height: 60%;
-    overflow: hidden;
-}
-
-form {
-    text-align: start;
+.contact-form {
     display: flex;
     flex-direction: column;
-    max-height: 100%;
-}
-
-label {
-    margin-bottom: 8px;
-    color: var(--third-color)
-}
-
-input, textarea {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid var(--primary-color);
-    background-color: transparent;
-    font-size: 16px;
-    flex-grow: 0;
-    color: var(--primary-color) !important;
-    transition: color 0.3s ease;
-}
-
-textarea {
-    height: 150px;
-}
-
-input:focus, textarea:focus
-{
-    outline: none; 
-    box-shadow: none; 
-    border-color: initial;
-    background-color: initial;
-}
-
-#contact-form label {
-    display: block;
-    margin-bottom: 5px; 
-}
-
-#contact-form input,
-#contact-form textarea {
-    width: 100%; 
-    box-sizing: border-box; 
-}
-
-
-#contact-form textarea {
-    height: 100px;
-}
-
-#message-container, #email-container, #name-container
-{
-    opacity: 0;
-    animation: FlyUp 0.5s ease, appear 0.5s ease forwards !important;
-}
-
-#name-container
-{
-    animation-delay: 0.4s !important;
-}
-
-#email-container
-{
-    animation-delay: 0.6s !important;
-}
-
-#message-container
-{
-    animation-delay: 0.8s !important;
-}
-
-form button {
-    margin-bottom: 20px;
-    height: 30px;
-    width: 100px;
-    border: none;
-    opacity: 0;
-    display: inline-block;
-    margin-top: 10px;
-    background: transparent;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  
+.contact-form label {
     color: var(--primary-color);
-    border: 2px var(--secondary-color) solid;
-    animation: FlyUp 0.5s ease, appear 0.5s ease forwards !important;
-    animation-delay: 1s !important;
-    transition: background-color 0.5s ease, color 0.3s ease-out;
+    filter: brightness(0.9);
 }
 
-form button:hover
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--primary-color-medium-alpha);
+    background-color: transparent;
+    border-radius: 4px;
+    margin-top: 5px;
+    color: var(--primary-color);
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--background-color) !important;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    max-width: 100px;
+    transition: transform 0.3s ease;
+}
+
+.submit-button:hover {
+    transform: scale(1.05);
+}
+
+input::placeholder, textarea::placeholder {
+    color: var(--primary-color-medium-alpha);
+    font-family: "poppins";
+    font-size: 14px; /* Change placeholder font size */
+    font-style: italic; /* Optional: Add italic style */
+    opacity: 1; /* Ensure full visibility (browsers may apply a default lower opacity) */
+}
+
+#contact-button-holder
 {
-    color: var(--third-color);
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-@media (max-width: 768px) {
-
-    #contact
-    {
-        margin: 10px;
-    }
-
-    #contact-form{
-        width: 86%;
-        justify-self: center;
-        align-self: center;
-        margin-top: 50px;
-        margin: 50px 50px;
-    }
-    #contact
-    {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        max-height: 100%;
-        text-align: center;
-    }
-
-    #contact h1 {
-        font-size: 1.5em; 
-    }
-
-    #contact p {
-        font-size: 0.8em;
-    }
+.clear
+{
+    background-color: rgb(111, 111, 111);
 }

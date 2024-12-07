@@ -1,0 +1,52 @@
+#login {
+    display: flex;
+    justify-content:flex-start;
+    width: 100%;
+}
+
+#login .text-container {
+    padding: 30px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.logout p
+{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transform-origin: top left;
+    transition: transform 0.3s ease;
+    max-width: 100px;
+}
+
+button:hover {
+    transform: scale(1.05);
+}

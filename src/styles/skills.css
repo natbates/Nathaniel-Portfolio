@@ -1,0 +1,34 @@
+
+
+#skill .skill-container
+{
+    margin-bottom: 20px;
+    height: 100%;
+    margin-top: 20px;
+}
+
+#skill .skill-container .skill
+{
+    height: 30px;
+    padding: 5px 10px 5px 10px !important; 
+}
+
+.skill-container
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.skill
+{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    padding: 3px 10px 0px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+}

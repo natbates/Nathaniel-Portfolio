@@ -1,14 +1,25 @@
 import "../styles/home.css";
-import { Link } from 'react-router-dom';
+
+import Hero from "../sections/hero";
+import About from "../sections/about";
+import Experiences from "../sections/experiences";
+import Skills from "../sections/skills";
+import Projects from "../sections/projects";
+import Hackathons from "../sections/hackathons";
+import Contact from "../sections/contact";
 
 const Home = () =>
 {
 
     return(
         <div id = "home">
-            <a href = "https://docs.google.com/document/d/1z1ZhAOo5Xm14Zn8l6D2DmgzzzgykIuJBRXjiSrFTrRc/edit" target="_blank" ><h1 id = "name">Nathaniel Bates</h1></a>
-            <p>Front end React web developer<span className="blinking">_</span></p>
-            <Link to="/contact"><button id = "contact-me">Contact me</button></Link>
+            <Hero />
+            <About />
+            <Experiences />
+            <Skills />
+            <Projects />
+            <Hackathons />
+            <Contact />
         </div>
     );
 }

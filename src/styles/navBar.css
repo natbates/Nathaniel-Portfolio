@@ -8,62 +8,89 @@
 
 .nav-bar
 {
+    display: flex;
+    flex-direction: row;
     width: fit-content;
-    transition: border-color 0.5s ease, color 0.5s ease-out;
-    margin-bottom: 50px;
-    margin-top: 50px;
-    margin-right: 20px;
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    background-color: white;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .03), 0 2px 4px rgba(0, 0, 0, .05), 0 12px 24px rgba(0, 0, 0, .05);
+    border-radius: 20px;
+    z-index: 1000;
+    padding: 5px;
+}
+
+nav section
+{
+    display: flex;
+    gap: 5px;
+}
+
+nav a
+{
+    border-radius: 50%;
+    transition: background-color 0.2s ease, margin 0.2s ease;
+}
+
+nav a:hover
+{
+    margin: 0 10px 0 10px;
+    background-color:  #0000001a;
+}
+
+#socials
+{
+    border-left: 1px #0000001a solid;
+    border-right: 1px #0000001a solid;
+    padding-left: 5px;
+    padding-right: 5px;
+
 }
 
 .nav-bar nav {
     display: flex;
-    gap: 30px;
+    justify-content: space-between;
+    gap: 5px;
 }
 
-.nav-bar a {
-    color: var(--primary-color);
-    width: 90px;
-    text-align: center;
-    padding: 14px 5px;
-    text-decoration: none;
-    font-size: 15px;
-    transition: background-color 0.2s ease, color 0.2s ease-out;
-    
+.nav-bar a img{
+    width: 20px;
+    height: 20px;
+    padding: 12px;
+    object-position: center;
+    object-fit: cover;
+    align-self: flex-start;
 }
 
-.nav-bar a.active
-{
-    border-bottom: 1px var(--primary-color) solid;
+
+nav a[data-tooltip] {
+    position: relative;
 }
 
-.nav-bar a:first-child
-{
-    padding-left: 0px;
+nav a[data-tooltip]::after {
+    content: attr(data-tooltip); /* Use the value of the 'data-tooltip' attribute */
+    position: absolute;
+    bottom: 120%; /* Position above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000; /* Black background for the tooltip */
+    color: #fff; /* White text color */
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap; /* Prevent the text from wrapping */
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Prevent interaction when hidden */
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 1000;
+    pointer-events: none; /* Disable pointer interactions */
 }
 
-.nav-bar a:hover {
-    color: var(--third-color);
-}
-
-@media (max-width: 768px)
-{
-    .top-bar-holder{
-        justify-content: center;
-        top: 0;
-        position: absolute;
-        width: 100%;
-    }
-    .nav-bar
-    {
-        position: relative;
-        margin: 0;
-        z-index: 1000;
-        border-bottom: 2px solid var(--primary-color);
-    }
-
-    .nav-bar a.active
-    {
-        color: var(--third-color);
-        border-bottom: none;
-    }
+/* Show Tooltip on Hover */
+nav a[data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
 }

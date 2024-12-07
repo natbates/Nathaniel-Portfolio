@@ -5,94 +5,34 @@
     padding-bottom: 50px;
 }
 
-#home h1, p
+.container h1
 {
-    opacity: 0;
-    animation: FlyUp 0.5s ease, appear 0.5s ease forwards !important;
+    font-size: 25px;
 }
 
-#home a
+.highlighted
 {
-    text-decoration: none;
     color: var(--primary-color);
+    background-color: rgba(244, 217, 134, 0.486);
 }
 
-
-#home h1 {
-    font-size: 2.5rem !important;
-    animation-delay: 0.2s !important; 
-}
-  
-#home p {
-    font-size: 1.4rem !important;
-    animation-delay: 0.4s !important;
-}
-
-.blinking
+.logged-text
 {
-    opacity: 0;
-    animation: blinking infinite 1s;
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 
-figure
+.trash
 {
-    margin: 0;
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+    margin-top: 3px;
+    transition: transform 0.3s ease;
 }
-figcaption
+
+.trash:hover
 {
-    margin-top: 15px;
-    font-size: 0.8rem;
-    color: var(--secondary-color);
-}
-
-#profile-img
-{
-    width: 400px;
-    height: auto;
-    background-color: var(--primary-color);
-    border-radius: 20px;
-}
-
-#contact-me
-{
-    margin-bottom: 20px;
-    height: 30px;
-    width: 100px;
-    border: none;
-    opacity: 0;
-    display: inline-block;
-    margin-top: 10px;
-    background: transparent;
-    color: var(--primary-color);
-    border: 2px var(--secondary-color) solid;
-    animation: FlyUp 0.5s ease, appear 0.5s ease forwards !important;
-    animation-delay: 0.6s !important;
-    transition: background-color 0.5s ease, color 0.3s ease-out;
-}
-
-#contact-me:hover
-{
-    color: var(--third-color);
-}
-
-@media (max-width: 768px) {
-
-    #home
-    {
-        margin-top: 100px;
-        text-align: center;
-    }
-
-    #home h1 {
-        font-size: 2rem !important;
-    }
-
-    #home p {
-        font-size: 1rem !important;
-    }
-
-    #contact-me
-    {
-        width: 200px;
-    }
+    transform: scale(1.05);
 }

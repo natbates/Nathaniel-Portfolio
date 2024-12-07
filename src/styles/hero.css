@@ -1,0 +1,122 @@
+
+#hero .container-profile
+{
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+#hero .container-profile img
+{
+    border-radius: 50%;
+    width: 140px !important;
+    height: 140px !important;
+    object-position: center;
+    object-fit: cover;
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+#hero .container-profile .text-container
+{
+    flex-shrink: 1;
+    margin: 0;
+}
+
+
+#hero a
+{
+    text-decoration: none;
+    color: var(--primary-color);
+    height: 0;
+}
+
+#hero h1 {
+    font-size: 50px !important;
+    margin: 0;
+}
+
+#hero p {
+    font-size: 17px;
+}  
+
+#profile-img
+{
+    width: 400px;
+    height: auto;
+    background-color: var(--primary-color);
+    border-radius: 20px;
+}
+
+.circle
+{
+    background-color: white;
+    width: 5px;
+    height: 5px;
+    margin: auto auto;
+    margin-left: 10px;
+    margin-right: 8px;
+    border-radius: 50%;
+    transform: translateY(1px);
+}
+
+.discord-span a:hover
+{
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.discord-span
+{
+    display: flex;
+}
+
+.service-text
+{
+    margin-top: 8px;
+}
+
+.service-text:last-child
+{
+    margin-top: 8px;
+}
+
+.online
+{
+    background-color: lightgreen;
+}
+
+.idle
+{
+    background-color: orange;
+}
+
+.dnd
+{
+    background-color: rgb(255, 0, 0);
+}
+
+.offline
+{
+    background-color: gray;
+}
+
+.service-image
+{
+    height: 20px;
+    width: auto;
+    margin-right: 9px;
+    transform: translateY(3px);
+}
+
+.nowrap
+{
+    text-wrap: nowrap;
+}
+
+@media (max-width:720px) {
+    .service-text
+    {
+        margin-top: 18px;
+    }
+}

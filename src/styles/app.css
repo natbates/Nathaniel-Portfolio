@@ -2,120 +2,71 @@
 
 :root {
     --primary-color: #000000;
+    --primary-color-medium-alpha: #00000049;
     --background-color: #ffffff;
     --secondary-color: #464646;
-    --third-color: #ff0000;
 }
 
 [data-theme='dark'] {
     --primary-color: #ffffff;
+    --primary-color-medium-alpha: #ffffff49;
     --background-color: #000000;
     --secondary-color: #464646;
 }
 
 [data-theme='light'] {
     --primary-color: #000000;
+    --primary-color-medium-alpha: #00000049;
     --background-color: #ffffff;
     --secondary-color: #464646;
 }
 
 p{
     color: var(--primary-color);
-    filter: brightness(0.7) invert(0.1);
+}
+
+html
+{
+    scroll-behavior: smooth;
+}
+
+.page
+{
+    display: flex;
+    justify-content: center;
 }
 
 .content
 {
-    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 672px;
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
 }
 
-button, input, textarea
-{
-    font-family: "source";
+*, label {
+    font-family: "poppins";
 }
 
 body {
     color: var(--primary-color);
-    font-family: "source";
     background-color: var(--background-color);
-    margin-left: 70px;
-    margin-top: 0px;
     transition: background-color 0.5s ease, color 0.5s ease-out;
 }
 
-@keyframes FlyUp
-{
-    0%
-    {
-        transform: translateY(30%);
-    }
 
-    100%
-    {
-        transform: translateY(0%);
-    }
-}
-
-@keyframes appear {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-@keyframes projectAppear {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0.8;
-    }
-}
-
-
-@keyframes FlyRight {
-    0%
-    {
-        transform: translateX(-30%);
-    }
-
-    100%
-    {
-        transform: translateX(0%);
-    }
-}
-
-@keyframes blinking {
-    0%, 50%
-    {
-        opacity: 0;
-    }
-
-    51%, 100%
-    {
-        opacity: 1;
-    }
-}
-
-@keyframes flyUp 
-{
-    0%
-    {
-        opacity: 0;
-        transform: translateY(70%);
-    }
-
-    100%
-    {
-        opacity: 1;
-        transform: translateY(0%);
+@media (max-width: 640px) {
+    .content{
+        margin-top: 10px !important;
     }
 }
 
 @font-face {
-    font-family: "source";
-    src: url("../fonts/SourceCodePro-4alW.ttf");
+    font-family: "poppins";
+    src: url("../../public/fonts/Poppins-Regular.ttf");
 }
 
 @media (max-width: 768px) {
