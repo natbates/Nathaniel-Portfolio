@@ -4,9 +4,7 @@
 const Loading = () =>
 {
     return (
-        <div>
-
-        </div>
+        <span className="loader"></span>
     );
 }
 

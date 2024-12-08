@@ -73,7 +73,7 @@ const Navbar = () => {
                     <Link
                         to="/login"
                         className={location.pathname === '/login' ? 'active' : ''}
-                        data-tooltip="Login"
+                        data-tooltip="Log in"
                     >
                         <img alt="login" src="/svgs/login.svg" />
                     </Link>
@@ -90,7 +90,7 @@ const Navbar = () => {
                     </a>
                 </section>
                 <section id="page-settings">
-                    <a data-tooltip= {`${theme} Mode`} onClick={toggleTheme}>
+                    <a data-tooltip={theme === 'light' ? 'Dark Mode' : 'Light Mode'} onClick={toggleTheme}>
                         <img alt="lightmode" src="/svgs/lightmode.svg" />
                     </a>
                 </section>

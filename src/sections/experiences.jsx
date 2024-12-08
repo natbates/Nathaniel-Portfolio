@@ -5,11 +5,15 @@ import { useContext, useState, useEffect } from "react";
 import fetchData from "../services/fetch-info";
 import { db } from "../firebaseConfig";
 import { addDoc, collection, doc, deleteDoc } from "firebase/firestore";
+import { handleUpload } from "../services/upload-image";
+import { ThemeContext } from "../comps/App";
 
 const Experiences = () => {
-    const currentUser = useContext(AuthContext);
-    const [experiences, setExperiences] = useState();
 
+    const {currentUser, logout }= useContext(AuthContext);
+    const [experiences, setExperiences] = useState();
+    const [loading, setLoading] = useState(false);
+    const {theme} = useContext(ThemeContext);
     const [title, setTitle] = useState("");
     const [role, setRole] = useState("");
     const [startDate, setStartDate] = useState("");
@@ -42,35 +46,70 @@ const Experiences = () => {
         fetchInfo();
     }, []);
 
+    function formatDateToMonthYear(dateString) {
+        const date = new Date(dateString);
+        
+        // Options to specify how we want the date formatted
+        const options = { year: 'numeric', month: 'long' };
+        
+        // Return the formatted date
+        return date.toLocaleString('en-US', options);
+      }
+      
+
     // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
-        // Create a new experience object
-        const newExperience = {
-            title,
-            role,
-            date: `${startDate} to ${endDate}`, // Corrected
-            info,
-            img: "photo url", // Replace with actual photo URL once uploaded
-        };
-    
+        setLoading(true);
+        if (!photo) {
+            alert("No photo selected!");
+            setLoading(false);
+            return;
+        }
+
+        if (startDate > endDate)
+        {
+            alert("Start date has to be before end date!")
+            setEndDate("");
+            setLoading(false);
+            return;
+        }
+        
+        let imageUrl = "";
+
         try {
-            // Add the new experience to Firestore
-            const docRef = await addDoc(collection(db, "experiences"), newExperience);
-            console.log("Document written with ID: ", docRef.id);
+            imageUrl = await handleUpload(photo);
+        } catch (error)
+        {
+            console.log(error);
+        }
+        try {
     
-            // Update the local state to include the new experience
+            // Step 2: Create a new experience object
+            const newExperience = {
+                title,
+                role,
+                date: `${formatDateToMonthYear(startDate)} - ${formatDateToMonthYear(endDate)}`,
+                info,
+                image: imageUrl
+            };
+    
+            // Step 3: Add the new experience to Firestore
+            const docRef = await addDoc(collection(db, "experiences"), newExperience);
+            console.log("Document written with ID:", docRef.id);
+    
+            // Step 4: Update the local state to include the new experience
             setExperiences((prevExperiences) => ({
-                ...prevExperiences, // Spread the previous experiences
-                [docRef.id]: { id: docRef.id, ...newExperience }, // Add the new experience with the document ID
+                ...prevExperiences,
+                [docRef.id]: { id: docRef.id, ...newExperience },
             }));
     
             // Reset the form after submission
             clearForm();
         } catch (error) {
-            console.error("Error adding experience:", error);
+            console.error("Error submitting experience:", error);
         }
+        setLoading(false);
     };
     
     // Handle clear button
@@ -83,8 +122,8 @@ const Experiences = () => {
         setPhoto(null);
     };
 
-
     const handleDelete = async (expId, title, role, info) => {
+        setLoading(true);
         try {
             // Find the experience that matches the title, role, and info
             const expToDelete = experiences[expId];
@@ -111,6 +150,7 @@ const Experiences = () => {
         } catch (error) {
             console.error("Error deleting experience:", error);
         }
+        setLoading(false);
     };
 
     return (
@@ -123,32 +163,37 @@ const Experiences = () => {
             </div>
 
             <div className="experience-container">
-            {experiences && Object.entries(experiences).map(([key, exp]) => (
-                <div className="experience-holder">
+
+            {(!experiences || Object.keys(experiences).length === 0) ? (
+                <p>No Experiences Listed.</p>
+                ) : (
+                experiences && Object.entries(experiences).map(([key, exp]) => (
+                    <div className="experience-holder" key={key}>
                     <Experience
-                        key={key}
                         title={exp.title || "No Title Available"} 
                         date={exp.date || "No Date Given"}
                         role={exp.role || "No Role Provided"} 
                         info={exp.info || "No Information Provided"}
-                        img={exp.img || null} 
+                        image={exp.image || null} 
                     />
                     {currentUser && 
                         <img
-                            onClick={() => handleDelete(key, exp.title, exp.role, exp.info)}
-                            className="trash"
-                            src="svgs/trash.svg"
-                            alt="Delete"
+                        onClick={() => handleDelete(key, exp.title, exp.role, exp.info)}
+                        className="trash"
+                        src = {theme === "light" ? "svgs/trash-black.svg" : "svgs/trash-white.svg"}
+                        alt="Delete"
                         />
                     }
-                </div>
-                ))}
+                    </div>
+                ))
+            )}
             </div>
+            
 
-            {currentUser !== null ? (
+            {currentUser != null && (
                 <div className="add-experience">
-                    <form className="add-experience-form" onSubmit={handleSubmit}>
-                        <label htmlFor="title">Title</label>
+                    <form className={`add-experience-form ${loading ? "Loading" : ""}`} onSubmit={handleSubmit}>
+                        <label htmlFor="title">Title*</label>
                         <input
                             id="title"
                             type="text"
@@ -157,7 +202,7 @@ const Experiences = () => {
                             onChange={handleInputChange}
                             required
                         />
-                        <label htmlFor="role">Role</label>
+                        <label htmlFor="role">Role*</label>
                         <input
                             id="role"
                             type="text"
@@ -174,7 +219,6 @@ const Experiences = () => {
                                     type="date"
                                     value={startDate}
                                     onChange={handleInputChange}
-                                    required
                                 />
                             </span>
                             <span>
@@ -184,22 +228,21 @@ const Experiences = () => {
                                     type="date"
                                     value={endDate}
                                     onChange={handleInputChange}
-                                    required
                                 />
                             </span>
                         </div>
                         <label htmlFor="info">Info</label>
-                        <input
+                        <textarea
                             id="info"
                             type="text"
+                            rows="5"
                             placeholder="Type experience information..."
                             value={info}
                             onChange={handleInputChange}
-                            required
                         />
                         <div className="button-container-right">
                             <div>
-                                <label htmlFor="photo">Photo</label>
+                                <label htmlFor="photo">Photo*</label>
                                 <input
                                     id="photo"
                                     type="file"
@@ -214,11 +257,11 @@ const Experiences = () => {
                             >
                                 Clear
                             </button>
-                            <button type="submit">Add</button>
+                            <button disabled = {loading} type="submit">{!loading ? "Add" : "Loading..."}</button>
                         </div>
                     </form>
                 </div>
-            ) : null}
+            )}
         </div>
     );
 };

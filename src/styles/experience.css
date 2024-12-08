@@ -13,6 +13,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    box-sizing: border-box;
 }
 
 .experience{
@@ -21,6 +22,11 @@
     transition:  max-height 1s ease;
     max-height: 48px;
     width: 100%;
+    box-sizing: border-box;
+}
+
+.Loading{
+    opacity: 0.3 !important;
 }
 
 .experience.show .arrow
@@ -67,6 +73,14 @@
 .date
 {
     color: #c3c3c3 !important;
+    transform: translateY(10px);
+}
+
+
+.experience-text h1
+{
+    text-decoration: underline;
+    font-size: 16px !important;
 }
 
 .experience-text h1, p
@@ -90,13 +104,12 @@
 .button-container-right button
 {
     height: 42px;
-    transform: translateY(24px);
+    transform: translateY(25px);
 }
 
 .button-container-right button:hover
 {
-    transform: translateY(24px) scale(1.03);
-
+    transform: translateY(25px) scale(1.03);
 }
 
 .experience-text h1
@@ -105,10 +118,25 @@
 }
 
 .experience-image{
-    width: 48px;
-    height: 48px;
+    width: 53.7px !important;
+    height: 48px !important;
     border-radius: 50%;
     background-color: gray;
+    transform: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+.experience-image img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;          /* Maintain the image aspect ratio and crop to fill the area */
+    object-position: center; 
+    border-radius: 50%;
+    box-sizing: border-box;
 }
 
 .experience-info-container p
@@ -138,8 +166,9 @@
     width: 100%;
     display: flex;
     padding: 10px;
-    border: 3px var(--primary-color-medium-alpha) dashed;
+    border: 2px var(--primary-color-medium-alpha) dashed;
     border-radius: 10px;
+    box-sizing: border-box;
 }
 
 .add-experience-form
@@ -148,7 +177,9 @@
     margin: 0;
 }
 
-.add-experience-form input
+.add-experience-form input, textarea
 {
     margin-bottom: 10px;
+    background-color: transparent;
+    color: var(--primary-color);
 }

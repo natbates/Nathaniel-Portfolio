@@ -1,14 +1,76 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext, useState, useEffect } from "react";
 import "../styles/contact.css";
+import { AuthContext } from "../comps/authContext";
+import fetchData from "../services/fetch-info";
+import { doc, updateDoc, collection} from "firebase/firestore"; 
+import { db } from "../firebaseConfig";
 
 const Contact = () => {
   const formRef = useRef(null); // Create a reference to the form
+  const {currentUser, logout} = useContext(AuthContext);
+  const [github, setGithub] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [x, setX] = useState("");
+  const [saving, setSaving] = useState(false);
 
   // Function to clear the form fields
   const handleClear = (event) => {
     event.preventDefault(); // Prevent any default behavior (like page reload)
     formRef.current.reset(); // Reset all fields in the form
   };
+
+  const handleInputChange = (event) => {
+    const { id, value } = event.target;
+
+    if (id === "github") {
+        setGithub(value);
+    } else if (id === "linkedin") {
+        setLinkedin(value);
+    } else if (id === "X") {
+        setX(value);
+    }
+  };
+
+  useEffect(() => {fetchInfo()}, []);
+
+  const fetchInfo = async () => {
+      try {
+          const data = await fetchData("socials");
+          Object.entries(data.socials).forEach(([key, value]) => {
+              if (key === "github") {
+                  setGithub(value);
+              } else if (key === "linkedin") {
+                  setLinkedin(value);
+              } else if (key === "x") {
+                  setX(value);
+              }
+          });
+      } catch (error) {
+          console.error("Error fetching socials:", error);
+      }
+  };
+
+  const handleSave = async () => {
+      setSaving(true);
+      try {
+          // Reference to the Firestore document
+          const socialsDoc = doc(db, "socials", "socials"); // Replace 'socialLinks' with the document ID
+
+          // Update the document with new values
+          await updateDoc(socialsDoc, {
+              github,
+              linkedin,
+              x,
+          });
+
+      } catch (error) {
+          console.error("Error updating socials:", error);
+          alert("Failed to update social links. Please try again.");
+      } finally {
+          setSaving(false);
+      }
+  };
+
 
   return (
     <div id="contact" className="container">
@@ -20,9 +82,55 @@ const Contact = () => {
           contact form below.
         </p>
       </div>
+      {currentUser !== null && (
+        <div className="about-info">
+            <form className = {`${saving ? "Loading" : ""}`}>
+                <label htmlFor="github">Github</label>
+                <input
+                    type="url" // Ensures the input is a valid URL
+                    id="github"
+                    name="github"
+                    value={github}
+                    onChange={handleInputChange}
+                    placeholder="Enter Github profile URL"
+                    required // Input is required
+                />
+                <label htmlFor="linkedin">LinkedIn</label>
+                <input
+                    type="url" // Ensures the input is a valid URL
+                    id="linkedin"
+                    name="linkedin"
+                    value={linkedin}
+                    onChange={handleInputChange}
+                    placeholder="Enter LinkedIn profile URL"
+                    required // Input is required
+                />
+                <div className = "button-container-right">
+                    <div>
+                        <label htmlFor="X">X (Formerly Twitter)</label>
+                        <input
+                            type="url" // Ensures the input is a valid URL
+                            id="X"
+                            name="X"
+                            value={x}
+                            onChange={handleInputChange}
+                            placeholder="Enter X profile URL"
+                            required // Input is required
+                        />
+                    </div>
+                    <button type = "button" onClick={fetchInfo} className="save-button clear" disabled={saving}>
+                        Clear
+                    </button>
+                    <button type = "submit" onClick={handleSave} className="save-button" disabled={saving}>
+                        {saving ? "Saving..." : "Save"}
+                    </button>
+                </div>
+            </form>
+        </div>
+      )}
       <form
         ref={formRef} // Attach the form reference
-        action="https://formspree.io/f/YOUR_FORM_ID"
+        action="https://formspree.io/f/xkgnaoww"
         method="POST"
         className="contact-form"
       >

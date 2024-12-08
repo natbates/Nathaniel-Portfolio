@@ -1,72 +1,116 @@
 import "../styles/about.css";
 import { AuthContext } from "../comps/authContext";
 import { useContext, useEffect, useState } from "react";
-import fetchData from "../services/fetch-info";
-import { doc, updateDoc } from "firebase/firestore"; 
+import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore"; 
 import { db } from "../firebaseConfig";
+import { handleMultipleUpload } from "../services/upload-image";
 
 const About = () => {
 
     const { currentUser, logout } = useContext(AuthContext);
-
-    const [github, setGithub] = useState("");
-    const [linkedin, setLinkedin] = useState("");
-    const [x, setX] = useState("");
-    const [saving, setSaving] = useState(false);
+    const [aboutImages, setAboutImages] = useState([]);
+    const [uploading, setUploading] = useState(false);
+    const [imageFiles, setImageFiles] = useState([]);
 
     useEffect(() => {
-        const fetchInfo = async () => {
-            try {
-                const data = await fetchData("socials");
-                Object.entries(data.socials).forEach(([key, value]) => {
-                    if (key === "github") {
-                        setGithub(value);
-                    } else if (key === "linkedin") {
-                        setLinkedin(value);
-                    } else if (key === "x") {
-                        setX(value);
-                    }
-                });
-            } catch (error) {
-                console.error("Error fetching socials:", error);
-            }
-        };
-        fetchInfo();
+        fetchAboutImages();
     }, []);
 
-    const handleInputChange = (event) => {
-        const { id, value } = event.target;
-
-        if (id === "github") {
-            setGithub(value);
-        } else if (id === "linkedin") {
-            setLinkedin(value);
-        } else if (id === "X") {
-            setX(value);
-        }
-    };
-
-    const handleSave = async () => {
-        setSaving(true);
+    const fetchAboutImages = async () => {
         try {
-            // Reference to the Firestore document
-            const socialsDoc = doc(db, "socials", "socials"); // Replace 'socialLinks' with the document ID
+            const aboutImagesCollection = collection(db, "about-photos");
+            const querySnapshot = await getDocs(aboutImagesCollection);
     
-            // Update the document with new values
-            await updateDoc(socialsDoc, {
-                github,
-                linkedin,
-                x,
-            });
+            const imageUrls = querySnapshot.docs.map(doc => ({
+                url: doc.data().url,
+                id: doc.id // Get the document ID to use for deletion
+            }));
     
-            alert("Social links updated successfully!");
+            setAboutImages(imageUrls); // Store both URLs and document IDs
         } catch (error) {
-            console.error("Error updating socials:", error);
-            alert("Failed to update social links. Please try again.");
-        } finally {
-            setSaving(false);
+            console.error("Error fetching about images:", error);
         }
     };
+    
+
+    const handleUpload = async () => {
+        if (uploading || imageFiles.length === 0) return;
+    
+        setUploading(true);
+    
+        try {
+            console.log("Uploading images");
+    
+            // Upload the current files
+            const urls = await handleMultipleUpload(imageFiles); // This will return an array of URLs
+    
+            // Reference to Firestore "about-photos" collection
+            const batch = collection(db, "about-photos");
+    
+            // Prepare an array to hold the image objects with both `url` and `id`
+            const newImages = [];
+    
+            // For each URL, add it to Firestore and store the `url` and `id`
+            for (const url of urls) {
+                // Add the image URL to Firestore and get the document reference
+                const docRef = await addDoc(batch, {
+                    url,
+                    uploadedAt: new Date(),
+                });
+    
+                // Push the image object (with url and Firestore docId) to the newImages array
+                newImages.push({
+                    url,
+                    id: docRef.id,
+                });
+            }
+    
+            // Update the state to include both `url` and `id` of the newly uploaded images
+            setAboutImages((prevImages) => [...prevImages, ...newImages]);
+        } catch (error) {
+            console.error("Error uploading photos:", error);
+            alert("Error uploading photos. Please try again.");
+        } finally {
+            setImageFiles([]);  // Reset the image files after upload
+            setUploading(false);
+        }
+    };
+    
+    
+    const handleFileChange = (event) => {
+        const files = event.target.files;
+        if (files.length > 0) {
+            setImageFiles(files);
+        }
+    };
+
+    const handleDeleteImage = async (imageUrl, docId) => {
+
+
+        console.log("IMAGE URL", imageUrl);
+        console.log("DOC ID", docId);
+
+        if (uploading) return;
+
+        setUploading(true);
+
+        try {
+            // 1. Delete the image document from Firestore
+            const docRef = doc(db, "about-photos", docId); // Reference to the specific document
+            await deleteDoc(docRef); // Delete the document from Firestore
+            
+            console.log("Image deleted from Firestore");
+
+            // 2. Update the UI state to remove the image
+            setAboutImages((prevImages) => prevImages.filter((img) => img.url !== imageUrl));
+        } catch (error) {
+            console.error("Error deleting image:", error);
+            alert("Error deleting image. Please try again.");
+        } finally {
+            setUploading(false);
+        }
+    };
+
 
     return (
         <div id="about" className="container">
@@ -78,46 +122,41 @@ const About = () => {
                     My hobbies involve going to the gym 💪, hiking 🥾, and playing the guitar 🎸.
                 </p>
             </div>
-            {currentUser !== null ? (
+
+            <div className="about-image-holder">
+                {aboutImages.length === 0 ? (
+                    <p>No About Images</p>
+                ) : (
+                    <>
+                        {aboutImages.map((img, index) => (
+                            <img key={index} src={img.url} onClick={() => handleDeleteImage(img.url, img.id)}/>
+                        ))}
+                    </>
+                    )}
+            </div>
+
+            {currentUser !== null && (
                 <div className="about-info">
-                    <form>
-                        <label htmlFor="github">Github</label>
-                        <input
-                            type="url" // Ensures the input is a valid URL
-                            id="github"
-                            name="github"
-                            value={github}
-                            onChange={handleInputChange}
-                            placeholder="Enter Github profile URL"
-                            required // Input is required
-                        />
-                        <label htmlFor="linkedin">LinkedIn</label>
-                        <input
-                            type="url" // Ensures the input is a valid URL
-                            id="linkedin"
-                            name="linkedin"
-                            value={linkedin}
-                            onChange={handleInputChange}
-                            placeholder="Enter LinkedIn profile URL"
-                            required // Input is required
-                        />
-                        <label htmlFor="X">X (Formerly Twitter)</label>
-                        <input
-                            type="url" // Ensures the input is a valid URL
-                            id="X"
-                            name="X"
-                            value={x}
-                            onChange={handleInputChange}
-                            placeholder="Enter X profile URL"
-                            required // Input is required
-                        />
+                    <form className = {`${uploading ? "Loading" : ""}`}>
+                        <div className="button-container-right">
+                            <div>
+                                <label htmlFor="github">Add Photo</label>
+                                <input
+                                    type="file" // Ensures the input is a valid URL
+                                    id="about-photo"
+                                    name="about-photo"
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    required // Input is required
+                                    multiple
+                                />
+                            </div>
+                            <button type = "button" onClick={handleUpload} className="save-button" disabled={uploading}>
+                                {uploading ? "Uploading..." : "Upload"}
+                            </button>
+                        </div>
                     </form>
-                    <button onClick={handleSave} className="save-button" disabled={saving}>
-                        {saving ? "Saving..." : "Save"}
-                    </button>
                 </div>
-            ) : (
-                <></>
             )}
         </div>
     );

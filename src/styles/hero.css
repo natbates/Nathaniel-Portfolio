@@ -4,6 +4,7 @@
     display: flex;
     justify-content: space-between;
     gap: 50px;
+    margin-bottom: 10px;
 }
 
 #hero .container-profile img
@@ -15,6 +16,33 @@
     object-fit: cover;
     flex-shrink: 0;
     align-self: flex-start;
+    transition: transform 0.3s ease;
+}
+
+#hero .img-container
+{
+    outline: 3px var(--primary-color) dashed;
+    outline-offset: 6px;
+    border-radius: 50%;
+    width: 140px !important;
+    height: 140px !important;
+}
+
+.img-container{
+    position: relative;
+}
+
+.image-loader
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#hero .container-profile img.edit:hover
+{
+    transform: scale(1.05);
 }
 
 #hero .container-profile .text-container
@@ -28,7 +56,6 @@
 {
     text-decoration: none;
     color: var(--primary-color);
-    height: 0;
 }
 
 #hero h1 {
@@ -76,6 +103,16 @@
     margin-top: 8px;
 }
 
+.service-text span
+{
+    display: flex;
+}
+
+.service-text span
+{
+    text-wrap: nowrap;
+}
+
 .service-text:last-child
 {
     margin-top: 8px;
@@ -114,9 +151,78 @@
     text-wrap: nowrap;
 }
 
+.song
+{
+    max-width: 250px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+    color: var(--primary-color-medium-alpha) !important;
+}
+
+.service-loader{
+    height: 20px !important;
+    width: 20px !important;
+    margin-left: 10px;
+}
+
+.uploading
+{
+    filter: blur(5px);
+}
+
+.hero-api-info label {
+    color: var(--primary-color);
+    filter: brightness(0.9);
+}
+
+.hero-api-info
+{
+    margin-top: 20px;
+}
+
+.hero-api-info form
+{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 2px var(--primary-color-medium-alpha) dashed;
+    border-radius: 10px;
+}
+
+.hero-api-info input{
+    width: 100%;
+    border: 1px solid var(--primary-color-medium-alpha);
+    background-color: transparent;
+    border-radius: 4px;
+    margin-top: 5px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.hero-api-info button
+{
+    transform: translateY(31px) !important;
+}
+
+.hero-api-info button:hover
+{
+    transform: translateY(31px) scale(1.03) !important;
+}
+
 @media (max-width:720px) {
     .service-text
     {
         margin-top: 18px;
     }
+
+}
+
+@media (max-width:640px) {
+
+    #hero .img-container
+    {
+        margin-top: 50px;
+    }
+
 }

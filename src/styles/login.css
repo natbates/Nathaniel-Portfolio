@@ -20,7 +20,14 @@ label {
     margin-bottom: 5px;
 }
 
-input {
+.error
+{
+    display: block;
+    color: red;
+    margin-bottom: 10px;
+}
+
+input, textarea, select {
     width: 100%;
     padding: 10px;
     font-size: 14px;
@@ -45,8 +52,4 @@ button {
     transform-origin: top left;
     transition: transform 0.3s ease;
     max-width: 100px;
-}
-
-button:hover {
-    transform: scale(1.05);
 }

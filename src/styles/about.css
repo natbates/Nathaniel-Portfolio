@@ -1,4 +1,7 @@
-
+#about
+{
+    margin-top: 20px !important;
+}
 .about-info
 {
     margin-top: 20px;
@@ -9,6 +12,35 @@
     filter: brightness(0.9);
 }
 
+.about-image-holder {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.about-image-holder img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 200px;
+    height: auto;
+}
+
+.about-info form
+{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 2px var(--primary-color-medium-alpha) dashed;
+    border-radius: 10px;
+}
+
 .about-info input{
     width: 100%;
     border: 1px solid var(--primary-color-medium-alpha);
@@ -17,4 +49,14 @@
     margin-top: 5px;
     color: var(--primary-color);
     margin-bottom: 10px;
+}
+
+.about-info button
+{
+    transform: translateY(31px) !important;
+}
+
+.about-info button:hover
+{
+    transform: scale(1.03) translateY(31px) !important;
 }

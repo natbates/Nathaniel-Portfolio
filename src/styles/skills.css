@@ -32,3 +32,49 @@
     border-radius: 5px;
     font-size: 13px;
 }
+
+.skill.deletion:hover
+{
+    background-color: #f90e0e9f;
+    cursor: pointer;
+}
+
+.add-skill
+{
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    border: 2px var(--primary-color-medium-alpha) dashed;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.add-skill-form
+{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin: 0;
+}
+
+.add-skill-container
+{
+    width: 100%;
+}
+
+.add-skill-form input
+{
+    margin-bottom: 10px;
+}
+
+.add-skill-form button
+{
+    height: 42px;
+    transform: translateY(25px);
+    transition: transform 0.3s ease;
+}
+
+.add-skill-form button:hover
+{
+    transform: translateY(25px) scale(1.03);
+}

@@ -1,32 +1,63 @@
+import React, { useContext } from "react";
+import { ThemeContext } from "./App";
 import "../styles/projects.css";
 
-const Project = ({title, info, link, date}) =>
-    {
-        return (
-            <div className = "project" href={link} target="blank">
-                <a className = "project-image"></a>
-                <div className="project-text">
-                    <h1>{title}</h1>
-                    <p>{date}</p>
-                    <p>{info}</p>
-                </div>
-                <div className="skill-container">
-                    <span className="skill">Ass</span>
-                    <span className="skill">Ass</span>
-                    <span className="skill">Ass</span>
-                    <span className="skill">Ass</span>
-                    <span className="skill">Ass</span>
-                    <span className="skill">Ass</span>
-                    <span className="skill">Ass</span>
-                    <span className="skill">Ass</span>
+const Project = ({ title, info, photo, skills, sources }) => {
+    // Split skills by comma and trim any extra spaces around each skill
+    const skillList = skills ? skills.split(',').map(skill => skill.trim()) : [];
 
-                </div>
-                <div className="link-container">
-                    <span className="link">Website</span>
-                    <span className="link">Source</span>
-                </div>
+    const hasSkills = skillList.length > 0 && skillList.some(skill => skill.length > 0);
+
+    const { theme } = useContext(ThemeContext);
+
+    const getIconForSource = (type) => {
+        const iconColor = theme !== "light" ? "black" : "white"; // Icon color based on the theme
+        
+        switch (type.trim()) {
+            
+            case "Youtube":
+                return <img className = "source-logo" src={`svgs/icons/youtube-${iconColor}.svg`} alt="YouTube" />;
+            case "Github":
+                return <img className = "source-logo" src={`svgs/icons/github-${iconColor}.svg`} alt="GitHub" />;
+            case "Devpost":
+                return <img className = "source-logo" src={`svgs/icons/devpost-${iconColor}.svg`} alt="Devpost" />;
+            case "Website":
+                return <img className = "source-logo" src={`svgs/icons/website-${iconColor}.svg`} alt="Website" />;
+            default:
+                console.log(type, "NOT HUTTT");
+                return null;
+        }
+    };
+
+    return (
+        <div target="_blank">
+            <a className="project-image">
+                <img src={photo} alt={title} />
+            </a>
+            <div className="project-text">
+                <h1>{title}</h1>
+                <p>{info}</p>
             </div>
-        );
-    }
-    
+
+            {hasSkills && (
+                <div className="skill-container">
+                    {skillList.map((skill, index) => (
+                        <span key={index} className="skill">{skill}</span>
+                    ))}
+                </div>
+            )}
+            {!hasSkills && <div className="skill-container"></div>}
+
+            <div className="link-container">
+                {sources && sources.map((source, index) => (
+                    <span key={index} className="link">
+                        {getIconForSource(source.type)}  {/* Render the icon based on the source type */}
+                        <a href={source.url} target="_blank" rel="noopener noreferrer">{source.type}</a>
+                    </span>
+                ))}
+            </div>
+        </div>
+    );
+};
+
 export default Project;

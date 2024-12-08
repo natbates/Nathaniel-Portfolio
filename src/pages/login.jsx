@@ -50,7 +50,9 @@ const Login = () => {
             }
         } catch (error) {
             console.error(error);
-            alert("Login failed, please try again.");
+            setErrorMessage("Login failed, please try again.");
+            setEmail("");
+            setPassword("");
             setLoading(false);
         }    
     }
@@ -61,10 +63,6 @@ const Login = () => {
             
             <div className="text-container">
                 <h1>Admin Log In</h1>
-
-                {/* Display error message if any */}
-                {errorMessage && <p className="error">{errorMessage}</p>}
-
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
                         <label htmlFor="email">Email</label>
@@ -88,6 +86,8 @@ const Login = () => {
                             placeholder="Enter password"
                         />
                     </div>
+
+                    {errorMessage && <p className="error">{errorMessage}</p>}
 
                     <button type="submit" disabled={loading}>
                         {loading ? "Logging in..." : "Log In"}

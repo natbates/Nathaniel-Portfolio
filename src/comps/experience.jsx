@@ -21,13 +21,17 @@ const Experience = ({ title, role, info, image, date }) => {
         setIsInfoVisible((prev) => !prev); // Toggle visibility state
     };
 
+    console.log(image);
+
     return (
         <div
             className={`experience ${isInfoVisible ? "show" : ""}`}
             style={{ maxHeight: maxHeight, transition: "max-height 0.5s ease" }}
             onClick={toggleInfo}
         >
-            <img alt="experience-img" src={image} className="experience-image" />
+            <div className="experience-image">
+                <img alt="experience-img" src={image}></img>
+            </div>
             <div className="experience-text" ref={contentRef}>
             <span className="top-line">
                 <span>
