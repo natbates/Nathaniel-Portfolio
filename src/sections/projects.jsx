@@ -183,7 +183,7 @@ const Projects = () => {
         <div id="projects" className="container">
             <div className="text-container">
                 <h1>Projects</h1>
-                <p>Front end React web developer currently working for Hastings Direct. Student at the University of Sussex</p>
+                <p>Here are some of my favouite projects I have worked on. They are all open source and were great learning experiences. I have plenty more projects in development and i list them on my Github profile page!</p>
 
 
                 <div id="project-container">
