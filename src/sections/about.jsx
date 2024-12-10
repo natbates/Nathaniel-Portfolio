@@ -134,26 +134,24 @@ const About = () => {
 
                 {!fetching && aboutImages.length === 0 && <p>No About Images</p>}
                 <>
-                    {aboutImages != null && aboutImages.map((img, index) => {
-                    // Calculate animation delay
-                    return (
-                        <div className="about-img-container" key={index}>
-                            <img 
-                                className="about-img" 
-                                src={img.url} 
-                                alt={`About image ${index}`}
+                {aboutImages != null &&
+                    aboutImages.map((img) => (
+                        <div className="about-img-container" key={img.id}>
+                            <img
+                                className="about-img"
+                                src={img.url}
+                                alt={`About image`}
                             />
-                            
-                            {currentUser && 
+                            {currentUser && (
                                 <img
                                     onClick={() => handleDeleteImage(img.url, img.id)}
                                     className="trash topright"
                                     src="svgs/trash-white.svg"
                                     alt="Delete"
-                                />}
+                                />
+                            )}
                         </div>
-                    );
-                })}
+                    ))}
                 </>
             </div>
 

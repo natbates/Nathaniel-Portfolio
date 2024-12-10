@@ -30,16 +30,16 @@ const Experience = ({ title, role, info, image, date }) => {
             onClick={toggleInfo}
         >
             <div className="experience-image">
-                <img alt="experience-img" src={image}></img>
+                <img src={image}></img>
             </div>
             <div className="experience-text" ref={contentRef}>
             <span className="top-line">
                 <span>
                     <h1>{title}</h1>
                     {theme === "light" ? (
-                        <img className="arrow" src="svgs/arrow-black.svg" alt="arrow" />
+                        <img className="arrow" src="svgs/arrow-black.svg" />
                     ) : (
-                        <img className="arrow" src="svgs/arrow-white.svg" alt="arrow" />
+                        <img className="arrow" src="svgs/arrow-white.svg" />
                     )}
                 </span>
                 <span>
