@@ -1,6 +1,6 @@
 import "../styles/hero.css";
 import { useState, useEffect, useContext, useRef } from "react";
-import Loading from "../comps/loading";
+import { Loading, LoadingSection } from "../comps/loading";
 import { AuthContext } from "../comps/authContext";
 import fetchData from "../services/fetch-info";
 import { handleUpload } from "../services/upload-image";
@@ -22,7 +22,6 @@ const Hero = () => {
 
     const [discordUserID, setDiscordUserID] = useState("");
     const [formspreeKey, setFormspreeKey] = useState("");
-    const [pinataKey, setPinataKey] = useState("");
 
     useEffect(() => {
         fetchInfo();
@@ -37,8 +36,6 @@ const Hero = () => {
                     setDiscordUserID(value);
                 } else if (key === "formspreeKey") {
                     setFormspreeKey(value);
-                } else if (key === "pinataKey") {
-                    setPinataKey(value);
                 }
             });
             // Fetch profile picture after fetching other data
@@ -67,8 +64,6 @@ const Hero = () => {
 
         if (id === "discord-user-id") {
             setDiscordUserID(value);
-        } else if (id === "pinata-key") {
-            setPinataKey(value);
         } else if (id === "formspree-key") {
             setFormspreeKey(value);
         }
@@ -84,7 +79,6 @@ const Hero = () => {
             // Update the document with new values
             await updateDoc(keysDoc, {
                 discordUserID,
-                pinataKey,
                 formspreeKey,
             });
 
@@ -226,12 +220,10 @@ const Hero = () => {
 
     const handlePresenceUpdate = (data) => {
 
-        if (data) {
-            // Set the discord status (either 'online', 'offline', etc.)
-            const status = data.discord_status || "offline"; // Default to offline if no status
+        if (data.discord_status != undefined){
+            console.log("STATUS", data.discord_status);
+            const status = data.discord_status || "offline";
             setDiscordStatus({ status });
-        } else {
-            setDiscordStatus({ status: "offline" }); // If data is missing, set to offline
         }
 
         if (data.spotify && data.listening_to_spotify) {
@@ -261,12 +253,12 @@ const Hero = () => {
                     <p>Front end React web developer currently working for Hastings Direct. Student at the <span className="highlighted">University of Sussex</span></p>
                 </div>
                 <div className="img-container">
+                    {profilePicture == null && <LoadingSection/>}
                     <img 
                         onClick={handleProfileClick} 
                         className={`${currentUser !== null ? "edit" : ""} ${isUploading ? "uploading" : ""}`} 
                         src={profilePicture || "default-image-url.jpg"} 
                     />
-                    {isUploading && <div className = "image-loader"><Loading></Loading></div>}
                     <input 
                         ref={fileInputRef} 
                         type="file" 
@@ -281,20 +273,21 @@ const Hero = () => {
             <div className="service-text">
                 <span>
                     <img className="service-image" src="svgs/spotify.svg" alt="Spotify logo" />
-                    Listening to: {currentSongData === null ? (
+                    Listening to: {currentSongData === null && spotifyError === null ? (
                         <div className="service-loader"><Loading /></div>
                     ) : (
-                        currentSongData.item ? (
-                            <>
-                                <a className="song" href={currentSongData.item.external_urls.songlink} target="_blank" rel="noopener noreferrer">
-                                    &nbsp; {currentSongData.item.name}
-                                </a>
-                                {' '}&nbsp; by &nbsp;{' '}
-                                <a className="song" href={currentSongData.item.external_urls.artist_url} target="_blank" rel="noopener noreferrer">
-                                    {currentSongData.item.artists[0].name}
-                                </a>
-                            </>
-                        ) : (
+                        spotifyError !== null ? <a>&nbsp; Nothing</a> :
+                            currentSongData.item ? (
+                                <>
+                                    <a className="song" href={currentSongData.item.external_urls.songlink} target="_blank" rel="noopener noreferrer">
+                                        &nbsp; {currentSongData.item.name}
+                                    </a>
+                                    {' '}&nbsp; by &nbsp;{' '}
+                                    <a className="song" href={currentSongData.item.external_urls.artist_url} target="_blank" rel="noopener noreferrer">
+                                        {currentSongData.item.artists[0].name}
+                                    </a>
+                                </>
+                            ) : (
                             <div className="service-loader"><Loading /></div>
                         )
                     )}
@@ -347,16 +340,6 @@ const Hero = () => {
                                 value={discordUserID}
                                 onChange={handleInputChange}
                                 placeholder="Enter Discord User ID..."
-                                required
-                            />
-                            <label htmlFor="pinata-key">Pinata Photo Key*</label>
-                            <input
-                                type="text"
-                                id="pinata-key"
-                                name="pinata-key"
-                                value={pinataKey}
-                                onChange={handleInputChange}
-                                placeholder="Enter Pinata Key..."
                                 required
                             />
                             <div className = "button-container-right">

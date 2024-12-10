@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore"; 
 import { db } from "../firebaseConfig";
 import { handleMultipleUpload } from "../services/upload-image";
+import { LoadingSection } from "../comps/loading";
 
 const About = () => {
 
@@ -11,12 +12,14 @@ const About = () => {
     const [aboutImages, setAboutImages] = useState([]);
     const [uploading, setUploading] = useState(false);
     const [imageFiles, setImageFiles] = useState([]);
+    const [fetching, setFetching] = useState(false);
 
     useEffect(() => {
         fetchAboutImages();
     }, []);
 
     const fetchAboutImages = async () => {
+        setFetching(true);
         try {
             const aboutImagesCollection = collection(db, "about-photos");
             const querySnapshot = await getDocs(aboutImagesCollection);
@@ -29,6 +32,8 @@ const About = () => {
             setAboutImages(imageUrls); // Store both URLs and document IDs
         } catch (error) {
             console.error("Error fetching about images:", error);
+        } finally {
+            setFetching(false); // Stop loading when fetching is complete
         }
     };
     
@@ -123,16 +128,33 @@ const About = () => {
                 </p>
             </div>
 
+            
             <div className="about-image-holder">
-                {aboutImages.length === 0 ? (
-                    <p>No About Images</p>
-                ) : (
-                    <>
-                        {aboutImages.map((img, index) => (
-                            <img key={index} src={img.url} onClick={() => handleDeleteImage(img.url, img.id)}/>
-                        ))}
-                    </>
-                    )}
+                {fetching && <LoadingSection />}
+
+                {!fetching && aboutImages.length === 0 && <p>No About Images</p>}
+                <>
+                    {aboutImages != null && aboutImages.map((img, index) => {
+                    // Calculate animation delay
+                    return (
+                        <div className="about-img-container" key={index}>
+                            <img 
+                                className="about-img" 
+                                src={img.url} 
+                                alt={`About image ${index}`}
+                            />
+                            
+                            {currentUser && 
+                                <img
+                                    onClick={() => handleDeleteImage(img.url, img.id)}
+                                    className="trash topright"
+                                    src="svgs/trash-white.svg"
+                                    alt="Delete"
+                                />}
+                        </div>
+                    );
+                })}
+                </>
             </div>
 
             {currentUser !== null && (

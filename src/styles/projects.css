@@ -21,6 +21,7 @@
     border-radius: 9px;
     transform-origin: top center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
 }
 
 .project:hover
@@ -36,13 +37,14 @@
     width: 100%;
     border: none;
     overflow: hidden;
-    background-color: grey;
 }
 
 .project-image img
 {
     width: 100%;
     height: auto;
+    background-color: grey;
+    transform: none !important;
 }
 
 #source-holder
@@ -56,16 +58,21 @@
 
 #source-holder p
 {
-    width: 100%;
     color: var(--primary-color-medium-alpha);
     font-size: 15px;
     padding: 3px;
+    width: 500px;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex: 1;
 }
 
 #source-holder span
 {
     display: flex;
-    margin-right: 5px;
+    margin-right: 8px;
+    margin-left: 5px;
 }
 
 #source-holder span img
@@ -77,7 +84,7 @@
 .project .skill-container
 {
     margin-left: 8px;
-    overflow-x: scroll;
+    overflow-x: hidden;
     height: 29.5px;
 }
 
@@ -85,7 +92,7 @@
 {
     flex-wrap: nowrap;
     padding: 5px;
-    overflow-x: scroll;
+    overflow-x: hidden;
     margin-top: 10px;
     margin-bottom: 5px;
     margin-left: 3px;
@@ -103,7 +110,7 @@
 .project-text
 {
     min-height: 150px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     color: var(--primary-color);
     text-decoration: none !important;
     padding: 8px;
@@ -193,6 +200,15 @@
 .topright
 {
     position: absolute;
+    background-color: rgb(78, 78, 78);
+    border-radius: 50%;
+    padding: 5px;
+    right: 15px;
+}
+
+.topright:hover
+{
+    transform: none !important;
 }
 
 .drop-down-options select

@@ -7,10 +7,11 @@
     margin-top: 20px;
 }
 
+
 #skill .skill-container .skill
 {
-    height: 30px;
-    padding: 5px 10px 5px 10px !important; 
+    height: 28px;
+    padding: 5px 10px 1px 10px !important; 
 }
 
 .skill-container
@@ -64,6 +65,7 @@
 
 .add-skill-form input
 {
+    background-color: transparent;
     margin-bottom: 10px;
 }
 

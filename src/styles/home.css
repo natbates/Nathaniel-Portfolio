@@ -1,8 +1,11 @@
 /* home.css */
 #home
 {
-    height: 90%;
+    height: 100%;
     padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .container h1
@@ -37,23 +40,81 @@
     transform: scale(1.05);
 }
 
-.loader {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    display: inline-block;
-    position: relative;
-    border: 5px solid;
-    border-color: var(--primary-color) var(--primary-color-medium-alpha) var(--primary-color-high-alpha);
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
+option
+{
+  background-color: var(--background-color)
+}
+
+#home-cover-anim
+{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  background-color: var(--background-color);
+  filter: blur(5px);
+  z-index: 100;
+  animation: flydown 1.3s ease-in-out forwards;
+  transform-origin: bottom center;
+}
+
+@keyframes unblur {
+  0%{
+    filter: blur(5px);
   }
+  100%{
+    filter: blur(0px);
+  }
+}
+
+@keyframes flydown {
+  0%{
+    transform: scaleX(1.5) scaleY(1);
+  }
+  100%{
+    transform: scaleX(1.5) scaleY(0);
+  }
+}
+
+
+.loader {
+  width: 48px;
+  height: 48px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 3px solid var(--primary-color);
+  border-right: 3px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  overflow: 0;
+}
+
+.social-loader
+{
+  width: 12px !important;
+  height: 12px !important;
+  margin: 0;
+  margin-top: 6px;
+}
   
-  @keyframes rotation {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  } 
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+
+@keyframes appear {
+  0%{
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}

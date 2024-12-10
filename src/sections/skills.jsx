@@ -4,18 +4,21 @@ import { useState, useEffect, useContext } from "react";
 import fetchData from "../services/fetch-info";
 import { db } from "../firebaseConfig";
 import { doc, updateDoc, deleteField } from "firebase/firestore";
+import { LoadingSection } from "../comps/loading";
 
 const Skills = () => {
   const [skills, setSkills] = useState();
   const [newSkill, setNewSkill] = useState("");
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(false);
   const { currentUser, logout } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchInfo = async () => {
+      setFetching(true);
       const data = await fetchData("skills");
-      console.log(data.skills);
       setSkills(data.skills);
+      setFetching(false);
     };
     fetchInfo();
   }, []);
@@ -117,6 +120,8 @@ const Skills = () => {
         )}
         </div>
       </div>
+
+      {fetching && <LoadingSection />}
 
       {currentUser && (
         <div className="add-skill">

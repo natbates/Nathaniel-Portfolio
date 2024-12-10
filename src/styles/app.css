@@ -43,7 +43,7 @@ html
     display: flex;
     justify-content: center;
     align-self: center;
-    width: 672px;
+    max-width: 672px;
     margin: auto;
     margin-top: 100px;
     padding: 20px;
@@ -82,5 +82,35 @@ body {
     {
         margin-top: 70px;
         height: 100%;
+    }
+}
+
+@media (max-width: 672px) {
+
+    .content
+    {
+        max-width: 90vw;
+        height: 0;
+    }
+
+    #home
+    {
+        transform-origin: top center;
+        transform: scale(0.5);
+    }
+
+    #contact
+    {
+        padding-bottom: 50px;
+    }
+
+    .skill-container
+    {
+        height: 30px !important;
+    }
+
+    .page
+    {
+        padding: 10px;
     }
 }

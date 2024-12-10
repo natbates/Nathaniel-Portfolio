@@ -7,12 +7,14 @@ import { db } from "../firebaseConfig";
 import { addDoc, collection, doc, deleteDoc } from "firebase/firestore";
 import { handleUpload } from "../services/upload-image";
 import { ThemeContext } from "../comps/App";
+import { LoadingSection } from "../comps/loading";
 
 const Experiences = () => {
 
     const {currentUser, logout }= useContext(AuthContext);
     const [experiences, setExperiences] = useState();
     const [loading, setLoading] = useState(false);
+    const [fetching, setFetching] = useState(false);
     const {theme} = useContext(ThemeContext);
     const [title, setTitle] = useState("");
     const [role, setRole] = useState("");
@@ -34,6 +36,7 @@ const Experiences = () => {
 
     useEffect(() => {
         const fetchInfo = async () => {
+            setFetching(true);
             try {
                 const exp = await fetchData("experiences");
                 console.log("here ", exp);
@@ -41,6 +44,9 @@ const Experiences = () => {
                 
             } catch (error) {
                 console.error("Error fetching socials:", error);
+            } finally
+            {
+                setFetching(false);
             }
         };
         fetchInfo();
@@ -164,30 +170,47 @@ const Experiences = () => {
 
             <div className="experience-container">
 
-            {(!experiences || Object.keys(experiences).length === 0) ? (
-                <p>No Experiences Listed.</p>
-                ) : (
-                experiences && Object.entries(experiences).map(([key, exp]) => (
-                    <div className="experience-holder" key={key}>
-                    <Experience
-                        title={exp.title || "No Title Available"} 
-                        date={exp.date || "No Date Given"}
-                        role={exp.role || "No Role Provided"} 
-                        info={exp.info || "No Information Provided"}
-                        image={exp.image || null} 
-                    />
-                    {currentUser && 
-                        <img
-                        onClick={() => handleDelete(key, exp.title, exp.role, exp.info)}
-                        className="trash"
-                        src = {theme === "light" ? "svgs/trash-black.svg" : "svgs/trash-white.svg"}
-                        alt="Delete"
-                        />
-                    }
-                    </div>
-                ))
-            )}
+            {fetching && <LoadingSection/>}
+
+            {experiences && Object.keys(experiences).length === 0 && !fetching && <p>No Experiences Listed.</p>}
+
+            {experiences != null && Object.entries(experiences)
+                .sort(([keyA, expA], [keyB, expB]) => {
+                    // Extract and parse start date from the `date` field
+                    const startDateA = expA.date ? new Date(expA.date.split(' - ')[0]) : new Date();
+                    const startDateB = expB.date ? new Date(expB.date.split(' - ')[0]) : new Date();
+
+                    // Sort experiences by the parsed start date
+                    return startDateA - startDateB;
+                })
+                .map(([key, exp], index, arr) => {
+                    // Calculate animation delay
+                    
+                    return (
+                        <div 
+                            className="experience-holder" 
+                            key={key} 
+                        >
+                            <Experience
+                                title={exp.title || "No Title Available"}
+                                date={exp.date || "No Date Given"}
+                                role={exp.role || "No Role Provided"}
+                                info={exp.info || "No Information Provided"}
+                                image={exp.image || null}
+                            />
+                            {currentUser && 
+                                <img
+                                    onClick={() => handleDelete(key, exp.title, exp.role, exp.info)}
+                                    className="trash"
+                                    src={theme === "light" ? "svgs/trash-black.svg" : "svgs/trash-white.svg"}
+                                    alt="Delete"
+                                />
+                            }
+                        </div>
+                    );
+                })}
             </div>
+
             
 
             {currentUser != null && (

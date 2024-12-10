@@ -12,11 +12,31 @@ const Contact = () => {
   const [linkedin, setLinkedin] = useState("");
   const [x, setX] = useState("");
   const [saving, setSaving] = useState(false);
+  const [formspreeKey, setFormspreeKey]= useState(null);
 
   // Function to clear the form fields
   const handleClear = (event) => {
     event.preventDefault(); // Prevent any default behavior (like page reload)
     formRef.current.reset(); // Reset all fields in the form
+  };
+
+  useEffect(() => {
+      fetchInfo();
+      fetchFormSpreeKey();
+  }, []);
+
+  const fetchFormSpreeKey = async () => {
+      try {
+          const data = await fetchData("keys");
+          Object.entries(data.keys).forEach(([key, value]) => {
+              if (key === "formspreeKey") {
+                  setFormspreeKey(value);
+              }
+          });
+          // Fetch profile picture after fetching other data
+      } catch (error) {
+          console.error("Error fetching form spree key");
+      }
   };
 
   const handleInputChange = (event) => {
@@ -130,7 +150,7 @@ const Contact = () => {
       )}
       <form
         ref={formRef} // Attach the form reference
-        action="https://formspree.io/f/xkgnaoww"
+        action={`https://formspree.io/${formspreeKey}`}
         method="POST"
         className="contact-form"
       >
@@ -147,7 +167,7 @@ const Contact = () => {
           <textarea id="message" name="message" rows="5" placeholder="Type your message..." required></textarea>
         </div>
         <div id="contact-button-holder">
-          <button type="submit" className="submit-button">Send</button>
+          <button disabled = {formspreeKey == null} type="submit" className="submit-button">{formspreeKey == null ? "Loading...": "Send"}</button>
           <button className="submit-button clear" onClick={handleClear}>Clear</button>
         </div>
       </form>

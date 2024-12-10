@@ -1,6 +1,6 @@
 import "../styles/projects.css";
 import Project from "../comps/project.jsx";
-import Loading from "../comps/loading.jsx";
+import Loading, { LoadingSection } from "../comps/loading.jsx";
 import { AuthContext } from "../comps/authContext.jsx";
 import react, { useState, useContext, useEffect } from "react";
 import fetchData from "../services/fetch-info.js";
@@ -13,6 +13,7 @@ const Projects = () => {
     const [projects, setProjects] = useState([]);
     const { currentUser, logout } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
+    const [fetching, setFetching] = useState(false);
     const {theme} = useContext(ThemeContext);
     const [projectName, setProjectName] = useState("");
     const [info, setInfo] = useState("");
@@ -47,12 +48,16 @@ const Projects = () => {
     // Fetch projects on mount
     useEffect(() => {
         const fetchInfo = async () => {
+            setFetching(true);
             try {
                 const projects = await fetchData("projects");
                 console.log("here ", projects);
                 setProjects(projects);
             } catch (error) {
                 console.error("Error fetching projects:", error);
+            } finally
+            {
+                setFetching(false);
             }
         };
         fetchInfo();
@@ -112,6 +117,57 @@ const Projects = () => {
         setSources(newSources); // Update the state
     };
 
+    const DeleteProject = async(projectID, projectName) =>
+    {
+        setLoading(true);
+        try {
+            console.log(projects)
+            console.log("ID", projectID);
+            // Find the experience that matches the title, role, and info
+            const projectToDelete = projects[projectID];
+            console.log("deleting: ", projectToDelete);
+            if (
+                projectToDelete.projectName === projectName
+            ) {
+                // Proceed to delete this experience from Firestore
+                const projectDocRef = doc(db, "projects", projectID);
+                await deleteDoc(projectDocRef);
+                console.log(`Experience with ID ${projectID} deleted.`);
+                
+                // Remove the experience from local state
+                setProjects((prevProjects) => {
+                    const updatedProjects = { ...prevProjects };
+                    delete updatedProjects[projectID];
+                    return updatedProjects;
+                });
+            } else {
+                console.log("Project details do not match.");
+            }
+        } catch (error) {
+            console.error("Error deleting experience:", error);
+        }
+        setLoading(false);
+    };
+
+    const getIconForSource = (type) => {
+        const iconColor = theme === "light" ? "black" : "white"; // Icon color based on the theme
+        
+        switch (type.trim()) {
+            
+            case "Youtube":
+                return <img className = "source-logo" src={`svgs/icons/youtube-${iconColor}.svg`} alt="YouTube" />;
+            case "Github":
+                return <img className = "source-logo" src={`svgs/icons/github-${iconColor}.svg`} alt="GitHub" />;
+            case "Devpost":
+                return <img className = "source-logo" src={`svgs/icons/devpost-${iconColor}.svg`} alt="Devpost" />;
+            case "Website":
+                return <img className = "source-logo" src={`svgs/icons/website-${iconColor}.svg`} alt="Website" />;
+            default:
+                console.log(type, "NOT HUTTT");
+                return null;
+        }
+    };
+
     // Handle clear button
     const clearForm = () => {
         setProjectName("");
@@ -119,6 +175,8 @@ const Projects = () => {
         setPhoto(null);
         setSkills("");
         setSources([]);  // Clear sources state
+        document.getElementById("source-url").value = "";
+
     };
 
     return (
@@ -126,15 +184,16 @@ const Projects = () => {
             <div className="text-container">
                 <h1>Projects</h1>
                 <p>Front end React web developer currently working for Hastings Direct. Student at the University of Sussex</p>
-            
+
+
                 <div id="project-container">
-                    {projects != null && Object.values(projects).map((project, index) => {
-                        console.log(project);
-                        
+                    {fetching && <LoadingSection />}
+                    {Object.keys(projects).length === 0 && !fetching && <p>No Projects.</p>}
+                    {projects != null && Object.entries(projects).map(([key, project], index) => {
                         return (
-                            <div className="project">
+                            <div className="project" key={key}>
                                 <Project
-                                    key={index}
+                                    key={key}
                                     title={project.projectName}
                                     info={project.info}
                                     photo={project.photo}
@@ -143,7 +202,7 @@ const Projects = () => {
                                 />
                                 {currentUser && 
                                 <img
-                                    onClick={() => handleDelete(key, project.projectName, project.info)}
+                                    onClick={() => DeleteProject(key, project.projectName)}
                                     className="trash topright"
                                     src = "svgs/trash-white.svg"
                                     alt="Delete"
@@ -203,7 +262,7 @@ const Projects = () => {
                             <div id="source-holder">
                                 {sources.length > 0 ? (
                                     sources.map((source, index) => (
-                                        <span key = {index}><p key={index}>{source.type}: {source.url}</p><img onClick={() => handleDelete(index)} src = {theme === "light" ? "svgs/trash-black.svg" : "svgs/trash-white.svg"}></img></span>
+                                        <span key = {index}>{getIconForSource(source.type)}<p key={index}>{source.type}: {source.url}</p><img onClick={() => handleDelete(index)} src = {theme === "light" ? "svgs/trash-black.svg" : "svgs/trash-white.svg"}></img></span>
                                     ))
                                 ) : (
                                     <p>No sources added yet.</p>

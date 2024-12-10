@@ -30,7 +30,7 @@ const Project = ({ title, info, photo, skills, sources }) => {
     };
 
     return (
-        <div target="_blank">
+        <>
             <a className="project-image">
                 <img src={photo} alt={title} />
             </a>
@@ -56,7 +56,7 @@ const Project = ({ title, info, photo, skills, sources }) => {
                     </span>
                 ))}
             </div>
-        </div>
+        </>
     );
 };
 

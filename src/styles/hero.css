@@ -17,12 +17,12 @@
     flex-shrink: 0;
     align-self: flex-start;
     transition: transform 0.3s ease;
+    outline: 3px var(--primary-color) dashed;
+    outline-offset: 6px;
 }
 
 #hero .img-container
 {
-    outline: 3px var(--primary-color) dashed;
-    outline-offset: 6px;
     border-radius: 50%;
     width: 140px !important;
     height: 140px !important;
@@ -30,6 +30,14 @@
 
 .img-container{
     position: relative;
+}
+
+.img-container .loader
+{
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    margin: 0;
 }
 
 .image-loader
@@ -84,7 +92,6 @@
     margin-left: 10px;
     margin-right: 8px;
     border-radius: 50%;
-    transform: translateY(1px);
 }
 
 .discord-span a:hover
@@ -143,7 +150,7 @@
     height: 20px;
     width: auto;
     margin-right: 9px;
-    transform: translateY(3px);
+    margin-top: 1px;
 }
 
 .nowrap
@@ -188,6 +195,7 @@
     padding: 10px;
     border: 2px var(--primary-color-medium-alpha) dashed;
     border-radius: 10px;
+    animation-delay: 0.8s;
 }
 
 .hero-api-info input{

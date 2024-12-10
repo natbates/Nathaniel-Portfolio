@@ -1,7 +1,7 @@
 #login {
     display: flex;
     justify-content:flex-start;
-    width: 100%;
+    width: 600px;
 }
 
 #login .text-container {
