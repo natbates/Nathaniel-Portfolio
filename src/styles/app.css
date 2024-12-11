@@ -47,6 +47,7 @@ html
     margin: auto;
     margin-top: 100px;
     padding: 20px;
+    height: 100% !important;
 }
 
 *, label {
@@ -57,8 +58,18 @@ body {
     color: var(--primary-color);
     background-color: var(--background-color);
     transition: background-color 0.5s ease, color 0.5s ease-out;
+    height: fit-content;
 }
 
+html, body, #root, .page{
+    height: fit-content;
+    height: 0;
+}
+
+#contact
+{
+    padding-bottom: 150px !important;
+}
 
 @media (max-width: 640px) {
     .content{
@@ -81,7 +92,6 @@ body {
     .content
     {
         margin-top: 70px;
-        height: 100%;
     }
 }
 

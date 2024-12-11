@@ -2,10 +2,15 @@
 
 #skill .skill-container
 {
-    margin-bottom: 20px;
-    height: 100%;
+    margin-bottom: 10px;
+    height: auto !important;
     margin-top: 20px;
+    display: flex;
 }
+#skill .skill-container .skill
+{
+}
+
 
 
 #skill .skill-container .skill

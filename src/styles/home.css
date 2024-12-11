@@ -26,6 +26,8 @@
     top: 10px;
 }
 
+
+
 .trash
 {
     width: 18px;
@@ -58,18 +60,7 @@ option
   background-color: var(--background-color)
 }
 
-#home-cover-anim
-{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  background-color: var(--background-color);
-  filter: blur(5px);
-  z-index: 100;
-  animation: flydown 1s linear forwards;
-  transform-origin: bottom center;
-}
+
 
 @keyframes unblur {
   0%{
