@@ -202,7 +202,7 @@ const Experiences = () => {
                                 <img
                                     onClick={() => handleDelete(key, exp.title, exp.role, exp.info)}
                                     className="trash"
-                                    src={theme === "light" ? "svgs/trash-black.svg" : "svgs/trash-white.svg"}
+                                    src="svgs/trash-white.svg"
                                     alt="Delete"
                                 />
                             }
