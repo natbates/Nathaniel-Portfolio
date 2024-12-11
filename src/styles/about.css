@@ -3,10 +3,15 @@
     margin-top: 0px !important;
     margin-bottom: 20px;
 }
+
+#about.container
+{
+    margin-bottom: 0;
+}
+
 .about-info
 {
     margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 
@@ -76,6 +81,7 @@
     padding: 10px;
     border: 2px var(--primary-color-medium-alpha) dashed;
     border-radius: 10px;
+    margin-bottom: 0;
 }
 
 .about-info input{

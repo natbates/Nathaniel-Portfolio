@@ -141,7 +141,6 @@ const About = () => {
                                 className="about-img"
                                 src={img.url}
                                 alt={`About image`}
-                                crossorigin="anonymous"
                             />
                             {currentUser && (
                                 <img

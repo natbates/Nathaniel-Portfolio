@@ -52,13 +52,13 @@ const Hackathons = () =>
 
     function formatDateToMonthYear(dateString) {
         const date = new Date(dateString);
-        
-        // Options to specify how we want the date formatted
-        const options = { year: 'numeric', month: 'long' };
-        
+    
+        // Options to specify how we want the date formatted, including the day
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    
         // Return the formatted date
         return date.toLocaleString('en-US', options);
-      }
+    }    
 
     const DeleteHackathon = async(hackathonID, hackathonTitle) =>
         {
@@ -182,7 +182,7 @@ const Hackathons = () =>
         if (sourceURL && sourceType) {
             const newSource = { type: sourceType, url: sourceURL };
             setSources((prevSources) => [...prevSources, newSource]);
-            document.getElementById("source-url").value = '';  // Clear the input field
+            document.getElementById("hackathon-source-url").value = "";
         } else {
             alert("Please select a source type and provide a URL.");
         }
@@ -201,7 +201,7 @@ const Hackathons = () =>
                 {hackathons!= null && Object.entries(hackathons)
                         .sort(([, a], [, b]) => new Date(a.date) - new Date(b.date)) // Sort hackathons by date
                         .map(([key, hackathon]) => (
-                            <div className="hackathon" key={key}>
+                            <div className = "hackathon-holder" key={key}>
                                 <Hackathon
                                     title={hackathon.title}
                                     info={hackathon.info}

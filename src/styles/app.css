@@ -90,13 +90,12 @@ body {
     .content
     {
         max-width: 90vw;
-        height: 0;
     }
 
     #home
     {
         transform-origin: top center;
-        transform: scale(0.5);
+        transform: scale(0.8);
     }
 
     #contact
@@ -112,5 +111,23 @@ body {
     .page
     {
         padding: 10px;
+    }
+}
+
+@media (max-width: 672px) and (min-width: 503px) {
+    #home {
+        transform: scale(0.8);
+    }
+}
+
+@media (max-width: 502px) and (min-width: 402px) {
+    #home {
+        transform: scale(0.7);
+    }
+}
+
+@media (max-width: 402px) {
+    #home {
+        transform: scale(0.6);
     }
 }

@@ -35,6 +35,19 @@
     transition: transform 0.3s ease;
 }
 
+.analytics
+{
+  position: absolute;
+  left: 20px;
+}
+
+.analytics img
+{
+  transform: translateY(20%);
+  height: 20px;
+  margin-right: 5px;
+}
+
 .trash:hover
 {
     transform: scale(1.05);

@@ -1,11 +1,26 @@
 import "../styles/hackathons.css";
 import { ThemeContext } from "./App";
-import { useContext } from "react";
+import { useContext, useState, useRef } from "react";
 
 const Hackathon = ({title, info, photo, date, location, sources}) =>
     {
 
         const {theme} = useContext(ThemeContext);
+        const [isInfoVisible, setIsInfoVisible] = useState(false); // State to toggle info visibility
+        const [maxHeight, setMaxHeight] = useState("88px"); // Default collapsed height
+        const contentRef = useRef(null); // Reference to the content for height calculation
+    
+        const toggleInfo = () => {
+            if (!isInfoVisible) {
+                // Expand: calculate the height dynamically based on scrollHeight
+                const fullHeight = contentRef.current.scrollHeight + 50;
+                setMaxHeight(`${fullHeight}px`);
+            } else {
+                // Collapse: reset to the initial height
+                setMaxHeight("88px");
+            }
+            setIsInfoVisible((prev) => !prev); // Toggle visibility state
+        };
 
         const getIconForSource = (type) => {
             const iconColor = theme !== "light" ? "black" : "white"; // Icon color based on the theme
@@ -21,17 +36,29 @@ const Hackathon = ({title, info, photo, date, location, sources}) =>
                 case "Website":
                     return <img className = "source-logo" src={`svgs/icons/website-${iconColor}.svg`} alt="Website" />;
                 default:
-                    console.log(type, "NOT HUTTT");
                     return null;
             }
         };
     
         return (
-            <div className = "hackathon">
+            <div
+                className={`hackathon ${isInfoVisible ? "show" : ""}`}
+                style={{ maxHeight: maxHeight, transition: "max-height 0.5s ease" }}
+                onClick={toggleInfo}
+                >
                 <a className = "hackathon-image"><img src = {photo}></img></a>
-                <div className="hackathon-text">
-                    <h1>{title}</h1>
-                    <p>At <span className="hackathon-important">{location}</span> During <span className="hackathon-important">{date}</span></p>
+                <div className="hackathon-text" ref={contentRef}>
+                    <span className="top-line">
+                        <span>
+                            <h1>{title}</h1>
+                            {theme === "light" ? (
+                                <img className="arrow" src="svgs/arrow-black.svg" />
+                            ) : (
+                                <img className="arrow" src="svgs/arrow-white.svg" />
+                            )}
+                        </span>
+                    </span>
+                    <p>At <span className="hackathon-important">{location}</span> | <span>{date}</span></p>
                     <p className = "hackathon-info">{info}</p>
 
                     <div className="link-container">

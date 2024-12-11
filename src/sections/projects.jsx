@@ -20,7 +20,31 @@ const Projects = () => {
     const [skills, setSkills] = useState("");
     const [photo, setPhoto] = useState(null);
     const [sources, setSources] = useState([]);  // Track sources as an array of objects
+    const [github, setGithub]= useState(null);
 
+    // Function to clear the form fields
+    const handleClear = (event) => {
+      event.preventDefault(); // Prevent any default behavior (like page reload)
+      formRef.current.reset(); // Reset all fields in the form
+    };
+  
+    useEffect(() => {
+        fetchGithub();
+    }, []);
+  
+    const fetchGithub = async () => {
+        try {
+            const data = await fetchData("keys");
+            Object.entries(data.keys).forEach(([key, value]) => {
+                if (key === "github") {
+                    setGithub(value);
+                }
+            });
+            // Fetch profile picture after fetching other data
+        } catch (error) {
+            console.error("Error fetching github URL");
+        }
+    };
     // Handle input changes
     const handleInputChange = (event) => {
         const { id, value } = event.target;
@@ -183,7 +207,7 @@ const Projects = () => {
         <div id="projects" className="container">
             <div className="text-container">
                 <h1>Projects</h1>
-                <p>Here are some of my favouite projects I have worked on. They are all open source and were great learning experiences. I have plenty more projects in development and i list them on my Github profile page!</p>
+                <p>Here are some of my favouite projects I have worked on. They are all open source and were great learning experiences. I have plenty more projects in development and i list them on my <a className = "highlighted" target = "_blank" href={github}>Github profile page!</a></p>
 
 
                 <div id="project-container">

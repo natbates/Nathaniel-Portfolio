@@ -4,7 +4,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 15px;
-    margin-top: 40px;
+    margin-top: 20px;
     margin-bottom: 30px;
     position: relative;
 }
@@ -22,6 +22,7 @@
     transform-origin: top center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     position: relative;
+    overflow: hidden;
 }
 
 .project:hover
@@ -37,6 +38,7 @@
     width: 100%;
     border: none;
     overflow: hidden;
+    
 }
 
 .project-image img
@@ -84,8 +86,9 @@
 .project .skill-container
 {
     margin-left: 8px;
-    overflow-x: hidden;
-    height: 29.5px;
+    overflow: hidden;
+    height: 32.5px !important; 
+    margin-top: 5px;
 }
 
 .project .link-container
@@ -96,6 +99,7 @@
     margin-top: 10px;
     margin-bottom: 5px;
     margin-left: 3px;
+    width: 90%;
 }
 
 .project .skill-container .skill
@@ -110,20 +114,27 @@
 .project-text
 {
     min-height: 150px;
-    overflow-y: hidden;
     color: var(--primary-color);
     text-decoration: none !important;
     padding: 8px;
     box-sizing: border-box;
+    margin-bottom: 5px;
 }
 
 .project-text h1{
     font-size: 19px;
+    margin-bottom: 3px;
 }
 
 .project-text p{
     font-size: 15px;
     color: #c3c3c3 !important;;
+    overflow-y: auto;
+    height: 100px;
+    padding-bottom: 0;
+    padding-right: 10px;
+    width: 97%;
+    scroll-behavior: smooth;
 }
 
 .source-logo
@@ -140,7 +151,8 @@
     height: 28px;
     display: flex;            
     flex-wrap: nowrap;         
-    align-items: center;     
+    align-items: center;    
+    overflow: hidden; 
 }
 
 .link {
@@ -239,4 +251,33 @@
         width: 100%;
         height: 347px;;
     }
+}
+
+
+
+
+/* WebKit-based browsers (Chrome, Edge, Safari) */
+.project-text p::-webkit-scrollbar {
+    width: 8px; /* Set the scrollbar width */
+}
+
+.project-text p::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Background of the scrollbar track */
+    border-radius: 10px; /* Round edges for the track */
+}
+
+.project-text p::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Round edges for the thumb */
+    border: 2px solid #f1f1f1; /* Add some space and contrast */
+}
+
+.project-text p::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker color on hover for better feedback */
+}
+
+/* Firefox-specific styling */
+.project-text p {
+    scrollbar-color: #888 #f1f1f1; /* Thumb color, Track color */
+    scrollbar-width: thin; /* Make the scrollbar thinner */
 }

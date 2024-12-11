@@ -29,11 +29,6 @@
     opacity: 0.3 !important;
 }
 
-.experience.show .arrow
-{
-    transform: rotate(90deg) !important;
-}
-
 .arrow
 {
     position: absolute;
@@ -51,6 +46,12 @@
     opacity: 1 !important;
     right: -15px;
 }
+
+.experience.show .arrow
+{
+    transform: rotate(90deg) !important;
+}
+
 
 .experience-text
 {
