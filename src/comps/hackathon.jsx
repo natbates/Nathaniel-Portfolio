@@ -7,7 +7,7 @@ const Hackathon = ({title, info, photo, date, location, sources}) =>
 
         const {theme} = useContext(ThemeContext);
         const [isInfoVisible, setIsInfoVisible] = useState(false); // State to toggle info visibility
-        const [maxHeight, setMaxHeight] = useState("88px"); // Default collapsed height
+        const [maxHeight, setMaxHeight] = useState("86px"); // Default collapsed height
         const contentRef = useRef(null); // Reference to the content for height calculation
     
         const toggleInfo = () => {
@@ -17,7 +17,7 @@ const Hackathon = ({title, info, photo, date, location, sources}) =>
                 setMaxHeight(`${fullHeight}px`);
             } else {
                 // Collapse: reset to the initial height
-                setMaxHeight("88px");
+                setMaxHeight("86px");
             }
             setIsInfoVisible((prev) => !prev); // Toggle visibility state
         };

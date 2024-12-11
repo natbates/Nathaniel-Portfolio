@@ -67,7 +67,7 @@ option
   background-color: var(--background-color);
   filter: blur(5px);
   z-index: 100;
-  animation: flydown 1.3s ease-in-out forwards;
+  animation: flydown 1s linear forwards;
   transform-origin: bottom center;
 }
 
@@ -81,11 +81,17 @@ option
 }
 
 @keyframes flydown {
-  0%{
+  0% {
     transform: scaleX(1.5) scaleY(1);
+    opacity: 1;
   }
-  100%{
+  99% {
+    transform: scaleX(1.5) scaleY(0.01); /* Near-zero but not fully collapsed */
+    opacity: 1;
+  }
+  100% {
     transform: scaleX(1.5) scaleY(0);
+    opacity: 0; /* Fully invisible */
   }
 }
 

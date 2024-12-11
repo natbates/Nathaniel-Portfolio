@@ -19,6 +19,7 @@
     transition: transform 0.3s ease;
     outline: 3px var(--primary-color) dashed;
     outline-offset: 6px;
+    transform: translateY(15px);
 }
 
 #hero .img-container
