@@ -44,6 +44,7 @@ const Hackathons = () =>
     const clearForm = () => {
         setTitle("");
         setInfo("");
+        setLocation("");
         setPhoto(null);
         setDate("");
         setSources([]);  // Clear sources state
