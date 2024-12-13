@@ -67,6 +67,7 @@
 {
     background-color: transparent;
     margin-bottom: 10px;
+    color: var(--primary-color);
 }
 
 .add-skill-form button
