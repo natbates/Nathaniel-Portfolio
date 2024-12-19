@@ -13,7 +13,6 @@ const Home = () =>
 
     return(
         <div id = "home">
-            <div id = "home-cover-anim"></div>
             <Hero />
             <About />
             <Experiences />
