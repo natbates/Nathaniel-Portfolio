@@ -220,27 +220,33 @@ const Hero = () => {
 
     const handlePresenceUpdate = (data) => {
 
-        if (data.discord_status != undefined){
-            console.log("STATUS", data.discord_status);
-            const status = data.discord_status || "offline";
-            setDiscordStatus({ status });
-        }
 
-        if (data.spotify && data.listening_to_spotify) {
-            setCurrentSongData({
-                item: {
-                    name: data.spotify.song,
-                    artists: [{ name: data.spotify.artist, external_urls: { spotify: data.spotify.artist_url } }],
-                    external_urls: {
-                        songlink: `https://open.spotify.com/track/${data.spotify.track_id}`,
-                        artist_url: `https://open.spotify.com/search/${data.spotify.artist}`
+        if (Object.keys(data).length !== 0)
+        {
+            if (data.discord_status != undefined){
+                console.log("STATUS", data.discord_status);
+                const status = data.discord_status || "offline";
+                setDiscordStatus({ status });
+            }
+
+            console.log(data);
+
+            if (data.spotify && data.listening_to_spotify) {
+                setCurrentSongData({
+                    item: {
+                        name: data.spotify.song,
+                        artists: [{ name: data.spotify.artist, external_urls: { spotify: data.spotify.artist_url } }],
+                        external_urls: {
+                            songlink: `https://open.spotify.com/track/${data.spotify.track_id}`,
+                            artist_url: `https://open.spotify.com/search/${data.spotify.artist}`
+                        },
                     },
-                },
-            });
-            setSpotifyError(null);
-        } else {
-            setCurrentSongData(null);  // Reset to null if not listening to Spotify
-            setSpotifyError("User is not currently listening to Spotify.");
+                });
+                setSpotifyError(null);
+            } else {
+                setCurrentSongData(null);  // Reset to null if not listening to Spotify
+                setSpotifyError("User is not currently listening to Spotify.");
+            }
         }
     };
     return (
