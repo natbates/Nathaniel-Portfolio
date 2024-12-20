@@ -11,8 +11,8 @@ const handleUpload = async (file) => {
                 pinata_secret_api_key: "560004237e1b411365aedba212c2bbf9938fcc2cfc1db9fe54ee8f723b2cf111",
             },
         });
-        console.log("Uploaded Image URL:", `https://yellow-fantastic-weasel-360.mypinata.cloud/ipfs/${res.data.IpfsHash}`);
-        return `https://yellow-fantastic-weasel-360.mypinata.cloud/ipfs/${res.data.IpfsHash}`;
+        console.log("Uploaded Image URL:", `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`);
+        return `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`;
     } catch (error) {
         console.error("Error uploading to Pinata:", error);
         throw new Error("Error uploading file.");
