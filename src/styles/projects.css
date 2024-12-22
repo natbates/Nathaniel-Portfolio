@@ -38,7 +38,10 @@
     width: 100%;
     border: none;
     overflow: hidden;
-    
+    position: relative;
+    display: flex;
+    justify-content: center; /* Horizontal centering */
+    align-items: center;
 }
 
 .project-image img

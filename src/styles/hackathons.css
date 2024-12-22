@@ -61,6 +61,14 @@
     border: 2px var(--primary-color-medium-alpha) dashed;
     transition: background-color 0.5s ease;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hackathon-image span
+{
+    margin: 0;
 }
 
 .hackathon .top-line

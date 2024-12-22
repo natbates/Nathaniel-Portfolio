@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "./App";
 import "../styles/projects.css";
+import { LoadingSection } from "./loading";
 
 const Project = ({ title, info, photo, skills, sources }) => {
-    // Split skills by comma and trim any extra spaces around each skill
-    const skillList = skills ? skills.split(',').map(skill => skill.trim()) : [];
 
+    const skillList = skills ? skills.split(',').map(skill => skill.trim()) : [];
     const hasSkills = skillList.length > 0 && skillList.some(skill => skill.length > 0);
 
     const { theme } = useContext(ThemeContext);
@@ -24,16 +24,23 @@ const Project = ({ title, info, photo, skills, sources }) => {
             case "Website":
                 return <img className = "source-logo" src={`svgs/icons/website-${iconColor}.svg`} alt="Website" />;
             default:
-                console.log(type, "NOT HUTTT");
                 return null;
         }
     };
 
+    photo = null;
+
     return (
         <>
-            <a className="project-image">
-                <img src={photo} alt={title} />
-            </a>
+            {photo != null ? 
+
+                <a className="project-image">
+                    <img src={photo} alt={title} />
+                </a>
+                :
+                <a className="project-image"><LoadingSection centered = {true}/></a>
+            }
+            
             <div className="project-text">
                 <h1>{title}</h1>
                 <p>{info}</p>

@@ -101,6 +101,7 @@ option
   overflow: 0;
 }
 
+
 .social-loader
 {
   width: 12px !important;
@@ -108,7 +109,8 @@ option
   margin: 0;
   margin-top: 6px;
 }
-  
+
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useContext } from "react";
 import "../styles/experience.css";
 import { ThemeContext } from './App';
+import { Loading, LoadingSection } from "./loading";
 
 const Experience = ({ title, role, info, image, date }) => {
 
@@ -21,15 +22,24 @@ const Experience = ({ title, role, info, image, date }) => {
         setIsInfoVisible((prev) => !prev); // Toggle visibility state
     };
 
+    image = null;
+
     return (
         <div
             className={`experience ${isInfoVisible ? "show" : ""}`}
             style={{ maxHeight: maxHeight, transition: "max-height 0.5s ease" }}
             onClick={toggleInfo}
         >
-            <div className="experience-image">
-                <img src={image}></img>
-            </div>
+            {image != null ?
+                <div className="experience-image">
+                    <img src={image}></img>
+                </div>
+                :
+                <div className="experience-image">
+                    <Loading />
+                </div>
+            }
+
             <div className="experience-text" ref={contentRef}>
             <span className="top-line">
                 <span>

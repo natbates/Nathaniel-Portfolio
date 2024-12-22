@@ -8,7 +8,6 @@ export const Loading = () =>
     );
 }
 
-
 export const LoadingSection = ({ delay = "0s" }) => {
     return (
         <span

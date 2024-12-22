@@ -133,13 +133,22 @@
     margin: 0;
     box-sizing: border-box;
     flex-grow: 1;
+    display: flex;
+    justify-content: center; 
+    border: 1px rgba(128, 128, 128, 0.103) solid;
+    align-items: center;
+}
+
+.experience-image span
+{
+    margin: 0;
 }
 
 .experience-image img
 {
     width: 100%;
     height: 100%;
-    object-fit: cover;          /* Maintain the image aspect ratio and crop to fill the area */
+    object-fit: cover;         
     object-position: center; 
     border-radius: 50%;
     box-sizing: border-box;

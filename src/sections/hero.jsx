@@ -249,6 +249,8 @@ const Hero = () => {
             }
         }
     };
+
+
     return (
         <div id="hero">
             <div className="container-profile">
@@ -259,20 +261,23 @@ const Hero = () => {
                     <p>Front end React web developer currently working for Hastings Direct. Student at the <span className="highlighted">University of Sussex</span></p>
                 </div>
                 <div className="img-container">
-                    {profilePicture == null && <LoadingSection/>}
-                    <img 
-                        onClick={handleProfileClick} 
-                        className={`${currentUser !== null ? "edit" : ""} ${isUploading ? "uploading" : ""}`} 
-                        src={profilePicture || "default-image-url.jpg"} 
-                    />
-                    <input 
-                        ref={fileInputRef} 
-                        type="file" 
-                        accept="image/*" 
-                        style={{ display: "none" }} 
-                        onChange={handleFileChange} 
-                        disabled={currentUser==null}
-                    />
+                    {profilePicture == null ? <LoadingSection/>:
+                    <>
+                        <img 
+                            onClick={handleProfileClick} 
+                            className={`${currentUser !== null ? "edit" : ""} ${isUploading ? "uploading" : ""}`} 
+                            src={profilePicture || "default-image-url.jpg"} 
+                        />
+                        <input 
+                            ref={fileInputRef} 
+                            type="file" 
+                            accept="image/*" 
+                            style={{ display: "none" }} 
+                            onChange={handleFileChange} 
+                            disabled={currentUser==null}
+                        />
+                    </>
+                    }
                 </div>
             </div>
 

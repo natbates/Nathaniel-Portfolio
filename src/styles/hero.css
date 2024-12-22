@@ -17,16 +17,16 @@
     flex-shrink: 0;
     align-self: flex-start;
     transition: transform 0.3s ease;
-    outline: 3px var(--primary-color) dashed;
-    outline-offset: 6px;
-    transform: translateY(15px);
 }
 
 #hero .img-container
 {
     border-radius: 50%;
-    width: 140px !important;
     height: 140px !important;
+    max-width: 140px;
+    min-width: 140px;
+    outline: 3px var(--primary-color) dashed;
+    outline-offset: 6px;
 }
 
 .img-container{

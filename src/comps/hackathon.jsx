@@ -1,6 +1,7 @@
 import "../styles/hackathons.css";
 import { ThemeContext } from "./App";
 import { useContext, useState, useRef } from "react";
+import { Loading, LoadingSection } from "./loading";
 
 const Hackathon = ({title, info, photo, date, location, sources}) =>
     {
@@ -39,6 +40,8 @@ const Hackathon = ({title, info, photo, date, location, sources}) =>
                     return null;
             }
         };
+
+        photo = null;
     
         return (
             <div
@@ -46,7 +49,13 @@ const Hackathon = ({title, info, photo, date, location, sources}) =>
                 style={{ maxHeight: maxHeight, transition: "max-height 0.5s ease" }}
                 onClick={toggleInfo}
                 >
+                {photo != null ? 
                 <a className = "hackathon-image"><img src = {photo}></img></a>
+                :
+                <a className= "hackathon-image">
+                    <Loading />
+                </a>
+                }
                 <div className="hackathon-text" ref={contentRef}>
                     <span className="top-line">
                         <span>
