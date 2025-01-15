@@ -103,7 +103,7 @@
     transform: scale(1.03) translateY(31px) !important;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 715px) {
     .about-image-holder .about-img-container 
     {
         width: 40vw;
