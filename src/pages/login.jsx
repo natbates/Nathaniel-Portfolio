@@ -43,11 +43,8 @@ const Login = () => {
         try {
             const { user, status } = await signIn(currentUser, email, password);
             if (user) {
-                console.log(status);
                 navigate("/"); // Redirect to a private page
-            } else {
-                console.log(status);
-            }
+            } 
         } catch (error) {
             console.error(error);
             setErrorMessage("Login failed, please try again.");

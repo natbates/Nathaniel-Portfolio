@@ -22,8 +22,6 @@ const Experience = ({ title, role, info, image, date }) => {
         setIsInfoVisible((prev) => !prev); // Toggle visibility state
     };
 
-    image = null;
-
     return (
         <div
             className={`experience ${isInfoVisible ? "show" : ""}`}

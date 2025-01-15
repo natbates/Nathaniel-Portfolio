@@ -102,7 +102,6 @@ const Hero = () => {
         setIsUploading(true);
 
         try {
-            console.log("Uploading file...");
 
             const url = await handleUpload(file); // Assuming handleUpload returns the file URL
             
@@ -125,7 +124,6 @@ const Hero = () => {
                 profile_pic: newProfilePicUrl, // Setting the new URL
             });
 
-            console.log("Successfully updated profile pic in Firestore");
         } catch (error) {
             console.error("Error updating profile picture in Firestore", error);
         }
@@ -182,10 +180,8 @@ const Hero = () => {
             };
 
             newSocket.onerror = (error) => {
-                console.log("WebSocket Error: ", error);
                 if (retryCount < maxRetries) {
                     retryCount++;
-                    console.log(`Connection failed, retrying... (${retryCount}/${maxRetries})`);
                     setTimeout(connectWebSocket, 2000);
                 } else {
                     setDiscordError("Unable to connect to Discord after multiple attempts");
@@ -224,12 +220,9 @@ const Hero = () => {
         if (Object.keys(data).length !== 0)
         {
             if (data.discord_status != undefined){
-                console.log("STATUS", data.discord_status);
                 const status = data.discord_status || "offline";
                 setDiscordStatus({ status });
             }
-
-            console.log(data);
 
             if (data.spotify && data.listening_to_spotify) {
                 setCurrentSongData({

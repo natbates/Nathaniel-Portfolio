@@ -28,8 +28,6 @@ const Project = ({ title, info, photo, skills, sources }) => {
         }
     };
 
-    photo = null;
-
     return (
         <>
             {photo != null ? 

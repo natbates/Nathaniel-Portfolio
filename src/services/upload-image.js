@@ -7,11 +7,10 @@ const handleUpload = async (file) => {
     try {
         const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
             headers: {
-                pinata_api_key: "016ee06283bd28f58f65",
-                pinata_secret_api_key: "560004237e1b411365aedba212c2bbf9938fcc2cfc1db9fe54ee8f723b2cf111",
+                pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+                pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_API_KEY,
             },
         });
-        console.log("Uploaded Image URL:", `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`);
         return `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`;
     } catch (error) {
         console.error("Error uploading to Pinata:", error);

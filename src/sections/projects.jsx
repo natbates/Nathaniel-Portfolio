@@ -75,7 +75,6 @@ const Projects = () => {
             setFetching(true);
             try {
                 const projects = await fetchData("projects");
-                console.log("here ", projects);
                 setProjects(projects);
             } catch (error) {
                 console.error("Error fetching projects:", error);
@@ -114,11 +113,9 @@ const Projects = () => {
                 skills,
                 sources
             };
-            console.log("adding ", newProject);
             
             // Step 3: Add the new project to Firestore
             const docRef = await addDoc(collection(db, "projects"), newProject);
-            console.log("Document written with ID:", docRef.id);
 
             // Step 4: Update the local state to include the new project
             setProjects((prevProjects) => ({
@@ -145,18 +142,14 @@ const Projects = () => {
     {
         setLoading(true);
         try {
-            console.log(projects)
-            console.log("ID", projectID);
             // Find the experience that matches the title, role, and info
             const projectToDelete = projects[projectID];
-            console.log("deleting: ", projectToDelete);
             if (
                 projectToDelete.projectName === projectName
             ) {
                 // Proceed to delete this experience from Firestore
                 const projectDocRef = doc(db, "projects", projectID);
                 await deleteDoc(projectDocRef);
-                console.log(`Experience with ID ${projectID} deleted.`);
                 
                 // Remove the experience from local state
                 setProjects((prevProjects) => {
@@ -164,8 +157,6 @@ const Projects = () => {
                     delete updatedProjects[projectID];
                     return updatedProjects;
                 });
-            } else {
-                console.log("Project details do not match.");
             }
         } catch (error) {
             console.error("Error deleting experience:", error);
@@ -187,7 +178,6 @@ const Projects = () => {
             case "Website":
                 return <img className = "source-logo" src={`svgs/icons/website-${iconColor}.svg`} alt="Website" />;
             default:
-                console.log(type, "NOT HUTTT");
                 return null;
         }
     };

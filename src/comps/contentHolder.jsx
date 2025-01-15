@@ -60,7 +60,7 @@ const ContentHolder = () => {
         <div className="page">
             <Router>
                 {auth.currentUser == null ? (
-                    <p className="logged-text">Logged Out</p>
+                    <></>
                 ) : (
                     <>
                         <span className="analytics">

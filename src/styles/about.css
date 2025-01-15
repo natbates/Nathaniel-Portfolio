@@ -111,7 +111,7 @@
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 580px) {
     .about-image-holder .about-img-container 
     {
         width: 100%;

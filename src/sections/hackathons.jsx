@@ -30,7 +30,6 @@ const Hackathons = () =>
             setFetching(true);
             try {
                 const hackathons = await fetchData("hackathons");
-                console.log("here ", hackathons);
                 setHackathons(hackathons);
             } catch (error) {
                 console.error("Error fetching hackathons:", error);
@@ -65,17 +64,14 @@ const Hackathons = () =>
         {
             setLoading(true);
             try {
-                console.log("ID", hackathonID);
                 // Find the experience that matches the title, role, and info
                 const hackathonToDelete = hackathons[hackathonID];
-                console.log("deleting: ", hackathonToDelete);
                 if (
                     hackathonToDelete.title === hackathonTitle
                 ) {
                     // Proceed to delete this experience from Firestore
                     const hackathonDocRef = doc(db, "hackathons", hackathonID);
                     await deleteDoc(hackathonDocRef);
-                    console.log(`Hackathon with ID ${hackathonID} deleted.`);
                     
                     // Remove the experience from local state
                     setHackathons((prevHackathons) => {
@@ -83,8 +79,6 @@ const Hackathons = () =>
                         delete updatedHackathons[hackathonID];
                         return updatedHackathons;
                     });
-                } else {
-                    console.log("Hackathon details do not match.");
                 }
             } catch (error) {
                 console.error("Error deleting hackathon:", error);
@@ -119,11 +113,9 @@ const Hackathons = () =>
                 location,
                 sources
             };
-            console.log("adding ", newHackathon);
             
             // Step 3: Add the new project to Firestore
             const docRef = await addDoc(collection(db, "hackathons"), newHackathon);
-            console.log("Document written with ID:", docRef.id);
 
             // Step 4: Update the local state to include the new project
             setHackathons((prevHackathons) => ({
@@ -154,7 +146,6 @@ const Hackathons = () =>
             case "Website":
                 return <img className = "source-logo" src={`svgs/icons/website-${iconColor}.svg`} alt="Website" />;
             default:
-                console.log(type, "NOT HUTTT");
                 return null;
         }
     };

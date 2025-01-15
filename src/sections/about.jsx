@@ -43,9 +43,7 @@ const About = () => {
     
         setUploading(true);
     
-        try {
-            console.log("Uploading images");
-    
+        try {    
             // Upload the current files
             const urls = await handleMultipleUpload(imageFiles); // This will return an array of URLs
     
@@ -91,10 +89,6 @@ const About = () => {
 
     const handleDeleteImage = async (imageUrl, docId) => {
 
-
-        console.log("IMAGE URL", imageUrl);
-        console.log("DOC ID", docId);
-
         if (uploading) return;
 
         setUploading(true);
@@ -104,8 +98,6 @@ const About = () => {
             const docRef = doc(db, "about-photos", docId); // Reference to the specific document
             await deleteDoc(docRef); // Delete the document from Firestore
             
-            console.log("Image deleted from Firestore");
-
             // 2. Update the UI state to remove the image
             setAboutImages((prevImages) => prevImages.filter((img) => img.url !== imageUrl));
         } catch (error) {

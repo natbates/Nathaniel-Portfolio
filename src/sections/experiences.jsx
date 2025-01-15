@@ -39,7 +39,6 @@ const Experiences = () => {
             setFetching(true);
             try {
                 const exp = await fetchData("experiences");
-                console.log("here ", exp);
                 setExperiences(exp);
                 
             } catch (error) {
@@ -102,7 +101,6 @@ const Experiences = () => {
     
             // Step 3: Add the new experience to Firestore
             const docRef = await addDoc(collection(db, "experiences"), newExperience);
-            console.log("Document written with ID:", docRef.id);
     
             // Step 4: Update the local state to include the new experience
             setExperiences((prevExperiences) => ({
@@ -142,7 +140,6 @@ const Experiences = () => {
                 // Proceed to delete this experience from Firestore
                 const expDocRef = doc(db, "experiences", expId);
                 await deleteDoc(expDocRef);
-                console.log(`Experience with ID ${expId} deleted.`);
                 
                 // Remove the experience from local state
                 setExperiences((prevExperiences) => {
@@ -150,8 +147,6 @@ const Experiences = () => {
                     delete updatedExperiences[expId];
                     return updatedExperiences;
                 });
-            } else {
-                console.log("Experience details do not match.");
             }
         } catch (error) {
             console.error("Error deleting experience:", error);
