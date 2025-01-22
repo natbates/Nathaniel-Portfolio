@@ -110,7 +110,7 @@ const Hero = () => {
                 await updateProfilePictureInFirestore(url); // Update Firestore DB
             }
         } catch (error) {
-            console.log("Error uploading profile picture", error);
+            console.error("Error uploading profile picture", error);
         } finally {
             setIsUploading(false);  // Reset uploading status
         }

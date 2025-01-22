@@ -101,7 +101,7 @@ const Projects = () => {
         try {
             imageUrl = await handleUpload(photo);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
 
         try {

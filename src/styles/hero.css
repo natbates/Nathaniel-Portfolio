@@ -16,7 +16,10 @@
     object-fit: cover;
     flex-shrink: 0;
     align-self: flex-start;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, outline-offset 0.3s ease, filter 0.3s ease;
+    outline: 3px var(--primary-color) dashed;
+    outline-offset: 6px;
+    transform-origin: bottom center;
 }
 
 #hero .img-container
@@ -25,8 +28,6 @@
     height: 140px !important;
     max-width: 140px;
     min-width: 140px;
-    outline: 3px var(--primary-color) dashed;
-    outline-offset: 6px;
 }
 
 .img-container{
@@ -51,7 +52,9 @@
 
 #hero .container-profile img.edit:hover
 {
-    transform: scale(1.05);
+    transform: scale(1.02);
+    filter: brightness(0.8);
+    outline-offset: 0px;
 }
 
 #hero .container-profile .text-container
@@ -70,6 +73,7 @@
 #hero h1 {
     font-size: 50px !important;
     margin: 0;
+    margin-bottom: 5px;
 }
 
 #hero p {
@@ -161,7 +165,7 @@
 
 .song
 {
-    max-width: 250px;
+    max-width: 190px;
     text-overflow: ellipsis;
     overflow: hidden;
     text-wrap: nowrap;
