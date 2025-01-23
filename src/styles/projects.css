@@ -7,8 +7,67 @@
     margin-top: 20px;
     margin-bottom: 30px;
     position: relative;
+    overflow-y: hidden;
+    transition: height 0.3s ease;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
 }
 
+#show-more-projects
+{
+    position: relative;
+    width: 98%;
+    background-color: var(--primary-color-medium-alpha);
+    height: 1px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#show-more-projects-button
+{
+    position: absolute;
+    left: 50px;
+    width: 50px;
+    height: 50px;
+    top: -25px;
+    border-radius: 50%;
+    background-color: var(--background-color);
+    border: 1px var(--primary-color-medium-alpha) solid;
+    transform-origin: center;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#show-more-projects-button::after {
+    content: attr(data-tooltip); 
+    position: absolute;
+    bottom: 100%;
+    left: 180%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1000; /* Ensure it appears above other elements */
+    font-size: 12px;
+}
+
+#show-more-projects-button:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.show-more-arrow {
+    width: 30%;
+    height: 60%;
+    transform: rotate(90deg);
+}
 
 .project
 {
@@ -28,7 +87,7 @@
 .project:hover
 {
     transform: scale(1.005);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); 
 
 }
 
@@ -189,6 +248,7 @@
     border: 2px var(--primary-color-medium-alpha) dashed;
     border-radius: 10px;
     box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 .add-project-form
@@ -218,11 +278,11 @@
 
 .topright
 {
-    position: absolute;
     background-color: rgb(78, 78, 78);
     border-radius: 50%;
     padding: 5px;
-    right: 15px;
+    position: absolute;
+    right: 10px;
 }
 
 .topright:hover
@@ -247,6 +307,112 @@
     transform: scale(1.03);
 }
 
+.star-container{
+    display: flex;
+    width: 50px !important;
+    align-items: center;
+    padding-top: 15px;
+}
+  
+.star {
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    cursor: pointer;
+}
+  
+.star-icon {
+    display: block;
+    transition: all .2s ease-in;
+    color: #4646463d;
+}
+  
+.starred .star-icon {
+    color: #f6c342;
+}
+  
+.starred {
+    animation: spin .6s forwards;
+    transform-origin: 50% 50%;
+    transition-timing-function: ease-in-out;
+}
+  
+.starred .star-icon {
+    animation: spin .6s forwards;
+    transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    transition-timing-function: ease-in-out;
+}
+
+.invisible .star-icon
+{
+    display: none;
+}
+
+.project-star
+{
+    position: absolute;
+    left: 5;
+    top: 0;
+    transform: scale(0.6);
+    transform-origin: top left;
+}
+  
+.unstarred .star-icon {
+    animation: unspin .3s forwards;
+    transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    transition-timing-function: ease-in-out;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    33% {
+        transform: rotate(175deg);
+    }
+    66% {
+        transform: rotate(120deg);
+    }
+    100% {
+        transform: rotate(144deg);
+    }
+}
+
+@keyframes unspin {
+    0% {
+        transform: rotate(142deg);
+    }
+    100% {
+        transform: rotate(72deg);
+    }
+}
+
+@keyframes hop {
+    0% {
+        transform: translate(0, 0px);
+    }
+    17% {
+        transform: translate(2px, -10px);
+    }
+    33% {
+        transform: translate(4px, 0px);
+    }
+    50% {
+        transform: translate(-2px, -7px);
+    }
+    66% {
+        transform: translate(-4px, -0px);
+    }
+    84% {
+        transform: translate(-2, -5px);
+    }
+    100% {
+        transform: translate(0, 0px);
+    }
+}
+
 @media (max-width: 730px) {
     #project-container
     {
@@ -256,7 +422,8 @@
     .project
     {
         width: 100%;
-        height: 347px;;
+        height: 347px !important;
+        flex-shrink: 0;
     }
 }
 

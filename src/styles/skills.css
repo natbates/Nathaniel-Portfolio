@@ -41,7 +41,7 @@
 
 .skill.deletion:hover
 {
-    background-color: #f90e0e9f;
+    background-color: #ffffff9f;
     cursor: pointer;
 }
 
@@ -53,6 +53,7 @@
     border: 2px var(--primary-color-medium-alpha) dashed;
     border-radius: 10px;
     box-sizing: border-box;
+    margin-top: 20px;
 }
 
 .add-skill-form

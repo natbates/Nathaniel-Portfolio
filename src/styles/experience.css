@@ -185,6 +185,7 @@
     border: 2px var(--primary-color-medium-alpha) dashed;
     border-radius: 10px;
     box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 .add-experience-form
