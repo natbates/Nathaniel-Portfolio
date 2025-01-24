@@ -1,7 +1,7 @@
 {
     "name": "portfolio",
     "version": "1.0.0",
-    "description": "kye portfolio",
+    "description": "my portfolio",
     "main": "index.js",
     "scripts": {
         "start": "react-scripts start",
