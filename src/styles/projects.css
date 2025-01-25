@@ -42,7 +42,7 @@
 #show-more-projects-button::after {
     content: attr(data-tooltip); 
     position: absolute;
-    bottom: 100%;
+    bottom: -50%;
     left: 180%;
     transform: translateX(-50%);
     background-color: var(--primary-color);
