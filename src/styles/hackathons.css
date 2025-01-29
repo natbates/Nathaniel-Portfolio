@@ -133,9 +133,17 @@
     padding-bottom: 15px;
 }
 
+.hackathon-text span
+{
+    width: 99%;
+}
+
 .hackathon-text h1{
-    font-size: 19px;
+    font-size: 18.5px;
     margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
 }
 
 .hackathon-text p{

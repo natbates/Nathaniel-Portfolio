@@ -9,8 +9,6 @@ export const signIn = async (currentUser, email, password) => {
     if (currentUser && currentUser.email === email) {
         return { status: "already_signed_in", user: currentUser }; // Return a special value
     }
-
-
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
