@@ -213,7 +213,7 @@
 
     .top-line 
     {
-        height: 50px;
+        height: fit-content;
     }
 
     .top-line span
