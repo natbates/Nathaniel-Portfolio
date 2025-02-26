@@ -80,14 +80,14 @@
 {
     width: auto;
     height: 50%;
-    right: -20px;
+    right: -10px;
     top: 7px;
 }
 
 .hackathon:hover .arrow
 {
     opacity: 1 !important;
-    right: -25px;
+    right: -15px;
 }
 
 .hackathon.show .arrow
