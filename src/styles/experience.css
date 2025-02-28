@@ -211,14 +211,14 @@
         transform: translateY(10px);
     }
 
-    .top-line 
+    .experience-text .top-line 
     {
         height: fit-content;
     }
 
-    .top-line span
+    .experience-text .top-line span
     {
-        height: fit-content;
+        height: 45px;
     }
 
     .arrow
