@@ -115,7 +115,7 @@ const About = () => {
                 <h1>About</h1>
                 <p>  
                     For me, every day is a chance to learn something new.
-                    I’m passionate about computer science and front-end development, but I also love game design and building computers! 
+                    I’m passionate about computer science and <span className="highlighted">front-end development</span>, but I also love game design and building computers! 
                     Outside of tech, I enjoy hitting the gym 💪, going on hikes 🥾, and playing guitar 🎸.  
                 </p>
             </div>
