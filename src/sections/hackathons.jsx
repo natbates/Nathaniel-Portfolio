@@ -184,7 +184,7 @@ const Hackathons = () =>
         <div id = "hackathons" className = "container">
             <div className = "text-container">
                 <h1>Hackathons</h1>
-                <p>These are all the Hackathons I have attended. I have learnt so much and met so many interesting people throughout these events! And it even landedd me my first job!</p>
+                <p>These are all the Hackathons I have attended. I have learnt so much and met so many interesting people throughout these events, some of which I even got to <span className="highlighted">Help out</span> with! One of the rewards in the 2024 Hackathon helped me land my first proper job as a developer at Hastings Direct!</p>
 
                 <div id="hackathon-container">
                 {fetching && <LoadingSection />}

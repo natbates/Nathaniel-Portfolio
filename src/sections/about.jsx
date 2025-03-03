@@ -113,10 +113,10 @@ const About = () => {
         <div id="about" className="container">
             <div className="text-container">
                 <h1>About</h1>
-                <p>
-                    I'm currently learning something new every day. My main passion involves computer
-                    science and front-end web development, but I also love game design and creating software.
-                    My hobbies involve going to the gym 💪, hiking 🥾, and playing the guitar 🎸.
+                <p>  
+                    For me, every day is a chance to learn something new.
+                    I’m passionate about computer science and front-end development, but I also love game design and building computers! 
+                    Outside of tech, I enjoy hitting the gym 💪, going on hikes 🥾, and playing guitar 🎸.  
                 </p>
             </div>
 
