@@ -59,12 +59,6 @@
     object-position: center;
 }
 
-.about-img-container:hover
-{
-    transform: scale(1.05);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); 
-}
-
 .about-img-container .trash
 {
     top: 0;
@@ -103,7 +97,7 @@
     transform: scale(1.03) translateY(31px) !important;
 }
 
-@media (max-width: 715px) {
+@media (max-width: 720px) {
     .about-image-holder .about-img-container 
     {
         width: 40vw;

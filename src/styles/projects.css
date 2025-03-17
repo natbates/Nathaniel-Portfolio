@@ -82,11 +82,6 @@
     overflow: hidden;
 }
 
-.project:hover
-{
-    transform: scale(1.005);
-}
-
 .project .project-image
 {
     height: 160px !important;
