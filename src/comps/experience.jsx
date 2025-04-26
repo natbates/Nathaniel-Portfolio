@@ -28,7 +28,7 @@ const Experience = ({ title, role, info, image, date }) => {
             style={{ maxHeight: maxHeight, transition: "max-height 0.5s ease" }}
             onClick={toggleInfo}
         >
-            {image != null ?
+            {/* {image != null ?
                 <div className="experience-image">
                     <img src={image}></img>
                 </div>
@@ -36,7 +36,7 @@ const Experience = ({ title, role, info, image, date }) => {
                 <div className="experience-image">
                     <Loading />
                 </div>
-            }
+            } */}
 
             <div className="experience-text" ref={contentRef}>
             <span className="top-line">

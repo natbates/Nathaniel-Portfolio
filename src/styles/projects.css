@@ -3,13 +3,18 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 45px;
+    margin-top: 30px;
     margin-bottom: 30px;
     position: relative;
     overflow-y: hidden;
     transition: height 0.3s ease;
     padding-bottom: 5px;
+}
+
+#projects
+{
+    width: 100%;
 }
 
 #show-more-projects
@@ -33,7 +38,6 @@
     top: -25px;
     border-radius: 50%;
     background-color: var(--background-color);
-    border: 1px var(--primary-color-medium-alpha) solid;
     transform-origin: center;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
@@ -47,7 +51,6 @@
     background-color: var(--primary-color);
     color: var(--background-color);
     padding: 5px 10px;
-    border-radius: 5px;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
@@ -67,39 +70,83 @@
     transform: rotate(90deg);
 }
 
+.project.reverse
+{
+    flex-direction: row-reverse;
+}
+
+.project.reverse .star-container
+{
+    left: auto;
+    right: -20;
+}
 .project
 {
     display: flex;
-    border: 1px var(--primary-color-medium-alpha) solid;
-    flex-direction: column;
+    flex-direction: row;
     box-sizing: border-box;
-    width: calc(50% - 8px);
-    height: 390px;
-    border-radius: 9px;
+    width: 100%;
+    height: fit-content;
     transform-origin: top center;
     transition: transform 0.2s ease;
     position: relative;
     overflow: hidden;
+    gap: 20px;
+}
+
+@media (max-width: 1048px) {
+    .project
+    {
+        flex-direction: column;
+    }
+    .project.reverse
+    {
+        flex-direction: column;
+    }
+    .topright
+    {
+        left: auto !important;
+        right: 15px;
+    }
+
+    .project-image
+    {
+        height: 400px !important;
+        width: 100%;
+    }
+
+    .project-image img
+    {
+        height: 100%;
+        width: 100%;
+    }
+
+    #project-container
+    {
+        gap: 80px;
+    }
+    
 }
 
 .project .project-image
 {
-    height: 160px !important;
+    background-color: var(--secondary-color);
+    height: 100%;
     width: 100%;
+    height: 200px;
     border: none;
     overflow: hidden;
     position: relative;
     display: flex;
-    justify-content: center; /* Horizontal centering */
-    align-items: center;
+    justify-content: flex-start; /* Horizontal centering */
+    align-items: top center;
 }
 
 .project-image img
 {
-    width: 100%;
-    height: auto;
-    background-color: grey;
-    transform: none !important;
+    object-fit: cover;
+    object-position: top center;
+    height: 100%;
 }
 
 #source-holder
@@ -108,7 +155,7 @@
     flex-direction: column;
     gap: 15px;
     margin-top: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
 }
 
 #source-holder p
@@ -128,6 +175,7 @@
     display: flex;
     margin-right: 8px;
     margin-left: 5px;
+    gap: 10px;
 }
 
 #source-holder span img
@@ -170,24 +218,26 @@
 
 .project-text
 {
-    min-height: 150px;
     color: var(--primary-color);
     text-decoration: none !important;
     padding: 8px;
     box-sizing: border-box;
     margin-bottom: 5px;
+    padding-top: 0;
 }
 
 .project-text h1{
     font-size: 19px;
-    margin-bottom: 3px;
+    margin-bottom: 10px;
+    color: var(--accent-color);
+    margin-top: 0;
 }
 
 .project-text p{
     font-size: 15px;
     color: #c3c3c3 !important;;
     overflow-y: auto;
-    height: 100px;
+    height: fit-content;
     padding-bottom: 0;
     padding-right: 10px;
     width: 97%;
@@ -214,7 +264,6 @@
 
 .link {
     padding: 5px 10px;
-    border-radius: 5px;
     font-size: 13px;
     height: 30px;
     margin-right: 5px;
@@ -245,7 +294,6 @@
 .add-project-form
 {
     width: 100%;
-    margin: 0;
 }
 
 .add-project-form input, textarea, select
@@ -264,16 +312,20 @@
 {
     display: flex;
     gap: 10px;
+    align-items: flex-end;
 }
 
 
 .topright
 {
-    background-color: rgb(78, 78, 78);
-    border-radius: 50%;
-    padding: 5px;
     position: absolute;
-    right: 10px;
+    left: 0px;
+}
+
+.project.reverse .topright
+{
+    left: auto;
+    right: 15px;
 }
 
 .topright:hover
@@ -286,16 +338,11 @@
     max-width: 200px;
 }
 
-.drop-down-options button
-{
-    height: 43px;
-    background-color: transparent;
-    color: var(--primary-color);
-    border: 2px var(--primary-color) dashed;
-}
 
-.drop-down-options button:hover{
-    transform: scale(1.03);
+
+.add-project-form input, .add-project-form select, .add-project-form textarea
+{
+    margin-bottom: 0;
 }
 
 .star-container{
@@ -306,7 +353,7 @@
 }
   
 .star {
-    display: block;
+    display: none;
     text-align: center;
     font-size: 30px;
     cursor: pointer;
@@ -413,7 +460,7 @@
     .project
     {
         width: 100%;
-        height: 347px !important;
+        height: 447px !important;
         flex-shrink: 0;
     }
 }

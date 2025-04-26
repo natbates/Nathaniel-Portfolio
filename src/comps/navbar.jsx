@@ -1,13 +1,10 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import '../styles/navBar.css'; // Ensure this path is correct based on your folder structure
 import { ThemeContext } from './App';
 import fetchData from '../services/fetch-info';
 
 const Navbar = () => {
-    const location = useLocation(); // Get current location
-    const navigate = useNavigate(); // Get the navigate function
     const {theme, toggleTheme} = useContext(ThemeContext);
 
     const [github, setGithub] = useState("");
@@ -35,50 +32,20 @@ const Navbar = () => {
         fetchInfo();
     }, []);
 
-    const handleContactClick = () => {
-        // If the user is not on the home page, scroll to home section first
-        if (location.pathname !== '/') {
-            navigate('/'); // Navigate to home
-            setTimeout(() => {
-                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-            }, 300); // Adjust the delay (in milliseconds) as needed
-        } else {
-            // If already on the home page, just scroll to the contact section
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
     return (
         <div className="nav-bar">
             <nav>
                 <section id="navigate-page">
-                    <Link
+                    <a
                         to="/"
-                        className={location.pathname === '/' ? 'active' : ''}
+                        className="home-icon"
                         data-tooltip="Home"
                     >
-                        <img alt="home" src="/svgs/home.svg" />
-                    </Link>
-                    <a
-                        href="#contact"
-                        className={location.pathname === '/contact' ? 'active' : ''}
-                        onClick={(e) => {
-                            e.preventDefault(); // Prevent default anchor behavior
-                            handleContactClick(); // Handle contact button click
-                        }}
-                        data-tooltip="Contact"
-                    >
-                        <img alt="contact" src="/svgs/contact.svg" />
+                        <img alt="home" src="/images/logo.svg" />
                     </a>
-                    <Link
-                        to="/login"
-                        className={location.pathname === '/login' ? 'active' : ''}
-                        data-tooltip="Log in"
-                    >
-                        <img alt="login" src="/svgs/login.svg" />
-                    </Link>
+
                 </section>
-                <section id="socials">
+                {/* <section id="socials">
                     <a href={linkedin.startsWith('http') ? linkedin : `https://${linkedin}`} target='_blank' data-tooltip="Linked In">
                         <img alt="linkedin" src="/svgs/linkedin.svg" />
                     </a>
@@ -93,7 +60,7 @@ const Navbar = () => {
                     <a data-tooltip={theme === 'light' ? 'Dark Mode' : 'Light Mode'} onClick={toggleTheme}>
                         <img alt="lightmode" src="/svgs/lightmode.svg" />
                     </a>
-                </section>
+                </section> */}
             </nav>
         </div>
     );

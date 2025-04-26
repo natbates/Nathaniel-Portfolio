@@ -14,7 +14,7 @@ const Projects = () => {
     const { currentUser, logout } = useContext(AuthContext);
     const [showMore, setShowMore] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [fetching, setFetching] = useState(false);
+    const [fetching, setFetching] = useState(true);
     const {theme} = useContext(ThemeContext);
     const [projectName, setProjectName] = useState("");
     const [info, setInfo] = useState("");
@@ -22,9 +22,6 @@ const Projects = () => {
     const [photo, setPhoto] = useState(null);
     const [sources, setSources] = useState([]);  // Track sources as an array of objects
     const [github, setGithub]= useState(null);
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-    const [calculatedHeight, setCalculatedHeight] = useState(0);
-    const [calculatedFavouriteHeight, setCalculatedFavouriteHeight]  = useState(0);
     const [isStarred, setIsStarred] = useState(false);
 
     // Function to clear the form fields
@@ -248,143 +245,105 @@ const Projects = () => {
         setIsStarred(false);
     };
 
-    useEffect(() => {
-        const handleResize = () => setScreenWidth(window.innerWidth);
-
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-
-    useEffect(() => {
-        const calculateHeight = (numProjects) => {
-            const isSmallScreen = screenWidth <= 730;
-            const rows = isSmallScreen
-                ? numProjects 
-                : Math.ceil(numProjects / 2); 
-            if (isSmallScreen) {return rows * 360} else {return rows * 400; }
-        };
-
-        const calculateFavouriteHeight = () =>
-        {
-            const isSmallScreen = screenWidth <= 730;
-            if (isSmallScreen) {return 1430;} else {return 800;}
-        }
-
-        setCalculatedHeight(calculateHeight(Object.keys(projects).length));
-        setCalculatedFavouriteHeight(calculateFavouriteHeight());
-
-    }, [screenWidth, projects]);
-
     const projectsArray = Array.isArray(projects) ? projects : Object.values(projects);
     const starredCount = projectsArray.filter(project => project.starred).length;
+
+    if (fetching || projects.length === 0) {
+        return (
+            <div id="projects" className="container">
+                <div className="text-container">
+                    <h1>Projects</h1>
+                    <div className="loader-section">
+                        <LoadingSection />
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div id="projects" className="container">
             <div className="text-container">
                 <h1>Projects</h1>
-                <p>Here are some of my favouite projects I have worked on. They are all open source and were great learning experiences. I have plenty more projects in development and i list them on my <a className = "highlighted" target = "_blank" href={github}>Github profile page!</a></p>
+                {/* <p>Here are some of my favouite projects I have worked on. They are all open source and were great learning experiences. I have plenty more projects in development and i list them on my <a className = "highlighted" target = "_blank" href={github}>Github profile page!</a></p> */}
 
-                <div id="project-container" style={!showMore ? {height: `${calculatedFavouriteHeight}px`} : { height: `${calculatedHeight}px` }}>
-                    {fetching && <LoadingSection />}
-                    {Object.keys(projects).length === 0 && !fetching && <p>No Projects.</p>}
-                    {projects != null && Object.entries(projects).map(([key, project], index) => {
-                        return (
-                            <div className="project" key={key}>
+                <div id="project-container">
+                    {Object.keys(projects).length === 0 ? (
+                        <p>No Projects.</p>
+                    ) : (
+                        Object.entries(projects).map(([key, project], index) => (
+                            <div
+                                className={`project ${index % 2 !== 0 ? "reverse" : ""}`}
+                                key={key}
+                            >
                                 <Project
                                     id={project.id}
-                                    key={key}
                                     title={project.projectName}
                                     info={project.info}
                                     photo={project.photo}
                                     skills={project.skills}
-                                    sources={project.sources}  // Pass sources to Project component
+                                    sources={project.sources}
                                     starred={project.starred}
                                     refreshProjects={fetchProjects}
                                     starredCount={starredCount}
                                 />
-                                {currentUser && 
-                                <img
-                                    onClick={() => DeleteProject(key, project.projectName)}
-                                    className="trash topright"
-                                    src = "svgs/trash-white.svg"
-                                    alt="Delete"
-                                />
-                                }
+                                {currentUser && (
+                                    <img
+                                        onClick={() =>
+                                            DeleteProject(key, project.projectName)
+                                        }
+                                        className="trash topright"
+                                        src="svgs/trash-white.svg"
+                                        alt="Delete"
+                                    />
+                                )}
                             </div>
-                        );
-                    })}
-                </div>
-
-                <div id="show-more-projects">
-                    <button 
-                        id="show-more-projects-button" 
-                        onClick={() => { setShowMore(!showMore); }} 
-                        data-tooltip={showMore ? "Show Less" : "Show More"}
-                    >
-                        {theme === "light" ? (
-                            <img 
-                                className="show-more-arrow" 
-                                style={{ transform: showMore ? "rotate(-90deg)" : "rotate(90deg)" }} 
-                                src="/svgs/arrow-black.svg"
-                                alt="Toggle"
-                            />
-                        ) : (
-                            <img 
-                                className="show-more-arrow" 
-                                style={{ transform: showMore ? "rotate(-90deg)" : "rotate(90deg)" }} 
-                                src="/svgs/arrow-white.svg"
-                                alt="Toggle"
-                            />
-                        )}
-                    </button>
+                        ))
+                    )}
                 </div>
 
 
                 {currentUser != null && (
-                    <div className="add-project">
+                    <div className="add-new-form">
                         <form className={`add-project-form ${loading ? "Loading" : ""}`} onSubmit={handleSubmit}>
-                            <label htmlFor="project-name">Project Name*</label>
-                            <input
-                                id="project-name"
-                                type="text"
-                                placeholder="Type project name..."
-                                value={projectName}
-                                onChange={handleInputChange}
-                                required
-                            />
-                            <label htmlFor="info">Info</label>
-                            <textarea
-                                id="info"
-                                type="text"
-                                rows="5"
-                                placeholder="Type project information..."
-                                value={info}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor="skills">Skills Used</label>
-                            <input
-                                id="skills"
-                                type="text"
-                                placeholder="Type skills used separated by commas..."
-                                value={skills}
-                                onChange={handleInputChange}
-                            />
-                            
-                            <label htmlFor="dropdown-source">Sources</label>
-                            <div className="drop-down-options">
-                                <select id="dropdown-source">
-                                    <option value="Website">Website</option>
-                                    <option value="Github">Github</option>
-                                    <option value="Youtube">Youtube</option>
-                                    <option value="Devpost">Devpost</option>
-                                </select>
+                            <div className="input-container">
+                                <label htmlFor="project-name">Project Name</label>
                                 <input
-                                    id="source-url"
-                                    type="url"
-                                    placeholder="Type link for source..."
+                                    id="project-name"
+                                    type="text"
+                                    placeholder="Type project name..."
+                                    value={projectName}
+                                    onChange={handleInputChange}
+                                    required
                                 />
-                                <button type="button" onClick={addNewSource} disabled={loading}>Add</button>
+                            </div>
+                            <div className="input-container">
+                                <label htmlFor="info">Info</label>
+                                <textarea
+                                    id="info"
+                                    type="text"
+                                    rows="5"
+                                    placeholder="Type project information..."
+                                    value={info}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div className="input-container">
+                                <label htmlFor="dropdown-source">Sources</label>
+                                <div className="drop-down-options">
+                                    <select id="dropdown-source">
+                                        <option value="Website">Website</option>
+                                        <option value="Github">Github</option>
+                                        <option value="Youtube">Youtube</option>
+                                        <option value="Devpost">Devpost</option>
+                                    </select>
+                                    <input
+                                        id="source-url"
+                                        type="url"
+                                        placeholder="Type link for source..."
+                                    />
+                                    <button type="button" onClick={addNewSource} disabled={loading}>Add</button>
+                                </div>
                             </div>
 
                             <div id="source-holder">
@@ -408,11 +367,11 @@ const Projects = () => {
                                     />
                                 </div>
 
-                                <div className="star-container">
+                                {/* <div className="star-container">
                                     <span onClick = {() => {setIsStarred((prevState) => !prevState);}} className={`star ${isStarred ? "starred" : "unstarred"}`}>
                                         <span className="star-icon fa fa-star"></span>
                                     </span>
-                                </div>
+                                </div> */}
 
                                 <button
                                     type="button"
@@ -421,7 +380,7 @@ const Projects = () => {
                                 >
                                     Clear
                                 </button>
-                                <button disabled={loading} type="submit">{!loading ? "Add" : "Loading..."}</button>
+                                <button disabled={loading} type="submit">{!loading ? "Add Project" : "Loading..."}</button>
                             </div>
                         </form>
                     </div>

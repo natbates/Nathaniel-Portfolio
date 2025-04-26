@@ -93,6 +93,19 @@ const Skills = () => {
     }
   };
 
+  if (fetching) {
+    return (
+        <div id="skills" className="container">
+            <div Projects="text-container">
+                <h1>Skills</h1>
+                <div className="loader-section">
+                    <LoadingSection />
+                </div>
+            </div>
+        </div>
+    );
+};
+
   return (
     <div id="skill" className="container">
       <div className="text-container">
@@ -114,16 +127,29 @@ const Skills = () => {
                 className={`skill ${currentUser ? "deletion" : ""}`}
                 onClick={() => handleDelete(skill)}  // Pass the skill name to delete
             >
-                {skill}
+                 <div className="tick">
+                    <img src="/svgs/tick.svg" alt="Tick" />
+                 </div>
+                <p className="skill-text">{skill}</p>
             </span>
             ))
+        )}
+        {currentUser && (
+          <input
+            type="text"
+            className="skill add-new-skill"
+            placeholder="Add New Skill..."
+            value={newSkill}
+            onChange={(e) => setNewSkill(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSubmit(e);
+            }}
+          />
         )}
         </div>
       </div>
 
-      {fetching && <LoadingSection />}
-
-      {currentUser && (
+      {/* {currentUser && (
         <div className="add-skill">
           <form
             className={`add-skill-form${loading ? " Loading" : ""}`}
@@ -152,7 +178,7 @@ const Skills = () => {
             </button>
           </form>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

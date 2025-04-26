@@ -3,43 +3,93 @@
 {
     display: flex;
     justify-content: space-between;
-    gap: 50px;
-    margin-bottom: 10px;
+    gap: 70px;
+    margin-bottom: 0px;
 }
 
-#hero .container-profile img
+#hero
 {
-    border-radius: 50%;
-    width: 140px !important;
-    height: 140px !important;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.top-cat
+{
+    position: absolute;
+    top: -110px;
+    z-index: 1;
+    height: 130px;
+    display: flex;
+    width: 100%;
+}
+
+.top-cat-hand
+{
+    position: absolute;
+    width: auto;
+    height: 40px;
+    bottom: 0px;
+    z-index: 3;
+}
+
+.top-cat-hand.right-hand
+{
+    right: 0px;
+    transform: rotateY(180deg);
+}
+
+.top-cat-body
+{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: 100px;
+    top: -45px;
+    z-index: -3;
+    animation: cat-appear 0.5s ease-out forwards;
+}
+
+@keyframes cat-appear {
+    0% {
+        top: -45px;
+    }
+    100% {
+        top: -100px;
+    }
+}
+
+.discord-status
+{
+    display: flex;
+    gap: 3px;
+}
+
+.profile-pic
+{
+    width: 260px;
+    height: 238px;
     object-position: center;
     object-fit: cover;
     flex-shrink: 0;
     align-self: flex-start;
     transition: transform 0.3s ease, outline-offset 0.3s ease, filter 0.3s ease;
-    outline: 3px var(--primary-color) dashed;
-    outline-offset: 6px;
     transform-origin: bottom center;
+    outline: 3px solid var(--accent-color);
+    border: 6px solid black;
+    outline-offset: 0px;
+    z-index: 1;
+    box-sizing: border-box;
+    background-color: var(--secondary-color);
 }
 
 #hero .img-container
 {
-    border-radius: 50%;
-    height: 140px !important;
-    max-width: 140px;
-    min-width: 140px;
+    height:100%;
 }
 
 .img-container{
     position: relative;
-}
-
-.img-container .loader
-{
-    position: absolute;
-    top: 35%;
-    left: 35%;
-    margin: 0;
 }
 
 .image-loader
@@ -71,9 +121,9 @@
 }
 
 #hero h1 {
-    font-size: 50px !important;
+    font-size: 3rem;
     margin: 0;
-    margin-bottom: 5px;
+    margin-bottom: 25px;
 }
 
 #hero p {
@@ -110,9 +160,18 @@
     display: flex;
 }
 
+.service-text-container
+{
+    margin-top: 30px;
+}
+
 .service-text
 {
-    margin-top: 8px;
+    margin-top: 0px;
+    display: flex;
+    gap: 10px;
+    align-self: center;
+    justify-items: center;
 }
 
 .service-text span
@@ -127,7 +186,7 @@
 
 .service-text:last-child
 {
-    margin-top: 8px;
+    margin-top: 18px;
 }
 
 .online
@@ -154,7 +213,6 @@
 {
     height: 20px;
     width: auto;
-    margin-right: 9px;
     margin-top: 1px;
 }
 
@@ -169,13 +227,27 @@
     text-overflow: ellipsis;
     overflow: hidden;
     text-wrap: nowrap;
-    color: var(--primary-color-medium-alpha) !important;
+    color: var(--accent-color) !important;
 }
 
 .service-loader{
-    height: 20px !important;
-    width: 20px !important;
-    margin-left: 10px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.small-loader
+{
+    width: 21px;
+    height: 21px;
+}
+
+.small-loader .loader
+{
+    width: 21px;
+    height: 100%;
 }
 
 .uploading
@@ -188,29 +260,43 @@
     filter: brightness(0.9);
 }
 
-.hero-api-info
-{
-    margin-top: 20px;
-}
 
-.hero-api-info form
+.add-new-form
 {
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    border: 2px var(--primary-color-medium-alpha) dashed;
+    padding: 0px;
     border-radius: 10px;
     animation-delay: 0.8s;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
-.hero-api-info input{
+.add-new-form .input-container
+{
+    margin-bottom: 40px;
+}
+
+.add-new-form input{
     width: 100%;
-    border: 1px solid var(--primary-color-medium-alpha);
+    border: none;
+    border-bottom: 2px solid var(--primary-color-medium-alpha);
     background-color: transparent;
-    border-radius: 4px;
     margin-top: 5px;
     color: var(--primary-color);
-    margin-bottom: 10px;
+}
+
+.button-container-right
+{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    align-items: flex-end;
+}
+
+#discord-user-id
+{
+    margin-bottom: 30px;
 }
 
 .hero-api-info button
@@ -223,19 +309,11 @@
     transform: translateY(31px) scale(1.03) !important;
 }
 
-@media (max-width:720px) {
-    .service-text
+
+@media (max-width: 1155px)
+{
+    .img-container
     {
-        margin-top: 18px;
+        display: none;
     }
-
-}
-
-@media (max-width:640px) {
-
-    #hero .img-container
-    {
-        margin-top: 50px;
-    }
-
 }

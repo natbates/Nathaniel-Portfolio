@@ -1,8 +1,14 @@
+#contact
+{
+    width: 100%;
+}
+
+
 .contact-form {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-top: 20px;
+    margin-top: 50px;
   }
   
 .contact-form label {
@@ -14,11 +20,14 @@
 .contact-form textarea {
     width: 100%;
     padding: 8px;
-    border: 1px solid var(--primary-color-medium-alpha);
+    border: none;
+    border-bottom: 1px solid var(--primary-color-medium-alpha);
     background-color: transparent;
-    border-radius: 4px;
     margin-top: 5px;
     color: var(--primary-color);
+    border-radius: 0 !important;
+    font-style: normal !important;
+    font-family: inherit !important;
 }
 
 .submit-button {
@@ -26,15 +35,12 @@
     background-color: var(--primary-color);
     color: var(--background-color) !important;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
     max-width: 100px;
     transition: transform 0.3s ease;
+    width: 150px;
 }
 
-.submit-button:hover {
-    transform: scale(1.05);
-}
 
 input::placeholder, textarea::placeholder {
     color: var(--primary-color-medium-alpha);
@@ -44,15 +50,82 @@ input::placeholder, textarea::placeholder {
     opacity: 1; /* Ensure full visibility (browsers may apply a default lower opacity) */
 }
 
+#contact textarea
+{
+    height: 60px;
+    resize: none;
+    margin-bottom: 0 !important;
+}
+
+input:focus,
+textarea:focus {
+    border-bottom: 1px solid var(--primary-color-medium-alpha);
+    outline: none;
+}
+
+.message-button-container
+{
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.message-button-container .message
+{
+    width: 100%;
+    flex: 1;
+}
+
 #contact-button-holder
 {
     display: flex;
+    flex-direction: column;
     flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: flex-end;
     gap: 10px;
     margin-top: 0px;
 }
 
+.one-line-input
+{
+    display: flex;
+    gap: 30px;
+    width: 100%;
+}
+
+.one-line-input div
+{
+    flex: 1;
+    width: 100%;
+}
+
 .clear
 {
-    background-color: rgb(111, 111, 111);
+    background-color: var(--accent-color);
+}
+
+@media (max-width: 1055px) {
+    .one-line-input
+    {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 720px) {
+    
+    .message-button-container
+    {
+        flex-direction: column;
+        gap: 10px;
+    }
+    #contact-button-holder
+    {
+        flex-direction: row !important;
+        margin-top: 15px;
+    }
+    .contact-button-holder button
+    {
+        width: fit-content;
+    }
 }

@@ -1,11 +1,16 @@
 
 .experience-container
 {
-    margin-top: 35px;
+    margin-top: 40px;
     margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     gap: 25px;
+}
+
+#experiences
+{
+    width: 100%;
 }
 
 .experience-holder
@@ -16,12 +21,9 @@
     box-sizing: border-box;
 }
 
-.experience-holder .trash
+.experience-holder .trash 
 {
-    background-color: rgb(78, 78, 78);
-    border-radius: 50%;
-    padding: 5px;
-    transform: scale(0.8) translateY(-4px);
+    transform: scale(1);
 }
 
 .experience{
@@ -64,7 +66,6 @@
 .experience-text
 {
     width: 100%;
-    margin-left: 20px;
 }
 
 .top-line span
@@ -109,16 +110,6 @@
     width: 100% ;
 }
 
-.button-container-right button
-{
-    height: 42px;
-    transform: translateY(25px);
-}
-
-.button-container-right button:hover
-{
-    transform: translateY(25px) scale(1.03);
-}
 
 .experience-text h1
 {
@@ -165,7 +156,30 @@
 #date-container
 {
     display: flex;
-    gap: 10px;
+    gap: 30px;
+}
+
+@media (max-width: 1150px) {
+    .stats-container
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    .stats-container .stat
+    {
+        width: 100%;
+        align-items: center;
+        max-width: none;
+    }
+}
+
+@media (max-width: 820px) {
+    .month
+    {
+        display: none;
+    }
+    
 }
 
 #date-container span
@@ -189,6 +203,17 @@
     margin-bottom: 20px;
 }
 
+#photo
+{
+    margin-bottom: 0;
+}
+
+input[type="date"] {
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(to right, transparent 0%, transparent 92%, var(--accent-color) 80%, var(--accent-color) 100%);
+}
+
 .add-experience-form
 {
     width: 100%;
@@ -203,9 +228,7 @@
 }
 
 @media (max-width: 700px) {
-    .top-line span .date{
-        width: 0px;
-    }
+
     .experience-text h1
     {
         transform: translateY(10px);
@@ -224,5 +247,12 @@
     .arrow
     {
         top: 15px;
+    }
+}
+
+@media (max-width: 620px) {
+    .date
+    {
+        display: none;
     }
 }

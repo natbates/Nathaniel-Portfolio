@@ -84,17 +84,18 @@ const Login = () => {
                         />
                     </div>
 
-                    {errorMessage && <p className="error">{errorMessage}</p>}
-
+                    <button className="back-home" onClick={() => {navigate("/")}}>Back Home</button>
                     <button type="submit" disabled={loading}>
                         {loading ? "Logging in..." : "Log In"}
                     </button>
+                    {errorMessage && <p className="error">{errorMessage}</p>}
                 </form>
             </div>
             :
             <div className="text-container logout">
                 <h1>Admin Log In</h1>
                 <p>Logged in as {currentUser.email}</p>
+                <button className="back-home" onClick={() => {navigate("/")}}>Back Home</button>
                 <button disabled={loading} onClick={(e) => {logout()}}>
                     Log Out
                 </button>

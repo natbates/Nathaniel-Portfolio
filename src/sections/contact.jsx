@@ -103,18 +103,22 @@ const Contact = () => {
         </p>
       </div>
       {currentUser !== null && (
-        <div className="about-info">
+        <div className="add-new-form">
             <form className = {`${saving ? "Loading" : ""}`}>
-                <label htmlFor="github">Github</label>
-                <input
-                    type="url" // Ensures the input is a valid URL
-                    id="github"
-                    name="github"
-                    value={github}
-                    onChange={handleInputChange}
-                    placeholder="Enter Github profile URL"
-                    required // Input is required
-                />
+                <div className="input-container">
+                    <label htmlFor="github">Github</label>
+                    <input
+                        type="url" // Ensures the input is a valid URL
+                        id="github"
+                        name="github"
+                        value={github}
+                        onChange={handleInputChange}
+                        placeholder="Enter Github profile URL"
+                        required // Input is required
+                    />
+                </div>
+
+                <div className="input-container">
                 <label htmlFor="linkedin">LinkedIn</label>
                 <input
                     type="url" // Ensures the input is a valid URL
@@ -125,6 +129,7 @@ const Contact = () => {
                     placeholder="Enter LinkedIn profile URL"
                     required // Input is required
                 />
+                </div>
                 <div className = "button-container-right">
                     <div>
                         <label htmlFor="X">X (Formerly Twitter)</label>
@@ -154,21 +159,25 @@ const Contact = () => {
         method="POST"
         className="contact-form"
       >
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" placeholder="Type your name..." required />
+        <div className="one-line-input">
+            <div>
+            <label htmlFor="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Type your name..." required />
+            </div>
+            <div>
+            <label htmlFor="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Type your email..." required />
+            </div>
         </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" placeholder="Type your email..." required />
-        </div>
-        <div>
-          <label htmlFor="message">Message:</label>
-          <textarea id="message" name="message" rows="5" placeholder="Type your message..." required></textarea>
-        </div>
-        <div id="contact-button-holder">
-          <button disabled = {formspreeKey == null} type="submit" className="submit-button">{formspreeKey == null ? "Loading...": "Send"}</button>
-          <button className="submit-button clear" onClick={handleClear}>Clear</button>
+        <div className="message-button-container">
+            <div className="message">
+                <label htmlFor="message">Message:</label>
+                <textarea id="message" name="message" rows="5" placeholder="Type your message..." required></textarea>
+            </div>
+            <div id="contact-button-holder">
+                <button className="submit-button clear" onClick={handleClear}>Clear</button>
+                <button disabled = {formspreeKey == null} type="submit" className="submit-button">{formspreeKey == null ? "Loading...": "Send"}</button>
+            </div>
         </div>
       </form>
     </div>

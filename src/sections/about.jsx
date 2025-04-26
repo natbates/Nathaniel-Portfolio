@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore"; 
 import { db } from "../firebaseConfig";
 import { handleMultipleUpload } from "../services/upload-image";
-import { LoadingSection } from "../comps/loading";
+import { Loading, LoadingSection } from "../comps/loading";
 
 const About = () => {
 
@@ -14,28 +14,28 @@ const About = () => {
     const [imageFiles, setImageFiles] = useState([]);
     const [fetching, setFetching] = useState(false);
 
-    useEffect(() => {
-        fetchAboutImages();
-    }, []);
+    // useEffect(() => {
+    //     fetchAboutImages();
+    // }, []);
 
-    const fetchAboutImages = async () => {
-        setFetching(true);
-        try {
-            const aboutImagesCollection = collection(db, "about-photos");
-            const querySnapshot = await getDocs(aboutImagesCollection);
+    // const fetchAboutImages = async () => {
+    //     setFetching(true);
+    //     try {
+    //         const aboutImagesCollection = collection(db, "about-photos");
+    //         const querySnapshot = await getDocs(aboutImagesCollection);
     
-            const imageUrls = querySnapshot.docs.map(doc => ({
-                url: doc.data().url,
-                id: doc.id // Get the document ID to use for deletion
-            }));
+    //         const imageUrls = querySnapshot.docs.map(doc => ({
+    //             url: doc.data().url,
+    //             id: doc.id // Get the document ID to use for deletion
+    //         }));
     
-            setAboutImages(imageUrls); // Store both URLs and document IDs
-        } catch (error) {
-            console.error("Error fetching about images:", error);
-        } finally {
-            setFetching(false); // Stop loading when fetching is complete
-        }
-    };
+    //         setAboutImages(imageUrls); // Store both URLs and document IDs
+    //     } catch (error) {
+    //         console.error("Error fetching about images:", error);
+    //     } finally {
+    //         setFetching(false); // Stop loading when fetching is complete
+    //     }
+    // };
     
 
     const handleUpload = async () => {
@@ -120,8 +120,16 @@ const About = () => {
                 </p>
             </div>
 
-            
             <div className="about-image-holder">
+                <img className = "about-img" src = "/images/about-1.jpg"></img>
+                <p className="image-description">
+                    <img  className = "cat-small-text" src = "/svgs/cat.svg" />
+                    Me and my friends on a group holiday in the Lake District</p>
+                <img className="about-image" src="images/logo.svg"/>
+            </div>
+
+            
+            {/* <div className="about-image-holder">
                 {fetching && <LoadingSection />}
 
                 {!fetching && aboutImages.length === 0 && <p>No About Images</p>}
@@ -169,7 +177,7 @@ const About = () => {
                         </div>
                     </form>
                 </div>
-            )}
+            )} */}
         </div>
     );
 };

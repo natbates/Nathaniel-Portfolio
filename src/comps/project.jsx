@@ -70,7 +70,7 @@ const Project = ({ id, title, info, photo, skills, sources, starred, refreshProj
                             }`}
                             onClick={currentUser ? toggleStar : undefined} // Only enable onClick if logged in
                         >
-                            <span className="star-icon fa fa-star"></span>
+                            <img src = "./svgs/star.svg"></img>
                         </span>
                     </div>
                 </a>
@@ -80,32 +80,34 @@ const Project = ({ id, title, info, photo, skills, sources, starred, refreshProj
                 </a>
             )}
 
-            <div className="project-text">
-                <h1>{title}</h1>
-                <p>{info}</p>
-            </div>
-
-            {hasSkills && (
-                <div className="skill-container">
-                    {skillList.map((skill, index) => (
-                        <span key={index} className="skill">
-                            {skill}
-                        </span>
-                    ))}
+            <div>
+                <div className="project-text">
+                    <h1>{title}</h1>
+                    <p>{info}</p>
                 </div>
-            )}
-            {!hasSkills && <div className="skill-container"></div>}
 
-            <div className="link-container">
-                {sources &&
-                    sources.map((source, index) => (
-                        <span key={index} className="link">
-                            {getIconForSource(source.type)} {/* Render the icon based on the source type */}
-                            <a href={source.url} target="_blank" rel="noopener noreferrer">
-                                {source.type}
-                            </a>
-                        </span>
-                    ))}
+                {/* {hasSkills && (
+                    <div className="skill-container">
+                        {skillList.map((skill, index) => (
+                            <span key={index} className="skill">
+                                {skill}
+                            </span>
+                        ))}
+                    </div>
+                )}
+                {!hasSkills && <div className="skill-container"></div>} */}
+
+                <div className="link-container">
+                    {sources &&
+                        sources.map((source, index) => (
+                            <span key={index} className="link">
+                                {getIconForSource(source.type)} {/* Render the icon based on the source type */}
+                                <a href={source.url} target="_blank" rel="noopener noreferrer">
+                                    {source.type}
+                                </a>
+                            </span>
+                        ))}
+                </div>
             </div>
         </>
     );

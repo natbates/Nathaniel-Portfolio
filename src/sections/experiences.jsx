@@ -54,12 +54,12 @@ const Experiences = () => {
     function formatDateToMonthYear(dateString) {
         const date = new Date(dateString);
         
-        // Options to specify how we want the date formatted
-        const options = { year: 'numeric', month: 'long' };
-        
-        // Return the formatted date
-        return date.toLocaleString('en-US', options);
-      }
+        // Month and Year
+        const month = date.toLocaleString('en-US', { month: 'long' }); // Gets the full month name
+        const year = date.getFullYear(); // Gets the full year
+    
+        return { month, year }; // Return both parts for easier rendering
+    }
       
 
     // Handle form submission
@@ -154,6 +154,19 @@ const Experiences = () => {
         setLoading(false);
     };
 
+    if (fetching) {
+        return (
+            <div id="experiences" className="container">
+                <div className="text-container">
+                    <h1>Experience</h1>
+                    <div className="loader-section">
+                        <LoadingSection />
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div id="experiences" className="container">
             <div className="text-container">
@@ -165,30 +178,29 @@ const Experiences = () => {
 
             <div className="experience-container">
 
-            {fetching && <LoadingSection/>}
-
             {experiences && Object.keys(experiences).length === 0 && !fetching && <p>No Experiences Listed.</p>}
 
             {experiences != null && Object.entries(experiences)
                 .sort(([keyA, expA], [keyB, expB]) => {
-                    // Extract and parse start date from the `date` field
                     const startDateA = expA.date ? new Date(expA.date.split(' - ')[0]) : new Date();
                     const startDateB = expB.date ? new Date(expB.date.split(' - ')[0]) : new Date();
-
-                    // Sort experiences by the parsed start date
                     return startDateA - startDateB;
                 })
                 .map(([key, exp], index, arr) => {
-                    // Calculate animation delay
-                    
+                    const { month: startMonth, year: startYear } = formatDateToMonthYear(exp.date.split(' - ')[0]);
+                    const { month: endMonth, year: endYear } = formatDateToMonthYear(exp.date.split(' - ')[1]);
+
                     return (
-                        <div 
-                            className="experience-holder" 
-                            key={key} 
-                        >
+                        <div className="experience-holder" key={key}>
                             <Experience
                                 title={exp.title || "No Title Available"}
-                                date={exp.date || "No Date Given"}
+                                date={
+                                    <>
+                                        <span className="month">{startMonth}</span> <span>{startYear}</span>
+                                        <span> -</span>
+                                        <span className="month"> {endMonth}</span> <span>{endYear}</span>
+                                    </>
+                                }
                                 role={exp.role || "No Role Provided"}
                                 info={exp.info || "No Information Provided"}
                                 image={exp.image || null}
@@ -204,32 +216,37 @@ const Experiences = () => {
                         </div>
                     );
                 })}
+
             </div>
 
             
 
             {currentUser != null && (
-                <div className="add-experience">
-                    <form className={`add-experience-form ${loading ? "Loading" : ""}`} onSubmit={handleSubmit}>
-                        <label htmlFor="title">Title*</label>
-                        <input
-                            id="title"
-                            type="text"
-                            placeholder="Type experience title..."
-                            value={title}
-                            onChange={handleInputChange}
-                            required
-                        />
-                        <label htmlFor="role">Role*</label>
-                        <input
-                            id="role"
-                            type="text"
-                            placeholder="Type role..."
-                            value={role}
-                            onChange={handleInputChange}
-                            required
-                        />
-                        <div id = "date-container">
+                <div className="add-new-form">
+                    <form className="add-experience-form" onSubmit={handleSubmit}>
+                        <div className="input-container">
+                            <label htmlFor="title">Title</label>
+                            <input
+                                id="title"
+                                type="text"
+                                placeholder="Type experience title..."
+                                value={title}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="role">Role</label>
+                            <input
+                                id="role"
+                                type="text"
+                                placeholder="Type role..."
+                                value={role}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+                        <div id = "date-container" className="input-container">
                             <span>
                                 <label htmlFor="start-date">Start Date</label>
                                 <input
@@ -249,18 +266,20 @@ const Experiences = () => {
                                 />
                             </span>
                         </div>
-                        <label htmlFor="info">Info</label>
-                        <textarea
-                            id="info"
-                            type="text"
-                            rows="5"
-                            placeholder="Type experience information..."
-                            value={info}
-                            onChange={handleInputChange}
-                        />
+                        <div className="input-container">
+                            <label htmlFor="info">Info</label>
+                            <textarea
+                                id="info"
+                                type="text"
+                                rows="5"
+                                placeholder="Type experience information..."
+                                value={info}
+                                onChange={handleInputChange}
+                            />
+                        </div>
                         <div className="button-container-right">
                             <div>
-                                <label htmlFor="photo">Photo*</label>
+                                <label htmlFor="photo">Photo</label>
                                 <input
                                     id="photo"
                                     type="file"

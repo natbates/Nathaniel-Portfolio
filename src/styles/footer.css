@@ -1,0 +1,49 @@
+.footer {
+    color: var(--primary-color); /* Use your theme color */
+    padding: 20px 0;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.footer-text p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.social-media-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-media-icons img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.social-media-icons a:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+.footer-bottom {
+    padding-top: 10px;
+    font-size: 13px;
+    color: #ccc;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+}

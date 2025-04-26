@@ -1,80 +1,192 @@
 /* styles.css */
 
 :root {
-    --primary-color: #000000;
-    --primary-color-medium-alpha: #00000049;
-    --primary-color-high-alpha: #00000080;
-    --background-color: #ffffff;
-    --secondary-color: #464646;
-}
-
-[data-theme='dark'] {
     --primary-color: #ffffff;
-    --primary-color-medium-alpha: #ffffff49;
-    --primary-color-high-alpha: #ffffff80;
-    --background-color: #000000;
-    --secondary-color: #464646;
+    --primary-color-medium-alpha: #d5d5d5;
+    --primary-color-high-alpha: #00000080;
+    --background-color: #111111;
+    --secondary-color: #262626;
+    --accent-color: #c04b4b;
+    --accent-color-low-opacity: #c04b4b7a;
 }
 
-[data-theme='light'] {
-    --primary-color: #000000;
-    --primary-color-medium-alpha: #00000049;
-    --background-color: #ffffff;
-    --secondary-color: #464646;
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color);
+    font-family: "robo";
 }
 
 p{
-    color: var(--primary-color);
+    color: var(--primary-color-medium-alpha);
 }
 
 html
 {
     scroll-behavior: smooth;
+    padding: 0;
+    margin: 0;
 }
 
 .page
 {
-    display: flex;
-    justify-content: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: fit-content;
+    text-align: start;
+    min-height: 100vh;
+}
+
+.bamboo
+{
+    position: fixed;
+    top: 0;
+    left: 30;
+    width: 250px;
+    height: 100%;
+    z-index: 4;
+    opacity: 1;
+    background-image: url("../../public/images/bamboo.svg");
+    background-repeat: repeat;
+    background-size: 250px;
+    animation: fly-in-right 1s ease-out forwards;
+    transition: opacity 0.5s ease;
+    transform-origin: center;
+    pointer-events: none;
+}
+
+@keyframes fly-in-right
+{
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    } 
+}
+
+@keyframes fly-in-left
+{
+    0% {
+        transform: translateX(100%) rotateY(180deg)
+    }
+    100% {
+        transform: translateY(0) rotateY(180deg)
+    } 
+}
+
+@media (max-width: 1500px) {
+    .bamboo
+    {
+        opacity: 0 !important;
+    }
+    .analytics
+    {
+        display: none;
+    }
+    .logged-text
+    {
+        display: none;
+    }
+    
+}
+
+.accent-text
+{
+    color: var(--accent-color);
+}
+
+.bamboo.right
+{
+    left: auto;
+    right: 30;
+    background-position: 0 250px;
+    animation: fly-in-left 1s ease-out forwards !important;
+}
+
+/* .bamboo.back
+{
+    transform: rotateY(180deg) !important;
+} */
+
+.bamboo.left.back
+{
+    left: -50;
+    background-position: 0 250px;
+
+}
+.bamboo.right.back
+{
+    right: -50;
+    background-position: 0 0px;
+}
+
+.bamboo.back
+{
+    z-index: 3;
+    opacity: 0.3;
 }
 
 .content
 {
+    position: relative;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: start;
     align-self: center;
-    max-width: 672px;
     margin: auto;
-    margin-top: 100px;
-    padding: 20px;
+    margin-top: 0px;
+    padding: 70px;
+    padding-top: 0;
+    padding-bottom: 10px;
     height: 100% !important;
+    max-width: 1000px;
+    min-height: 97.5vh;
+}
+
+@media (max-width: 1020px) {
+    .content
+    {
+        padding: 40px;
+
+    }
+}
+
+@media (max-width: 850px) {
+    .content
+    {
+        padding: 20px;
+
+    }
 }
 
 *, label {
-    font-family: "poppins";
+    font-family: "robo";
 }
 
 body {
+    position: relative;
     color: var(--primary-color);
     background-color: var(--background-color);
     transition: background-color 0.5s ease, color 0.5s ease-out;
     height: fit-content;
-}
-
-html, body, #root, .page{
-    height: fit-content;
-    height: 0;
+    padding: 0;
+    margin: 0;
+    outline: 20px solid var(--accent-color);
+    outline-offset: 0px;
+    top: 0;
+    box-sizing: border-box;
 }
 
 #contact
 {
-    padding-bottom: 150px !important;
+    padding-bottom: 90px !important;
 }
 
-@media (max-width: 640px) {
-    .content{
-        margin-top: 10px !important;
-    }
+
+
+@font-face {
+    font-family: "robo";
+    src: url("../../public/fonts/RobotoMono-Bold.ttf");
 }
 
 @font-face {
@@ -89,24 +201,10 @@ html, body, #root, .page{
         margin-right: 0px;
     }
 
-    .content
-    {
-        margin-top: 70px;
-    }
 }
 
 @media (max-width: 672px) {
 
-    .content
-    {
-        max-width: 90vw;
-    }
-
-    #home
-    {
-        transform-origin: top center;
-        transform: scale(0.8);
-    }
 
     #contact
     {
@@ -117,27 +215,39 @@ html, body, #root, .page{
     {
         height: 30px !important;
     }
-
-    .page
-    {
-        padding: 10px;
-    }
 }
 
-@media (max-width: 672px) and (min-width: 503px) {
-    #home {
-        transform: scale(0.8);
-    }
+
+.not-found
+{
+    height: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
-@media (max-width: 502px) and (min-width: 402px) {
-    #home {
-        transform: scale(0.7);
-    }
+.not-found img
+{
+    width: 80px;
+    height: 80px;
 }
 
-@media (max-width: 402px) {
-    #home {
-        transform: scale(0.6);
-    }
+.not-found button
+{
+    text-wrap: nowrap;
+    width: fit-content;
+    max-width: none;
+    margin-top: 30px;
+}
+
+.nothing
+{
+    color: var(--accent-color) !important;
+}
+
+.logout button
+{
+    margin-top: 20px;
 }

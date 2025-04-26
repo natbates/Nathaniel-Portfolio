@@ -4,15 +4,15 @@
 export const Loading = () =>
 {
     return (
-        <span className="loader social-loader"></span>
+        <div className="loader social-loader"><span></span></div>
     );
 }
 
 export const LoadingSection = ({ delay = "0s" }) => {
     return (
-        <span
+        <div
             style={{ animationDelay: delay }}
             className="loader"
-        ></span>
+        ><span></span></div>
     );
 };

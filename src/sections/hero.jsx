@@ -246,132 +246,150 @@ const Hero = () => {
 
     return (
         <div id="hero">
+
+            
             <div className="container-profile">
                 <div className="text-container">
                     <a href="https://docs.google.com/document/d/1z1ZhAOo5Xm14Zn8l6D2DmgzzzgykIuJBRXjiSrFTrRc/edit" target="_blank" >
-                        <h1 id="name">Hi, I'm <span className="nowrap"> Nathaniel 👋</span></h1>
+                        <h1 id="name">Welcome To My <span className="accent-text">Portfolio</span></h1>
                     </a>
-                    <p>Front end React web developer currently working for Hastings Direct. Student at the <span className="highlighted">University of Sussex</span></p>
+                    <p>Hey! Im Nathaniel, <span className="highlighted">Front End React Web Developer</span> currently working for Hastings Direct. Student at the University of Sussex</p>
+
+
+                <div className="service-text-container">
+
+                    <div className="service-text">
+                        <img className="service-image" src="svgs/spotify.svg" alt="Spotify logo" />
+                        Listening to: {currentSongData === null && spotifyError === null ? (
+                            <div className="service-loader  small-loader"><Loading /></div>
+                        ) : (
+                            spotifyError !== null ? <a className="nothing"> Nothing</a> :
+                                currentSongData.item ? (
+                                    <>
+                                        <a className="song" href={currentSongData.item.external_urls.songlink} target="_blank" rel="noopener noreferrer">
+                                            {currentSongData.item.name}
+                                        </a>
+                                        {' '} by {' '}
+                                        <a className="song" href={currentSongData.item.external_urls.artist_url} target="_blank" rel="noopener noreferrer">
+                                            {currentSongData.item.artists[0].name}
+                                        </a>
+                                    </>
+                                ) : (
+                                <div className="service-loader"><Loading /></div>
+                            )
+                        )}
+                    </div>
+
+                    <div className="service-text">
+                        <img className="service-image" src="svgs/discord.svg" alt="Discord logo" />
+                        <a target="_blank" href={`https://discord.com/users/${discordUserID}`}>Discord</a> 
+                        status: {discordStatus === null ? (
+                            <div className="service-loader small-loader"><Loading /></div>
+                        ) : (
+                            <div className="discord-status">
+                                {(() => {
+                                    try {
+                                        // Attempt to access discordStatus.status
+                                        const status = discordStatus.status || "offline";
+                                        return (
+                                            <>
+                                                <div className={`${status} circle`}></div>
+                                                {' '}{status}
+                                            </>
+                                        );
+                                    } catch (error) {
+                                        // If an error occurs, default to offline status
+                                        console.error("Error reading discordStatus:", error);
+                                        return (
+                                            <>
+                                                <div className="offline circle"></div>
+                                                {' offline'}
+                                            </>
+                                        );
+                                    }
+                                })()}
+                            </div>
+                        )}
+                    </div>
+
                 </div>
+
+                </div>
+                
                 <div className="img-container">
-                    {profilePicture == null ? <LoadingSection/>:
-                    <>
-                        <img 
-                            onClick={handleProfileClick} 
-                            className={`${currentUser !== null ? "edit" : ""} ${isUploading ? "uploading" : ""}`} 
-                            src={profilePicture || "default-image-url.jpg"} 
-                        />
-                        <input 
-                            ref={fileInputRef} 
-                            type="file" 
-                            accept="image/*" 
-                            style={{ display: "none" }} 
-                            onChange={handleFileChange} 
-                            disabled={currentUser==null}
-                        />
-                    </>
-                    }
-                </div>
-            </div>
-
-            <div className="service-text">
-                <span>
-                    <img className="service-image" src="svgs/spotify.svg" alt="Spotify logo" />
-                    Listening to: {currentSongData === null && spotifyError === null ? (
-                        <div className="service-loader"><Loading /></div>
-                    ) : (
-                        spotifyError !== null ? <a>&nbsp; Nothing</a> :
-                            currentSongData.item ? (
-                                <>
-                                    <a className="song" href={currentSongData.item.external_urls.songlink} target="_blank" rel="noopener noreferrer">
-                                        &nbsp; {currentSongData.item.name}
-                                    </a>
-                                    {' '}&nbsp; by &nbsp;{' '}
-                                    <a className="song" href={currentSongData.item.external_urls.artist_url} target="_blank" rel="noopener noreferrer">
-                                        {currentSongData.item.artists[0].name}
-                                    </a>
-                                </>
-                            ) : (
-                            <div className="service-loader"><Loading /></div>
-                        )
-                    )}
-                </span>
-            </div>
-
-            <div className="service-text">
-                <span className="discord-span">
-                    <img className="service-image" src="svgs/discord.svg" alt="Discord logo" />
-                    <a target="_blank" href={`https://discord.com/users/${discordUserID}`}>Discord</a>&nbsp; 
-                    status: {discordStatus === null ? (
-                        <div className="service-loader"><Loading /></div>
-                    ) : (
+                    <div className="top-cat">
+                        <img className="top-cat-hand left-hand" src="images/cat-hand.svg"/>
+                        <img className="top-cat-hand right-hand" src="images/cat-hand.svg"/>
+                    </div>
                         <>
-                            {(() => {
-                                try {
-                                    // Attempt to access discordStatus.status
-                                    const status = discordStatus.status || "offline";
-                                    return (
-                                        <>
-                                            <div className={`${status} circle`}></div>
-                                            {' '}{status}
-                                        </>
-                                    );
-                                } catch (error) {
-                                    // If an error occurs, default to offline status
-                                    console.error("Error reading discordStatus:", error);
-                                    return (
-                                        <>
-                                            <div className="offline circle"></div>
-                                            {' offline'}
-                                        </>
-                                    );
-                                }
-                            })()}
+                            {profilePicture === null ?
+                            <div className="profile-pic">
+                                <div className="service-loader">
+                                    <Loading />
+                                </div> 
+                            </div> 
+                            :
+                            <img 
+                                onClick={handleProfileClick} 
+                                className={`profile-pic ${currentUser !== null ? "edit" : ""} ${isUploading ? "uploading" : ""}`} 
+                                src={profilePicture || "default-image-url.jpg"} 
+                            />
+                            }
+                            <img className="top-cat-body left-hand" src="images/cat-body.svg"/>
+                            <input 
+                                ref={fileInputRef} 
+                                type="file" 
+                                accept="image/*" 
+                                style={{ display: "none" }} 
+                                onChange={handleFileChange} 
+                                disabled={currentUser==null}
+                            />
                         </>
-                    )}
-                </span>
+                </div>
+
             </div>
 
             {currentUser !== null && (
-                <>
-                    <div className="hero-api-info">
-                        <form className = {`${saving ? "Loading" : ""}`}>
-                            <label htmlFor="discord-user-id">Discord User ID*</label>
-                            <input
-                                type="text"
-                                id="discord-user-id"
-                                name="discord-user-id"
-                                value={discordUserID}
-                                onChange={handleInputChange}
-                                placeholder="Enter Discord User ID..."
-                                required
-                            />
-                            <div className = "button-container-right">
-                                <div>
-                                    <label htmlFor="formspree-key">Form Spree Key*</label>
-                                    <input
-                                        type="text"
-                                        id="formspree-key"
-                                        name="formspree-key"
-                                        value={formspreeKey}
-                                        onChange={handleInputChange}
-                                        placeholder="Enter Form Spree Key..."
-                                        required
-                                    />
+                    <>
+                        <div className="add-new-form">
+                            <form className = {`${saving ? "Loading" : ""}`}>
+                                <label htmlFor="discord-user-id">Discord User ID*</label>
+                                <input
+                                    type="text"
+                                    id="discord-user-id"
+                                    name="discord-user-id"
+                                    value={discordUserID}
+                                    onChange={handleInputChange}
+                                    placeholder="Enter Discord User ID..."
+                                    required
+                                />
+                                <div className = "button-container-right">
+                                    <div>
+                                        <label htmlFor="formspree-key">Form Spree Key*</label>
+                                        <input
+                                            type="text"
+                                            id="formspree-key"
+                                            name="formspree-key"
+                                            value={formspreeKey}
+                                            onChange={handleInputChange}
+                                            placeholder="Enter Form Spree Key..."
+                                            required
+                                        />
+                                    </div>
+                                    <button type = "button" onClick={handleClear} className="save-button clear" disabled={saving}>
+                                        Cancel
+                                    </button>
+                                    <button onClick={handleSave} className="save-button" disabled={saving}>
+                                        {saving ? "Saving..." : "Save"}
+                                    </button>
                                 </div>
-                                <button type = "button" onClick={handleClear} className="save-button clear" disabled={saving}>
-                                    Clear
-                                </button>
-                                <button onClick={handleSave} className="save-button" disabled={saving}>
-                                    {saving ? "Saving..." : "Save"}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <div id = "analytic-information">
-                    </div>
-                </>
-            )}
+                            </form>
+                        </div>
+                        <div id = "analytic-information">
+                        </div>
+                    </>
+                )}
+
         </div>
     );
 };
