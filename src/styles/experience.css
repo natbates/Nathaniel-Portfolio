@@ -165,12 +165,14 @@
         display: flex;
         flex-direction: column;
         gap: 30px;
+        padding-bottom: 20px;
     }
     .stats-container .stat
     {
         width: 100%;
         align-items: center;
         max-width: none;
+        justify-content: flex-start;
     }
 }
 
