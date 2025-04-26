@@ -14,6 +14,11 @@ const Contact = () => {
   const [saving, setSaving] = useState(false);
   const [formspreeKey, setFormspreeKey]= useState(null);
 
+  const [nameLength, setNameLength] = useState(0);
+    const [emailLength, setEmailLength] = useState(0);
+    const [messageLength, setMessageLength] = useState(0);
+
+
   // Function to clear the form fields
   const handleClear = (event) => {
     event.preventDefault(); // Prevent any default behavior (like page reload)
@@ -161,18 +166,46 @@ const Contact = () => {
       >
         <div className="one-line-input">
             <div>
-            <label htmlFor="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Type your name..." required />
+                <label htmlFor="name">Name:</label>
+                <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Type your name..."
+                maxLength={50}
+                onChange={(e) => setNameLength(e.target.value.length)}
+                required
+                />
+                <small className="input-text-count">{nameLength}/50</small>
             </div>
+
             <div>
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Type your email..." required />
+                <label htmlFor="email">Email:</label>
+                <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Type your email..."
+                maxLength={100}
+                onChange={(e) => setEmailLength(e.target.value.length)}
+                required
+                />
+                <small className="input-text-count">{emailLength}/100</small>
             </div>
         </div>
         <div className="message-button-container">
             <div className="message">
                 <label htmlFor="message">Message:</label>
-                <textarea id="message" name="message" rows="5" placeholder="Type your message..." required></textarea>
+                <textarea
+                id="message"
+                name="message"
+                rows="5"
+                maxLength={300}
+                placeholder="Type your message..."
+                onChange={(e) => setMessageLength(e.target.value.length)}
+                required
+                ></textarea>
+                <small className="textarea-text-count">{messageLength}/300</small>
             </div>
             <div id="contact-button-holder">
                 <button className="submit-button clear" onClick={handleClear}>Clear</button>
