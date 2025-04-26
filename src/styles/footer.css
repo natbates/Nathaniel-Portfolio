@@ -47,3 +47,15 @@
 .footer-bottom p {
     margin: 5px 0;
 }
+
+.social-media-loading
+{
+    width: 18px;
+    height: 18px;
+}
+
+.social-media-loading .loader
+{
+    width: 18px;
+    height: 18px;
+}
