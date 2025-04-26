@@ -111,11 +111,8 @@ const Skills = () => {
       <div className="text-container">
         <h1>Skills</h1>
         <p>
-          Here are the main skills I have developed throughout my time at
-          University, working, and self-studying. These are just the technical
-          skills I have acquired, and there are plenty of{" "}
-          <span className="highlighted">interpersonal skills</span> I haven't
-          included.
+          Here are the <span className="highlighted">Main Skill</span> I have developed throughout my time at
+          University, working, and self-studying.
         </p>
         <div className="skill-container">
         {(!skills || Object.keys(skills).length === 0) ? (
