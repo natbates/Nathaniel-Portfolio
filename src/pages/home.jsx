@@ -15,7 +15,9 @@ const Home = () =>
     return(
         <div id = "home">
             <Hero />
-            <Projects />
+            <About />
+            <Experiences />
+
             <div className="stats-container">
                 <div className="stat">
                     <img className="stat-image"src="svgs/fish.svg" />
@@ -33,8 +35,7 @@ const Home = () =>
                     <p>Live Websites</p>
                 </div>
             </div>
-            <About />
-            <Experiences />
+            <Projects />
             <Skills />
             <Contact />
             <Footer />
