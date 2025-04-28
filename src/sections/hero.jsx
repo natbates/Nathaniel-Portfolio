@@ -264,7 +264,7 @@ const Hero = () => {
                     <a href="https://docs.google.com/document/d/1z1ZhAOo5Xm14Zn8l6D2DmgzzzgykIuJBRXjiSrFTrRc/edit" target="_blank" >
                         <h1 id="name">Welcome To My <span className="accent-text">Portfolio</span></h1>
                     </a>
-                    <p>Hey! I'm Nathaniel, A <span className="highlighted">Front End React Web Developer</span> currently working for Hastings Direct. Student at the University of Sussex</p>
+                    <p>Hey! I'm Nathaniel, A <span className="highlighted">Front End React Web Developer</span> currently working for Hastings Direct. Student at the University of Sussex.</p>
 
 
                 <div className="service-text-container">
