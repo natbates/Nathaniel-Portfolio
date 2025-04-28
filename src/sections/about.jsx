@@ -116,7 +116,7 @@ const About = () => {
                 <p>  
                     For me, every day is a chance to learn something new.
                     I’m passionate about computer science and <span className="highlighted">front-end development</span>, but I also love game design and building computers! 
-                    Outside of tech, I enjoy hitting the gym 💪, going on hikes 🥾, and playing guitar 🎸.  
+                    Outside of tech, I enjoy hitting the gym, going on hikes, and trying to playing guitar.  
                 </p>
             </div>
 
@@ -124,7 +124,7 @@ const About = () => {
                 <img className = "about-img" src = "/images/about-1.jpg"></img>
                 <p className="image-description">
                     <img  className = "cat-small-text" src = "/svgs/cat.svg" />
-                    Me and my friends on a group holiday in the Lake District</p>
+                    Me and my friends on a group holiday in the Lake District 2023</p>
                 <img className="about-image" src="images/logo.svg"/>
             </div>
 

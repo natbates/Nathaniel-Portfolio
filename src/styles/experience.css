@@ -78,18 +78,29 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 .date
 {
     color: #c3c3c3 !important;
-    transform: translateY(10px);
 }
 
 .experience-text h1
 {
     font-size: 16px !important;
     text-wrap: nowrap;
+    color: var(--accent-color);
+}
+
+.experience-text p
+{
+    color: var(--primary-color);
+}
+
+.experience-info p
+{
+    color: var(--primary-color-medium-alpha);
 }
 
 .experience-text h1, p
@@ -165,7 +176,6 @@
         display: flex;
         flex-direction: column;
         gap: 30px;
-        padding-bottom: 20px;
     }
     .stats-container .stat
     {

@@ -14,6 +14,7 @@ const Hero = () => {
     const [discordError, setDiscordError] = useState(null);
     const [socket, setSocket] = useState(null);
     const { currentUser, logout } = useContext(AuthContext);
+    const [isHoveringProfile, setIsHoveringProfile] = useState(true);
 
     const [profilePicture, setProfilePicture] = useState(null);
     const [saving, setSaving] = useState(false);
@@ -26,6 +27,16 @@ const Hero = () => {
     useEffect(() => {
         fetchInfo();
         fetchProfilePicture();
+    }, []);
+
+    useEffect(() => {
+        if (isHoveringProfile) {
+            const timer = setTimeout(() => {
+                setIsHoveringProfile(false);
+            }, 1000); // 1000 milliseconds = 1 second
+    
+            return () => clearTimeout(timer); // Clean up timer if hover state changes early
+        }
     }, []);
 
     const fetchInfo = async () => {
@@ -253,31 +264,33 @@ const Hero = () => {
                     <a href="https://docs.google.com/document/d/1z1ZhAOo5Xm14Zn8l6D2DmgzzzgykIuJBRXjiSrFTrRc/edit" target="_blank" >
                         <h1 id="name">Welcome To My <span className="accent-text">Portfolio</span></h1>
                     </a>
-                    <p>Hey! Im Nathaniel, <span className="highlighted">Front End React Web Developer</span> currently working for Hastings Direct. Student at the University of Sussex</p>
+                    <p>Hey! I'm Nathaniel, A <span className="highlighted">Front End React Web Developer</span> currently working for Hastings Direct. Student at the University of Sussex</p>
 
 
                 <div className="service-text-container">
 
                     <div className="service-text">
                         <img className="service-image" src="svgs/spotify.svg" alt="Spotify logo" />
-                        Listening to: {currentSongData === null && spotifyError === null ? (
-                            <div className="service-loader  small-loader"><Loading /></div>
-                        ) : (
-                            spotifyError !== null ? <a className="nothing"> Nothing</a> :
-                                currentSongData.item ? (
-                                    <>
-                                        <a className="song" href={currentSongData.item.external_urls.songlink} target="_blank" rel="noopener noreferrer">
-                                            {currentSongData.item.name}
-                                        </a>
-                                        {' '} by {' '}
-                                        <a className="song" href={currentSongData.item.external_urls.artist_url} target="_blank" rel="noopener noreferrer">
-                                            {currentSongData.item.artists[0].name}
-                                        </a>
-                                    </>
-                                ) : (
-                                <div className="service-loader"><Loading /></div>
-                            )
-                        )}
+                        <div className="spotify-text">
+                            Listening to: {currentSongData === null && spotifyError === null ? (
+                                <div className="service-loader  small-loader"><Loading /></div>
+                            ) : (
+                                spotifyError !== null ? <a className="nothing"> Nothing</a> :
+                                    currentSongData.item ? (
+                                        <>
+                                            <a className="song" href={currentSongData.item.external_urls.songlink} target="_blank" rel="noopener noreferrer">
+                                                {currentSongData.item.name}
+                                            </a>
+                                            {' '} by {' '}
+                                            <a className="song" href={currentSongData.item.external_urls.artist_url} target="_blank" rel="noopener noreferrer">
+                                                {currentSongData.item.artists[0].name}
+                                            </a>
+                                        </>
+                                    ) : (
+                                    <div className="service-loader"><Loading /></div>
+                                )
+                            )}
+                        </div>
                     </div>
 
                     <div className="service-text">
@@ -330,12 +343,21 @@ const Hero = () => {
                             </div> 
                             :
                             <img 
+                                onMouseEnter={() => setIsHoveringProfile(true)}
+                                onMouseLeave={() => setIsHoveringProfile(false)}
                                 onClick={handleProfileClick} 
                                 className={`profile-pic ${currentUser !== null ? "edit" : ""} ${isUploading ? "uploading" : ""}`} 
                                 src={profilePicture || "default-image-url.jpg"} 
                             />
                             }
-                            <img className="top-cat-body left-hand" src="images/cat-body.svg"/>
+                           <img 
+                            className="top-cat-body" 
+                            src="images/cat-body.svg"
+                            style={{
+                                top: isHoveringProfile ? "-50px" : "-100px",
+                                transition: "top 0.5s ease" // Smooth animation
+                            }}
+                            />
                             <input 
                                 ref={fileInputRef} 
                                 type="file" 

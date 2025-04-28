@@ -200,6 +200,18 @@ body {
         margin-left: 0px;
         margin-right: 0px;
     }
+    #home
+    {
+        padding-bottom: 0px !important;
+    }
+    .footer
+    {
+        padding-bottom: 0px !important;
+    }
+    .content
+    {
+        padding-bottom: 10px;
+    }
 
 }
 

@@ -80,7 +80,7 @@ const Project = ({ id, title, info, photo, skills, sources, starred, refreshProj
                 </a>
             )}
 
-            <div>
+            <div className="link-text-container">
                 <div className="project-text">
                     <h1>{title}</h1>
                     <p>{info}</p>

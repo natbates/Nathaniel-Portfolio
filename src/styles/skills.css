@@ -9,6 +9,14 @@
     min-height: fit-content;
 }
 
+.scroll-text
+{
+    display: none;
+    color: var(--primary-color);
+    font-size: 13px;
+    text-align: start;
+}
+
 @media (max-width: 1000px) {
     .skill-container {
         grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
@@ -17,8 +25,18 @@
 
 @media (max-width: 685px) {
     .skill-container {
+        --show-amount: 6;
         grid-template-columns: repeat(1, 1fr); /* 2 equal columns */
+        max-height: fit-content;
+        overflow: scroll;
+        min-height: calc((var(--show-amount) * 60px) + ((var(--show-amount) - 1) * 15px));
+        box-sizing: border-box;
     }  
+
+    .scroll-text
+    {
+        display: block;
+    }
 }
 
 #skills
@@ -93,6 +111,7 @@
     position: absolute;
     width: 20px;
     left: -2px;
+    bottom: -2;
     transform: scale(1.5);
     transform-origin: bottom left;
     z-index: 1;

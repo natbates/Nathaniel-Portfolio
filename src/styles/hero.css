@@ -48,7 +48,6 @@
     height: 100px;
     top: -45px;
     z-index: -3;
-    animation: cat-appear 0.5s ease-out forwards;
 }
 
 @keyframes cat-appear {
@@ -82,6 +81,12 @@
     z-index: 1;
     box-sizing: border-box;
     background-color: var(--secondary-color);
+}
+
+.profile-pic:hover .top-cat-body
+{
+   top: 50px;
+   display: none;
 }
 
 #hero .img-container
@@ -172,9 +177,7 @@
     margin-top: 0px;
     display: flex;
     gap: 10px;
-    align-self: center;
-    justify-items: center;
-    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 .service-text span

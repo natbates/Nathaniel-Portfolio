@@ -144,6 +144,7 @@ const Skills = () => {
           />
         )}
         </div>
+        <p className="scroll-text">Scroll to see more</p>
       </div>
 
       {/* {currentUser && (
