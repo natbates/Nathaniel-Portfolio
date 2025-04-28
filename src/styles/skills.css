@@ -23,19 +23,16 @@
     }  
 }
 
-@media (max-width: 685px) {
-    .skill-container {
-        --show-amount: 6;
-        grid-template-columns: repeat(1, 1fr); /* 2 equal columns */
-        max-height: fit-content;
-        overflow: scroll;
-        min-height: calc((var(--show-amount) * 60px) + ((var(--show-amount) - 1) * 15px));
-        box-sizing: border-box;
-    }  
+@media screen and (max-width: 600px) {
 
-    .scroll-text
+    .skill
     {
-        display: block;
+        padding: 20px 10px !important;
+    }
+
+    .tick
+    {
+        margin-right: 13px !important;
     }
 }
 

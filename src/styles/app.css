@@ -49,7 +49,7 @@ html
     background-repeat: repeat;
     background-size: 250px;
     animation: fly-in-right 1s ease-out forwards;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.2s ease;
     transform-origin: center;
     pointer-events: none;
 }

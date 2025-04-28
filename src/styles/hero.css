@@ -24,6 +24,15 @@
     width: 100%;
 }
 
+.spotify-text
+{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+
+
 .top-cat-hand
 {
     position: absolute;

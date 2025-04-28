@@ -46,7 +46,7 @@
     height: auto;
     transform: rotate(0deg);
     top: 5px;
-    right: -5px;
+    right: -10px;
     opacity: 0 !important;
     transition: opacity 0.2s ease, right 0.2s ease-in-out, transform 0.2s ease;
 }
@@ -54,7 +54,7 @@
 .experience:hover .arrow
 {
     opacity: 1 !important;
-    right: -15px;
+    right: -20px;
 }
 
 .experience.show .arrow
@@ -239,28 +239,6 @@ input[type="date"] {
     color: var(--primary-color);
 }
 
-@media (max-width: 700px) {
-
-    .experience-text h1
-    {
-        transform: translateY(10px);
-    }
-
-    .experience-text .top-line 
-    {
-        height: fit-content;
-    }
-
-    .experience-text .top-line span
-    {
-        height: 45px;
-    }
-
-    .arrow
-    {
-        top: 15px;
-    }
-}
 
 @media (max-width: 620px) {
     .date
