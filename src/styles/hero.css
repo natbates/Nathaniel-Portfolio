@@ -29,6 +29,9 @@
     width: 100%;
     display: flex;
     gap: 10px;
+    text-align: break-word;
+    flex-wrap: wrap;
+    word-break: break-word;
 }
 
 
