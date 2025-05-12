@@ -132,6 +132,16 @@
         gap: 60px;
     }
     
+    .project-text
+    {
+        padding-left: 0px !important;
+    }
+
+    .link-container
+    {
+        margin-left: 0px !important;
+        padding-left: 0px !important;
+    }
 }
 
 .project .project-image
