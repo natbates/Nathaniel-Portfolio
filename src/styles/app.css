@@ -74,21 +74,13 @@ html
     } 
 }
 
-@media (max-width: 1500px) {
-    .bamboo
+@media (max-width: 1350px) {
+    .bamboo.back
     {
         opacity: 0 !important;
     }
-    .analytics
-    {
-        display: none;
-    }
-    .logged-text
-    {
-        display: none;
-    }
-    
 }
+
 
 .accent-text
 {
@@ -124,6 +116,29 @@ html
 {
     z-index: 3;
     opacity: 0.3;
+}
+
+@media (max-width: 1500px) {
+    .bamboo.back
+    {
+        opacity: 1;
+    }
+
+    .bamboo
+    {
+        opacity: 0;
+    }
+
+
+    .analytics
+    {
+        display: none;
+    }
+    .logged-text
+    {
+        display: none;
+    }
+    
 }
 
 .content
