@@ -121,11 +121,14 @@ const About = () => {
             </div>
 
             <div className="about-image-holder">
-                <img className = "about-img" src = "/images/about-1.jpg"></img>
-                <p className="image-description">
-                    <img  className = "cat-small-text" src = "/svgs/cat.svg" />
-                    Me and my friends on a group holiday in the Lake District 2023</p>
-                <img className="about-image" src="images/logo.svg"/>
+                <div className="about-img-container">
+                    <img className="about-img" src="/images/about-1.jpg" alt="About" />
+                    <p className="image-description">
+                    <img className="cat-small-text" src="/svgs/cat.svg" alt="Cat icon" />
+                    Me and my friends on a group holiday in the Lake District 2023
+                    </p>
+                </div>
+                <img className="about-image" src="/images/logo.svg" alt="Logo" />
             </div>
 
             

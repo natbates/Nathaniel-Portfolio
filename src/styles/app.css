@@ -186,7 +186,6 @@ body {
     height: fit-content;
     padding: 0;
     margin: 0;
-    outline: 20px solid var(--accent-color);
     outline-offset: 0px;
     top: 0;
     box-sizing: border-box;
