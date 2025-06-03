@@ -1,0 +1,21 @@
+
+#drawing
+{
+    width: 100%;
+}
+
+.drawing-image {
+    width: 100%; /* Allow the grid to control the width */
+    background-color: var(--secondary-color);
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.drawings-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns */
+    gap: 30px; /* Even spacing between items */
+    margin-top: 40px;
+}

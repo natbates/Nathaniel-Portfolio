@@ -8,6 +8,7 @@ import Projects from "../sections/projects";
 import Hackathons from "../sections/hackathons";
 import Contact from "../sections/contact";
 import Footer from "../comps/Footer";
+import Drawings from "../sections/drawings";
 
 const Home = () =>
 {
@@ -16,6 +17,9 @@ const Home = () =>
         <div id = "home">
             <Hero />
             <About />
+            <Projects />
+                        <Drawings />
+
             <Experiences />
 
             <div className="stats-container">
@@ -35,7 +39,6 @@ const Home = () =>
                     <p>Live Websites</p>
                 </div>
             </div>
-            <Projects />
             <Skills />
             <Contact />
             <Footer />
