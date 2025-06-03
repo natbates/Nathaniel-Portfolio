@@ -131,6 +131,7 @@ textarea:focus {
 .clear
 {
     background-color: var(--accent-color);
+    color: white !important;
 }
 
 @media (max-width: 1055px) {

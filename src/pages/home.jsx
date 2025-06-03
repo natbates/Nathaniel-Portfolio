@@ -9,6 +9,7 @@ import Hackathons from "../sections/hackathons";
 import Contact from "../sections/contact";
 import Footer from "../comps/Footer";
 import Drawings from "../sections/drawings";
+import Stats from "../sections/stats";
 
 const Home = () =>
 {
@@ -16,35 +17,14 @@ const Home = () =>
     return(
         <div id = "home">
             <Hero />
-            <About />
-            <Projects />
-                        <Drawings />
-
-            <Experiences />
-
-            <div className="stats-container">
-                <div className="stat">
-                    <img className="stat-image"src="svgs/fish.svg" />
-                    <p className="stat-number">5+</p>
-                    <p>Years Experience</p>
-                </div>
-                <div className="stat">
-                    <img  className="stat-image" src="svgs/fish.svg" />
-                    <p className="stat-number">4</p>
-                    <p>Hackathons Attended</p>
-                </div>
-                <div className="stat">
-                    <img className="stat-image" src="svgs/fish.svg" />
-                    <p className="stat-number">4</p>
-                    <p>Live Websites</p>
-                </div>
-            </div>
             <Skills />
+            <Projects />
+            <Stats />
+            <About />
+            <Experiences />
+            <Drawings />
             <Contact />
             <Footer />
-            {/* <About />
-            <Experiences />
-            <Hackathons />} */}
         </div>
     );
 }

@@ -11,11 +11,24 @@
     object-fit: cover;
     object-position: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    outline-offset: 8px;
 }
 
 .drawings-gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns */
-    gap: 30px; /* Even spacing between items */
+    gap: 40px; /* Even spacing between items */
     margin-top: 40px;
+}
+
+@media (max-width: 1176px) {
+    .drawings-gallery {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+    }
+}
+
+@media (max-width: 690px) {
+    .drawings-gallery {
+        grid-template-columns: repeat(1, 1fr); /* 2 columns on smaller screens */
+    }
 }
