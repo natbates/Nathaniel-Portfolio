@@ -491,6 +491,14 @@
         height: fit-content !important;
         flex-shrink: 0;
     }
+
+    .project-image
+    {
+        width: 100% !important;
+        height: 200px !important;
+        min-width: none !important;
+        max-width: none !important;
+    }
 }
 
 
