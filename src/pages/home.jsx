@@ -17,12 +17,12 @@ const Home = () =>
     return(
         <div id = "home">
             <Hero />
-            <Skills />
             <Projects />
-            <Stats />
             <About />
+            <Stats />
+            <Skills />
             <Experiences />
-            <Drawings />
+            {/* <Drawings /> */}
             <Contact />
             <Footer />
         </div>
