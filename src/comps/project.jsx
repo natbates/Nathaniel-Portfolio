@@ -13,6 +13,11 @@ const Project = ({ id, title, info, photo, skills, sources, starred, refreshProj
     const { theme } = useContext(ThemeContext);
     const { currentUser } = useContext(AuthContext);
 
+    const websiteSource = sources?.find(source => source.type.trim().toLowerCase() === "website");
+    const websiteUrl = websiteSource ? websiteSource.url : null;
+    
+
+
     const getIconForSource = (type) => {
         const iconColor = theme !== "light" ? "black" : "white"; // Icon color based on the theme
 
@@ -56,7 +61,13 @@ const Project = ({ id, title, info, photo, skills, sources, starred, refreshProj
     return (
         <>
             {photo != null ? (
-                <a className="project-image">
+                <a 
+                    className="project-image" 
+                    href={websiteUrl || "#"}
+                    target={websiteUrl ? "_blank" : undefined}
+                    rel={websiteUrl ? "noopener noreferrer" : undefined}
+                    style={{ cursor: websiteUrl ? "pointer" : "default" }}
+                >
                     <img src={photo} alt={title} />
                     <div className="star-container project-star">
                         <span
@@ -82,7 +93,20 @@ const Project = ({ id, title, info, photo, skills, sources, starred, refreshProj
 
             <div className="link-text-container">
                 <div className="project-text">
-                    <h1>{title}</h1>
+                    <h1>
+                        {websiteUrl ? (
+                            <a
+                                href={websiteUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ color: "inherit", textDecoration: "none", cursor: "pointer" }}
+                            >
+                                {title}
+                            </a>
+                        ) : (
+                            title
+                        )}
+                    </h1>
                     <p>{info}</p>
                 </div>
 
