@@ -8,7 +8,7 @@ import Projects from "../sections/projects";
 import Hackathons from "../sections/hackathons";
 import Contact from "../sections/contact";
 import Footer from "../comps/Footer";
-import Drawings from "../sections/drawings";
+import Photos from "../sections/photos";
 import Stats from "../sections/stats";
 
 const Home = () =>
@@ -17,12 +17,13 @@ const Home = () =>
     return(
         <div id = "home">
             <Hero />
-            <Projects />
+                        <About />
+
             <Stats />
-            <About />
+            <Projects />
             <Skills />
             <Experiences />
-            {/* <Drawings /> */}
+            <Photos />
             <Contact />
             <Footer />
         </div>
