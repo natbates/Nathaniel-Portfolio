@@ -84,10 +84,12 @@ const Login = () => {
                         />
                     </div>
 
-                    <button className="back-home" onClick={() => {navigate("/")}}>Back Home</button>
-                    <button type="submit" disabled={loading}>
+                    <button type="submit" disabled={!email || !password || loading}>
                         {loading ? "Logging in..." : "Log In"}
                     </button>
+
+                    <button className="back-home" onClick={() => {navigate("/")}}>Back Home</button>
+
                     {errorMessage && <p className="error">{errorMessage}</p>}
                 </form>
             </div>
@@ -95,10 +97,10 @@ const Login = () => {
             <div className="text-container logout">
                 <h1>Admin Log In</h1>
                 <p>Logged in as {currentUser.email}</p>
-                <button className="back-home" onClick={() => {navigate("/")}}>Back Home</button>
                 <button disabled={loading} onClick={(e) => {logout()}}>
                     Log Out
                 </button>
+                <button className="back-home" onClick={() => {navigate("/")}}>Back Home</button>
             </div>
         }
         </div>

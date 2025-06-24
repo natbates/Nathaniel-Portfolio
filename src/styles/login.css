@@ -22,7 +22,7 @@ label {
 
 .back-home
 {
-    margin-right: 15px;
+    margin-left: 15px;
 }
 
 #login
@@ -56,6 +56,8 @@ input, textarea, select {
 {
     width: 100%;
     margin-bottom: 20px;
+    text-overflow: wrap;
+    word-break: break-all;
 }
 
 button {
