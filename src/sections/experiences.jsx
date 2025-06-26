@@ -189,18 +189,14 @@ const Experiences = () => {
                 .map(([key, exp], index, arr) => {
                     const { month: startMonth, year: startYear } = formatDateToMonthYear(exp.date.split(' - ')[0]);
                     const { month: endMonth, year: endYear } = formatDateToMonthYear(exp.date.split(' - ')[1]);
+                    
+                    console.log("Rendering experience:", exp.title, "with date:", exp.date);
 
                     return (
                         <div className="experience-holder" key={key}>
                             <Experience
                                 title={exp.title || "No Title Available"}
-                                date={
-                                    <>
-                                        <span className="month">{startMonth}</span> <span>{startYear}</span>
-                                        <span> -</span>
-                                        <span className="month"> {endMonth}</span> <span>{endYear}</span>
-                                    </>
-                                }
+                                date={exp.date || "No Date Provided"}
                                 role={exp.role || "No Role Provided"}
                                 info={exp.info || "No Information Provided"}
                                 image={exp.image || null}

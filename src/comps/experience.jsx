@@ -3,11 +3,13 @@ import "../styles/experience.css";
 import { ThemeContext } from './App';
 import { Loading, LoadingSection } from "./loading";
 
-const Experience = ({ title, role, info, image, date }) => {
+const Experience = ({ title, role, info, date }) => {
     const { theme } = useContext(ThemeContext);
     const [isInfoVisible, setIsInfoVisible] = useState(false);
     const [maxHeight, setMaxHeight] = useState("52px"); // Default collapsed height
     const contentRef = useRef(null);
+
+    console.log("Experience component rendered with date:", date);
 
     const updateHeight = () => {
         if (contentRef.current) {
