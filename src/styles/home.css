@@ -55,6 +55,9 @@
     height: 18px;
     margin-left: 10px;
     margin-top: 12px;
+    background-color: white;
+    border-radius: 50%;
+    outline: 1px solid var(--primary-color);
     transition: transform 0.3s ease;
     cursor: pointer;
 }
