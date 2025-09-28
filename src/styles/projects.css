@@ -246,6 +246,7 @@
 .link-text-container
 {
     height: 200px;
+    min-height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
