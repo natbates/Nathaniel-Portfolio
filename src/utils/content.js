@@ -1,11 +1,61 @@
-export function getAvailableYears(items) {
-    const years = new Set(
-        items
-            .map((item) => new Date(item.date))
-            .filter((date) => !Number.isNaN(date.getTime()))
-            .map((date) => String(date.getFullYear()))
-    );
+function parseDateToken(token) {
+    const trimmedToken = token.trim();
 
+    const dmyMatch = trimmedToken.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+    if (dmyMatch) {
+        const day = Number(dmyMatch[1]);
+        const monthIndex = Number(dmyMatch[2]) - 1;
+        const year = Number(dmyMatch[3]);
+        const parsed = new Date(year, monthIndex, day);
+
+        if (
+            parsed.getFullYear() === year &&
+            parsed.getMonth() === monthIndex &&
+            parsed.getDate() === day
+        ) {
+            return parsed;
+        }
+    }
+
+    const parsed = new Date(trimmedToken);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function extractDatesFromString(dateString) {
+    if (!dateString) {
+        return [];
+    }
+
+    const tokenMatches = dateString.match(/\d{1,2}-\d{1,2}-\d{4}|\d{4}-\d{2}-\d{2}/g) || [];
+    const parsedTokens = tokenMatches
+        .map((token) => parseDateToken(token))
+        .filter(Boolean);
+
+    if (parsedTokens.length > 0) {
+        return parsedTokens;
+    }
+
+    const fallbackDate = parseDateToken(dateString);
+    return fallbackDate ? [fallbackDate] : [];
+}
+
+function getDateSortValue(item) {
+    const parsedDates = extractDatesFromString(item.date);
+
+    if (parsedDates.length === 0) {
+        return Number.NEGATIVE_INFINITY;
+    }
+
+    return parsedDates[parsedDates.length - 1].getTime();
+}
+
+function getItemYears(item) {
+    const parsedDates = extractDatesFromString(item.date);
+    return parsedDates.map((date) => String(date.getFullYear()));
+}
+
+export function getAvailableYears(items) {
+    const years = new Set(items.flatMap((item) => getItemYears(item)));
     return Array.from(years).sort((a, b) => Number(b) - Number(a));
 }
 
@@ -18,10 +68,7 @@ export function getSortedFilteredItems(items, { search, sort, year }) {
     }
 
     if (year !== "all") {
-        filtered = filtered.filter((item) => {
-            const date = new Date(item.date);
-            return !Number.isNaN(date.getTime()) && String(date.getFullYear()) === year;
-        });
+        filtered = filtered.filter((item) => getItemYears(item).includes(year));
     }
 
     filtered.sort((first, second) => {
@@ -33,8 +80,8 @@ export function getSortedFilteredItems(items, { search, sort, year }) {
             return second.title.localeCompare(first.title);
         }
 
-        const firstDate = new Date(first.date);
-        const secondDate = new Date(second.date);
+        const firstDate = getDateSortValue(first);
+        const secondDate = getDateSortValue(second);
 
         if (sort === "date-asc") {
             return firstDate - secondDate;
@@ -51,7 +98,7 @@ export function getMostRecentItem(items) {
         return null;
     }
 
-    return [...items].sort((first, second) => new Date(second.date) - new Date(first.date))[0];
+    return [...items].sort((first, second) => getDateSortValue(second) - getDateSortValue(first))[0];
 }
 
 export function paginateItems(items, page, perPage = 10) {

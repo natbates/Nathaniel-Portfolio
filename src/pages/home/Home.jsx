@@ -68,7 +68,7 @@ export default function Home() {
         </button>
       </div>
 
-      <div className="relative grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-4 pt-8">
+      <div className="relative grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-4 pt-8 max-w-[1400px] mx-auto">
         {latestItems.map(({ label, item, to, detailBase }, index) => (
           <article
             key={label}
