@@ -9,7 +9,7 @@ const experienceData = [
   },
   {
     slug: "hacksussex-committee",
-    title: "Web Developer for HackSussex Committee",
+    title: "Web dev for Hack Sussex Committee",
     image: `${process.env.PUBLIC_URL}/images/experience/hacksussex.jpg`,
     date: "02-09-2025 - 01-06-2026",
     links: { society: "https://www.hacksussex.com/" },

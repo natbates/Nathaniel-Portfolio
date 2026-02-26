@@ -79,7 +79,7 @@ export default function Home() {
               <Link to={`${detailBase}/${item.slug}`} className="flex items-center gap-3 !no-underline h-full">
                 <span className="absolute tracking-[5px] !text-[color:var(--text-colour)] italic opacity-60 text-sm left-0 top-[-28px]">{label}</span>
                 <div className="min-w-0 h-full flex flex-col flex-1">
-                  <h3 className="text-lg leading-tight truncate mt-auto">{item.title}</h3>
+                  <h3 className="text-lg leading-tight mt-auto break-words md:truncate">{item.title}</h3>
                   <p className="mt-auto text-[10px] opacity-100 !text-[color:var(--text-colour)]">{item.date}</p>
                 </div>
               </Link>
