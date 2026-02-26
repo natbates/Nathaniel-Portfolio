@@ -7,9 +7,8 @@
 {
     --background-colour: #ffffff;
     --text-colour: #151515;
-    --accent-colour: #c04b4b; /* d83c3c */
+    --accent-colour: #c04b4b;
 }
-
 
 :root[data-theme="dark"]
 {
