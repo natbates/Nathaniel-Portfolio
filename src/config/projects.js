@@ -22,6 +22,14 @@ const projectsData = [
     date: "01-09-2025",
     links: { website: "https://elainekeep.com" },
     description: "Elaine is my older sister who is a freelance B2B copy writer. She asked me to make her a engaging pink theme portfolio to showcase her skills and previous works. It took a few design iterations but I really like how it turned out in the end!"
+  },
+  {
+    slug: "hacksussex",
+    title: "Hack Sussex Website",
+    image: `${process.env.PUBLIC_URL}/images/projects/hacksussex.png`,
+    date: "28-02-2026",
+    links: { website: "https://hacksussex.com" },
+    description: "Hack Sussex is a committee at the University of Sussex which organizes hackathon events. I was responsible for designing and developing their official website, which allows participants to register for events, view schedules, and access resources."
   }
 ];
 
