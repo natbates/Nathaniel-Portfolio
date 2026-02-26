@@ -25,7 +25,7 @@ export default function BlogDetail() {
   }
 
   return (
-    <section className="p-4 max-w-4xl">
+    <section className="p-4">
       <Link className="detail-item-anim inline-flex items-center gap-2 mb-4 !no-underline" style={{ "--detail-delay": "60ms" }} to="/blog">
         <FaArrowLeft />
         Back to blogs
