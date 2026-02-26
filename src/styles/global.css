@@ -1,0 +1,351 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root
+{
+    --background-colour: #ffffff;
+    --text-colour: #151515;
+    --accent-colour: #c04b4b; /* d83c3c */
+}
+
+
+:root[data-theme="dark"]
+{
+    --background-colour: #0a0a0a;
+    --text-colour: #ffffff;
+}
+
+html
+{
+    scroll-behavior: smooth;
+}
+
+body
+{
+    background-color: var(--background-colour);
+    color: var(--text-colour);
+    font-family: body, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible,
+textarea:focus,
+textarea:focus-visible
+{
+    outline: none;
+    box-shadow: none;
+}
+
+a
+{
+    color: var(--accent-colour);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+a:visited
+{
+    color: var(--accent-colour);
+}
+
+a:hover
+{
+    color: var(--accent-colour);
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    font-family: headers, sans-serif;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+}
+
+
+@font-face {
+    font-family: headers;
+    src: url("../../public/fonts/InterTight-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: body;
+    src: url("../../public/fonts/SourceCodePro-VariableFont_wght.ttf");
+}
+
+@keyframes flyUpIn
+{
+    from
+    {
+        opacity: 0;
+        transform: translateY(24px) scale(0.985);
+        filter: blur(2px);
+    }
+    to
+    {
+        opacity: 0.6;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes asciiReveal
+{
+    from
+    {
+        opacity: 0;
+        transform: translateY(18px) scale(0.985);
+    }
+    to
+    {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes catBodyPopUp
+{
+    0%
+    {
+        transform: translateY(110%);
+    }
+    100%
+    {
+        transform: translateY(0);
+    }
+}
+
+.home-catbody-wrap
+{
+    overflow: hidden;
+}
+
+.home-catbody-pop
+{
+    transform: translateY(110%);
+    animation-name: catBodyPopUp;
+    animation-duration: 640ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-delay: 500ms;
+    animation-fill-mode: forwards;
+}
+
+.home-preview-card
+{
+    opacity: 0;
+    animation-name: flyUpIn;
+    animation-duration: 550ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+.home-preview-card:hover
+{
+    opacity: 1 !important;
+}
+
+@media (max-width: 767px)
+{
+    .home-preview-card
+    {
+        animation-name: asciiReveal;
+    }
+}
+
+.home-ascii-wrap
+{
+    opacity: 0;
+    animation-name: asciiReveal;
+    animation-duration: 700ms;
+    animation-timing-function: ease-out;
+    animation-delay: 0ms;
+    animation-fill-mode: forwards;
+}
+
+.home-tagline-anim
+{
+    opacity: 0;
+    animation-name: asciiReveal;
+    animation-duration: 520ms;
+    animation-timing-function: ease-out;
+    animation-delay: 310ms;
+    animation-fill-mode: forwards;
+}
+
+.home-cta-anim
+{
+    opacity: 0;
+    animation-name: asciiReveal;
+    animation-duration: 520ms;
+    animation-timing-function: ease-out;
+    animation-delay: 1580ms;
+    animation-fill-mode: forwards;
+}
+
+.home-cta-mobile-anim
+{
+    opacity: 0;
+    animation-name: asciiReveal;
+    animation-duration: 520ms;
+    animation-timing-function: ease-out;
+    animation-delay: 760ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes navFlyDownIn
+{
+    from
+    {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+    to
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nav-item-anim
+{
+    opacity: 0;
+    animation-name: navFlyDownIn;
+    animation-duration: 420ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+.social-fly-up
+{
+    opacity: 0;
+    animation-name: asciiReveal;
+    animation-duration: 460ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+.social-delay-1
+{
+    animation-delay: 180ms;
+}
+
+.social-delay-2
+{
+    animation-delay: 320ms;
+}
+
+.primary,
+.secondary
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2rem;
+    border: 1.5px solid currentColor;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.875rem;
+    line-height: 1;
+    transition: opacity 150ms ease;
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.primary
+{
+    background-color: #000000;
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .primary
+{
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.secondary
+{
+    background-color: transparent;
+    color: var(--text-colour);
+}
+
+.primary:hover,
+.secondary:hover
+{
+    opacity: 0.8;
+}
+
+.contact-anim
+{
+    opacity: 0;
+    animation-name: asciiReveal;
+    animation-duration: 500ms;
+    animation-timing-function: ease-out;
+    animation-delay: var(--contact-delay, 0ms);
+    animation-fill-mode: both;
+}
+
+.content-anim
+{
+    opacity: 0;
+    animation-name: asciiReveal;
+    animation-duration: 500ms;
+    animation-timing-function: ease-out;
+    animation-delay: var(--content-delay, 0ms);
+    animation-fill-mode: both;
+}
+
+.content-list-item-anim
+{
+    opacity: 0;
+    animation-name: asciiReveal;
+    animation-duration: 460ms;
+    animation-timing-function: ease-out;
+    animation-delay: var(--item-delay, 0ms);
+    animation-fill-mode: both;
+}
+
+.pagination-btn
+{
+    border: 1.5px solid currentColor;
+    background: transparent;
+    color: var(--text-colour);
+    padding: 0.45rem 0.8rem;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+}
+
+.pagination-btn:disabled
+{
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.pagination-btn:not(:disabled):hover
+{
+    opacity: 0.8;
+}
+
+.detail-page-anim
+{
+    opacity: 0;
+    animation-name: asciiReveal;
+    animation-duration: 520ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.detail-item-anim
+{
+    opacity: 0;
+    animation-name: asciiReveal;
+    animation-duration: 460ms;
+    animation-timing-function: ease-out;
+    animation-delay: var(--detail-delay, 0ms);
+    animation-fill-mode: both;
+}
