@@ -32,7 +32,7 @@ export default function BlogDetail() {
       </Link>
       <h2 className="detail-item-anim text-3xl md:text-4xl mb-2" style={{ "--detail-delay": "140ms" }}>{item.title}</h2>
       <p className="detail-item-anim text-sm opacity-80 mb-4" style={{ "--detail-delay": "220ms" }}>{item.date}</p>
-      <img src={item.image} alt={item.title} className="detail-item-anim w-full h-72 object-cover rounded mb-4" style={{ "--detail-delay": "300ms" }} />
+      <img src={item.image} alt={item.title} className="detail-item-anim w-full h-72 object-cover mb-4" style={{ "--detail-delay": "300ms" }} />
       {descriptionParagraphs.map((paragraph, index) => (
         <p
           key={`${item.slug}-paragraph-${index}`}
