@@ -4,29 +4,6 @@ import { useTheme } from "../../context/ThemeContext";
 
 const POLL_MS = 15000;
 
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia?.("(max-width: 640px)")?.matches ?? false;
-  });
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return;
-    const mq = window.matchMedia("(max-width: 640px)");
-    const onChange = () => setIsMobile(mq.matches);
-    onChange();
-
-    if (mq.addEventListener) mq.addEventListener("change", onChange);
-    else mq.addListener(onChange);
-
-    return () => {
-      if (mq.removeEventListener) mq.removeEventListener("change", onChange);
-      else mq.removeListener(onChange);
-    };
-  }, []);
-
-  return isMobile;
-}
 
 async function fetchLanyardPresence(discordUserId, signal) {
   const res = await fetch(`https://api.lanyard.rest/v1/users/${discordUserId}`, { signal });
@@ -38,12 +15,18 @@ async function fetchLanyardPresence(discordUserId, signal) {
 export default function SpotifyOverlay() {
   const discordUserId = process.env.REACT_APP_DISCORD_USER_ID;
   const { isDark } = useTheme();
-  const isMobile = useIsMobile();
 
   const [status, setStatus] = useState({ state: "loading" });
   const [paused, setPaused] = useState(false);
   const [shouldMarquee, setShouldMarquee] = useState(false);
-  const [marqueeDistance, setMarqueeDistance] = useState(0);
+  // distance we can scroll (scrollWidth - viewportWidth)
+  const [maxScroll, setMaxScroll] = useState(0);
+  const [offset, setOffset] = useState(0);
+  const offsetRef = useRef(0);
+  // 1 forward, -1 backward
+  const directionRef = useRef(1);
+  const [edgePause, setEdgePause] = useState(false);
+  const edgePauseRef = useRef(edgePause);
 
   const textViewportRef = useRef(null);
   const textLineRef = useRef(null);
@@ -134,16 +117,20 @@ export default function SpotifyOverlay() {
     };
   }, [discordUserId]);
 
-  useLayoutEffect(() => {
-    if (!isMobile) {
-      setShouldMarquee(false);
-      setMarqueeDistance(0);
-      return;
+  // reset offset/direction when scrolling is no longer needed or max changes
+  // reset offset/direction when scrolling is no longer needed or max changes
+  useEffect(() => {
+    if (!shouldMarquee || maxScroll === 0) {
+      offsetRef.current = 0;
+      setOffset(0);
+      directionRef.current = 1;
     }
+  }, [shouldMarquee, maxScroll]);
 
+  useLayoutEffect(() => {
     if (status.state !== "playing") {
       setShouldMarquee(false);
-      setMarqueeDistance(0);
+      setMaxScroll(0);
       return;
     }
 
@@ -153,12 +140,11 @@ export default function SpotifyOverlay() {
 
     const compute = () => {
       const overflowing = line.scrollWidth > viewport.clientWidth + 1;
+      console.debug("SpotifyOverlay compute", {overflowing, scrollWidth: line.scrollWidth, viewportWidth: viewport.clientWidth});
       setShouldMarquee(overflowing);
-      if (overflowing) {
-        setMarqueeDistance(Math.ceil(line.scrollWidth / 2));
-      } else {
-        setMarqueeDistance(0);
-      }
+      const newMax = overflowing ? line.scrollWidth - viewport.clientWidth : 0;
+      console.debug("SpotifyOverlay setMaxScroll", {newMax});
+      setMaxScroll(newMax);
     };
 
     compute();
@@ -168,16 +154,70 @@ export default function SpotifyOverlay() {
     ro.observe(line);
 
     return () => ro.disconnect();
-  }, [isMobile, status.state, lineText]);
+  }, [status.state, lineText]);
 
   const stop = () => setPaused(true);
   const start = () => setPaused(false);
 
+  // animation effect for scrolling
+  useEffect(() => {
+    edgePauseRef.current = edgePause;
+  }, [edgePause]);
+
+  useEffect(() => {
+
+    if (!shouldMarquee || paused || maxScroll <= 0) return;
+
+    let rafId;
+    let lastTime = null;
+
+    const speed = 0.05; // pixels per ms (~50px/sec)
+
+    const step = (time) => {
+      if (lastTime === null) lastTime = time;
+      const delta = time - lastTime;
+      lastTime = time;
+
+      if (!edgePauseRef.current) {
+        let next = offsetRef.current + directionRef.current * speed * delta;
+        console.debug("SpotifyOverlay step", {prev: offsetRef.current, next, maxScroll, direction: directionRef.current});
+        if (next >= maxScroll) {
+          next = maxScroll;
+          console.debug("SpotifyOverlay reached end", {next});
+          directionRef.current = -1;
+          setEdgePause(true);
+          edgePauseRef.current = true;
+          setTimeout(() => {
+            setEdgePause(false);
+            edgePauseRef.current = false;
+          }, 1500);
+        } else if (next <= 0) {
+          next = 0;
+          console.debug("SpotifyOverlay reached start", {next});
+          directionRef.current = 1;
+          setEdgePause(true);
+          edgePauseRef.current = true;
+          setTimeout(() => {
+            setEdgePause(false);
+            edgePauseRef.current = false;
+          }, 1500);
+        }
+        offsetRef.current = next;
+        setOffset(next);
+      }
+
+      rafId = requestAnimationFrame(step);
+    };
+
+    rafId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafId);
+  }, [shouldMarquee, paused, maxScroll]);
+
   const card = (
     <div
       className={[
-        "pointer-events-auto",
-        "max-w-[92vw] sm:max-w-md md:max-w-lg",
+        "pointer-events-auto opacity-80 hover:opacity-100 transition-opacity",
+        "max-w-[92vw] sm:max-w-md md:max-w-[450px]",
         "px-3 py-2 border",
         border,
         "bg-[color:var(--background-colour)]",
@@ -189,37 +229,28 @@ export default function SpotifyOverlay() {
       onTouchStart={stop}
       onTouchEnd={start}
     >
-      <FaSpotify className={isDark ? "text-green-400" : "text-green-600"} />
+      <FaSpotify
+        size={12}
+        className={[isDark ? "text-green-400" : "text-green-600", "flex-shrink-0"].join(" ")}
+      />
 
       {status.state !== "playing" ? (
         <div className={["text-sm", mutedText].join(" ")}>{statusText}</div>
-      ) : !shouldMarquee ? (
-        <div className="text-sm truncate">{nowPlayingContent}</div>
       ) : (
         <div ref={textViewportRef} className="overflow-hidden">
           <div
             ref={textLineRef}
             className="inline-flex whitespace-nowrap text-sm"
             style={{
-              "--nb-marquee-distance": `${marqueeDistance}px`,
-              animation: marqueeDistance > 0 ? "nb-marquee 10s linear infinite" : "none",
-              animationPlayState: paused ? "paused" : "running",
+              transform: shouldMarquee ? `translateX(-${offset}px)` : 'none',
+              transition: edgePause ? 'none' : 'transform 0.1s linear',
             }}
           >
-            <span className="pr-8">{nowPlayingContent}</span>
-            <span aria-hidden="true" className="pr-8">
-              {nowPlayingContent}
-            </span>
+            <span className={shouldMarquee ? 'pr-1' : 'truncate'}>{nowPlayingContent}</span>
           </div>
         </div>
       )}
 
-      <style>{`
-        @keyframes nb-marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(calc(-1 * var(--nb-marquee-distance))); }
-        }
-      `}</style>
     </div>
   );
 

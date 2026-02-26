@@ -1,14 +1,15 @@
 import React from "react";
 import messages from "./footer.messages";
 import { useTheme } from "../../context/ThemeContext";
+import ThemeToggle from "../theme/ThemeToggle";
 import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   const { isDark } = useTheme();
 
   return (
-    <footer className={`py-4 pr-0 md:pr-16 ml-2 text-left md:text-right ${isDark ? "text-gray-400" : "text-gray-600"} text-sm`}>
-      <div className="flex items-center justify-start md:justify-end space-x-4">
+    <footer className={`py-4 flex gap-4 justify-between md:justify-center md:max-[1400px]:justify-end md:max-[1400px]:text-right px-4 md:max-[1400px]:pr-16 text-left md:text-center ${isDark ? "text-gray-400" : "text-gray-600"} text-sm`}>
+      <div className="flex items-center space-x-4">
         <small>© {new Date().getFullYear()} {messages.name}</small>
         <div className="flex items-center space-x-3">
           <a
@@ -36,6 +37,9 @@ export default function Footer() {
             <FaInstagram size={14} />
           </a>
         </div>
+      </div>
+      <div className="md:hidden">
+        <ThemeToggle />
       </div>
     </footer>
   );

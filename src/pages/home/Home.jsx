@@ -58,7 +58,7 @@ export default function Home() {
         Web developer specialising in React and Next.js. I build fast, accessible, and user-friendly websites and applications.
       </p>
 
-      <div className="home-cta-mobile-anim md:hidden w-full flex justify-center">
+      <div className="home-cta-mobile-anim md:hidden w-full flex justify-center mb-6" style={{ animationDelay: '400ms' }}>
         <button
           type="button"
           className="primary"

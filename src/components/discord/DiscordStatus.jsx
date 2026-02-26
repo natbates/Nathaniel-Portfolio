@@ -71,7 +71,7 @@ export default function DiscordStatus() {
   return (
     <div
       className={`
-        pointer-events-auto
+        pointer-events-auto opacity-80 hover:opacity-100 transition-opacity
         flex items-center gap-3 px-3 py-2 border w-fit
         ${border}
         bg-[color:var(--background-colour)]

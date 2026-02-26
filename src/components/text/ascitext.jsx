@@ -101,7 +101,8 @@ class AsciiFilter {
     this.context.font = `${this.fontSize}px ${this.fontFamily}`;
     const charWidth = this.context.measureText('A').width;
 
-    this.cols = Math.floor(this.width / (this.fontSize * (charWidth / this.fontSize)));
+    // round up column count so we don't accidentally cut off the last character
+    this.cols = Math.ceil(this.width / (this.fontSize * (charWidth / this.fontSize)));
     this.rows = Math.floor(this.height / this.fontSize);
 
     this.canvas.width = this.cols;

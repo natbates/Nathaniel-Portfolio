@@ -11,7 +11,7 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       aria-label="Toggle theme"
       className={[
-        "pointer-events-auto",
+        "pointer-events-auto opacity-80 hover:opacity-100 transition-opacity",
         "px-3 py-2 border",
         isDark ? "border-gray-500/50" : "border-gray-300",
         "bg-[color:var(--background-colour)]",

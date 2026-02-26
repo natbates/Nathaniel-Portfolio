@@ -51,7 +51,7 @@ export default function BlogDetail() {
             </a>
           ))}
         </div>
-      )}
+    )}
     </section>
   );
 }

@@ -59,7 +59,8 @@ const App = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-4 right-4 z-50 pointer-events-none">
+      {/* desktop/large screens: floating overlay toggle */}
+      <div className="hidden md:flex fixed bottom-4 right-4 z-50 pointer-events-none">
         <ThemeToggle />
       </div>
     </div>
