@@ -102,9 +102,12 @@ class AsciiFilter {
     const charWidth = this.context.measureText('A').width;
 
     // round up column count so we don't accidentally cut off the last character
-    this.cols = Math.ceil(this.width / (this.fontSize * (charWidth / this.fontSize)));
-    this.rows = Math.floor(this.height / this.fontSize);
+    // add a tiny safety margin (extra column/row) to avoid truncation when the
+    // metrics or container size fluctuate by a fraction of a pixel.
+    this.cols = Math.ceil(this.width / (this.fontSize * (charWidth / this.fontSize))) + 1;
+    this.rows = Math.floor(this.height / this.fontSize) + 1;
 
+    // ensure canvas is at least as big as computed grid
     this.canvas.width = this.cols;
     this.canvas.height = this.rows;
     this.pre.style.fontFamily = this.fontFamily;

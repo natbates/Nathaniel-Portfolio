@@ -1,0 +1,15 @@
+.container {
+  position: relative;
+  min-height: 40vh;    
+  flex: 1;
+}
+
+.heading {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.lead {
+  color: #444;
+  line-height: 1.6;
+}

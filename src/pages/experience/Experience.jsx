@@ -76,14 +76,14 @@ export default function Experience() {
         />
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-1 gap-4 auto-rows-fr md:grid-cols-2 lg:grid-cols-3">
         {filtered.length === 0 ? (
           <p className="content-anim opacity-70" style={{ "--content-delay": "240ms" }}>
             No experience entries found.
           </p>
         ) : (
           pagedItems.map((item, index) => (
-            <div key={item.slug} className="content-list-item-anim" style={{ "--item-delay": `${240 + index * 70}ms` }}>
+            <div key={item.slug} className="content-list-item-anim h-full" style={{ "--item-delay": `${240 + index * 70}ms` }}>
               <ContentCard item={item} to={`/experience/${item.slug}`} />
             </div>
           ))

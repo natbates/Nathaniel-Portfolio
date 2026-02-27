@@ -68,7 +68,8 @@ export default function Home() {
         </button>
       </div>
 
-      <div className="relative grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-4 pt-8 max-w-[1400px] mx-auto">
+      {/* use custom breakpoint of 1100px for three‑column layout; below it stays single column */}
+      <div className="relative grid grid-cols-1 gap-4 pt-8 max-w-[1500px] w-full mx-auto [@media(min-width:1100px)]:grid-cols-3 [@media(max-width:1100px)]:gap-16">
         {latestItems.map(({ label, item, to, detailBase }, index) => (
           <article
             key={label}
