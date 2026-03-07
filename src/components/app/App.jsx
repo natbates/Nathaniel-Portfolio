@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <div className="flex flex-col min-h-screen px-1 md:px-4">
-      <header className="flex px-1 justify-between items-center py-5 flex-wrap gap-6">
+      <header className="flex px-1 gap-5 flex-wrap justify-between items-center py-5">
         <div className="flex gap-2 items-center">
           <img src = {logo} alt="Logo" className="cursor-pointer h-8" onClick={() => {navigate("/")}}/>
           <p className="whitespace-nowrap"><a className="mr-2" target="_blank" rel="noopener noreferrer" href={process.env.REACT_APP_GITHUB_URL}>nat bates</a>/ portfolio</p>

@@ -348,3 +348,11 @@ h1, h2, h3, h4, h5, h6
     animation-delay: var(--detail-delay, 0ms);
     animation-fill-mode: both;
 }
+
+@media (max-width: 450px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+}
