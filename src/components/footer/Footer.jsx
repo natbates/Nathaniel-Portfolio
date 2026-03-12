@@ -13,7 +13,7 @@ export default function Footer() {
         <small>© {new Date().getFullYear()} {messages.name}</small>
         <div className="flex items-center space-x-3">
           <a
-            href="https://www.linkedin.com/in/your-profile"
+            href="www.linkedin.com/in/nathaniel-bates-69b8b9266"
             target="_blank"
             rel="noopener noreferrer"
             className="opacity-50 hover:opacity-100 transition-opacity text-[color:var(--text-colour)]"
@@ -21,7 +21,7 @@ export default function Footer() {
             <FaLinkedin size={14} />
           </a>
           <a
-            href="https://github.com/your-username"
+            href="https://github.com/natbates"
             target="_blank"
             rel="noopener noreferrer"
             className="opacity-50 hover:opacity-100 transition-opacity text-[color:var(--text-colour)]"
@@ -29,7 +29,7 @@ export default function Footer() {
             <FaGithub size={14} />
           </a>
           <a
-            href="https://www.instagram.com/your-username"
+            href="https://www.instagram.com/nat_bates_boy?igsh=MTd6ODdyaGhtNTVvZQ%3D%3D&utm_source=qr"
             target="_blank"
             rel="noopener noreferrer"
             className="opacity-50 hover:opacity-100 transition-opacity text-[color:var(--text-colour)]"
