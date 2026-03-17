@@ -30,6 +30,14 @@ const projectsData = [
     date: "28-02-2026",
     links: { website: "https://hacksussex.com" },
     description: "Hack Sussex is a committee at the University of Sussex which organizes hackathon events. I was responsible for designing and developing their official website, which allows participants to register for events, view schedules, and access resources."
+  },
+  {
+    slug: "xxzxcuzx",
+    title: "xxzxcuzx",
+    image: `${process.env.PUBLIC_URL}/images/projects/xxzxcuzx.png`,
+    date: "17-03-2026",
+    links: { website: "https://www.xxzxcuzx.com" },
+    description: "xxzxcuzx is a (kind of) portfolio website I built for my flatmate who is a game developer. It is a uniquely styled website that has a custom design and features a gallery, their games, software and lots of secret easter eggs. It was fun to make with him and I like how it turned out"
   }
 ];
 
