@@ -21,7 +21,29 @@ const blogData = [
     Finally, you NEED to know how to use NextAuth as it is the best authentication system for next js and is very easy to set up. It also has a lot of providers and is very flexible. I used it for my urf radio website and it worked perfectly.
 
     `.trim()
-  }
+  },
+  {
+  slug: "edgeways-dissertation",
+  title: "Building EdgeWays: What I Learned",
+  image: `${process.env.PUBLIC_URL}/images/blogs/edgeways.jpeg`,
+  date: "22-04-2026",
+  links: {},
+  description: `
+  For my final year dissertation, I built EdgeWays — an attempt to help monitor conversational dominance using voice recognition and machine learning.
+  
+  I already had experience with React, but I had never used React Native to build a mobile app before. Along the way, I learned about MFCC features for audio processing, as well as VAD (voice activity detection) to reduce constant computation and make the system more efficient.
+  
+  Learning how to use TensorFlow Lite for mobile model inference was both interesting and challenging. I trained my model using the LibriSpeech dataset, which contains a large collection of audiobook recordings. 
+  
+  Training and building the model was by far the most difficult part. With real-time audio recognition, there’s a trade-off: shorter audio windows give quicker responses and feel more “live”, but result in lower accuracy, while longer windows improve accuracy but make the system feel slower. Finding a balance between the two was a key challenge.
+  
+  I tested the app on lots of people (mainly my poor, unwilling flatmates) and found that it struggled more with my male flatmates, as we sounded more similar, compared to female flatmates where voices were more distinct (not a huge surprise).
+  
+  The app is intended for use in workplace meeting settings to help encourage more balanced participation. That said, I’m not sure I’d personally enjoy being monitored like that in meetings — it might add a bit too much pressure.
+  
+  Overall, this was definitely one of the most challenging but rewarding things I’ve worked on (hopefully it pays off with a good grade).
+  `.trim()
+}
 ];
 
 export default blogData;
