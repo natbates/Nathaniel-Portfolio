@@ -38,6 +38,14 @@ const projectsData = [
     date: "17-03-2026",
     links: { website: "https://www.xxzxcuzx.com" },
     description: "xxzxcuzx is a (kind of) portfolio website I built for my flatmate who is a game developer. It is a uniquely styled website that has a custom design and features a gallery, their games, software and lots of secret easter eggs. It was fun to make with him and I like how it turned out"
+  },
+  {
+    slug: "the1985nes",
+    title: "The 1985 NES Showcase",
+    image: `${process.env.PUBLIC_URL}/images/projects/the1985nes.png`,
+    date: "10-05-2026",
+    links: { website: "https://the1985nes.netlify.app" },
+    description: "This website was developed for my Web 3D applications coursework module in my last year of Universtiy. It uses React and Three.Js to showcase some old nintendo product models that I built myself in blender. I recorded the sound effects and uploaded images of my flatmates collection I used for referencing. It turned out amazing so I thought i would flex it on here!"
   }
 ];
 
