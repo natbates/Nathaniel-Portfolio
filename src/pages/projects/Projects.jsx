@@ -76,15 +76,15 @@ export default function Projects() {
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 auto-rows-fr md:grid-cols-2 lg:grid-cols-3">
+      <div className="flex flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
         {filteredItems.length === 0 ? (
           <p className="content-anim opacity-70" style={{ "--content-delay": "240ms" }}>
             No project entries found.
           </p>
         ) : (
           pagedItems.map((item, index) => (
-            <div key={item.slug} className="content-list-item-anim h-full" style={{ "--item-delay": `${240 + index * 70}ms` }}>
-              <ContentCard item={item} to={`/projects/${item.slug}`} />
+            <div key={item.slug} className="content-list-item-anim w-fit max-w-full md:h-full" style={{ "--item-delay": `${240 + index * 70}ms` }}>
+              <ContentCard item={item} to={`/projects/${item.slug}`} className="w-fit max-w-full md:w-full" />
             </div>
           ))
         )}
